@@ -1,22 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
-import styles from './styles.css'
-
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
-
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+/*
+* @Author: docoder
+* @Email:  docoder@163.com
+*/
+import Alert from './components/UI/Alert';
+import Button from './components/UI/Button';
+import Form from './components/UI/Form';
+import Loading from './components/UI/Loading';
+import NavFrame from './components/UI/NavFrame';
+import Table from './components/UI/Table';
+export {
+    Alert,
+    Button,
+    Form,
+    Loading,
+    NavFrame,
+    Table
 }
