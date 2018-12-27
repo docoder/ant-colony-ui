@@ -28,4 +28,4 @@ class Example extends Component {
 
 ## License
 
-MIT 漏 [docoder](https://github.com/docoder)
+MIT © [docoder](https://github.com/docoder)
