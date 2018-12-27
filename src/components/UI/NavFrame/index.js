@@ -5,11 +5,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Layout, Button
+    Layout
 } from 'antd';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SideMenus from './sideMenus';
+import Button from '../Button';
 
 const {
     Header, Content, Footer
@@ -63,13 +64,13 @@ export default class NavFrame extends React.Component {
     }
 
     render() {
-        const { menus, pageLinks, title, collapsedTitle } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout } = this.props;
         return (
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
                     <FrameHeader>
                         {this.state.collapsed === false ? title : collapsedTitle}
-                        <LogoutButton type='primary' onClick={()=>{}}>退出</LogoutButton>
+                        <LogoutButton type='primary' onClick={logout} title="退出" />
                     </FrameHeader>
                     <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
                     <FrameMain>
@@ -91,8 +92,10 @@ NavFrame.propTypes = {
     menus: PropTypes.arrayOf(PropTypes.object).isRequired,
     pageLinks: PropTypes.arrayOf(PropTypes.object).isRequired,
     title: PropTypes.string.isRequired,
-    collapsedTitle: PropTypes.string
+    collapsedTitle: PropTypes.string,
+    logout: PropTypes.func
 }
 NavFrame.defaultProps = {
-    collapsedTitle: ''
+    collapsedTitle: '',
+    logout: () => {}
 }

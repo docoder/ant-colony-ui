@@ -4,7 +4,7 @@
 */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Loading } from 'xinche-ui';
+import { Button, Loading } from 'ant-colony-ui';
 
 const LoadingsBody = styled.div`
     background: white;

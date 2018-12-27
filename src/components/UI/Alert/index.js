@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { notification } from 'antd';
 
-export default function Alert(type, msg, tle) {
+export default function Alert(msg, type, tle) {
     let title = tle;
     if (!title) {
         switch (type) {
@@ -23,7 +23,7 @@ export default function Alert(type, msg, tle) {
                 title = '警告！'
             break;
             default:
-                title = '无标题'
+                title = '提示'
         }
     }
     notification[type]({

@@ -3,7 +3,7 @@
 * @Email:  docoder@163.com
 */
 import React from 'react';
-import { Table } from 'xinche-ui';
+import { Table } from 'ant-colony-ui';
 import styled from 'styled-components';
 
 const DATASOURCE = [
@@ -59,12 +59,15 @@ const TableBody = styled.div`
     min-height: 360px;
     padding: 24px;
 `;
+const StyledTable = styled(Table)`
+    margin-top: 20px;
+`;
 
 export default class BaseTable extends React.Component {
     render() {
         return (
             <TableBody>
-                <Table columns={TABLE_COLUMNS} dataSource={DATASOURCE} onCellChange={(row) => { console.log('---->', row) }} />
+                <StyledTable columns={TABLE_COLUMNS} dataSource={DATASOURCE} onCellChange={(row) => { console.log('---->', row) }} />
             </TableBody>
         );
     }

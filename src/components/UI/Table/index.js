@@ -31,9 +31,12 @@ const StyledTable = styled(Table)`
       padding: 4px 11px;
     }
 `;
+const TableBody = styled.div`
+    display: inline-block;
+`;
 export default class MyTable extends React.Component {
     render() {
-        const { columns, dataSource } = this.props;
+        const { columns, dataSource, className } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -86,6 +89,7 @@ export default class MyTable extends React.Component {
                 bordered
                 dataSource={dataSource}
                 columns={talbeColumns}
+                className={className}
             />
         );
     }

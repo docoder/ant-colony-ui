@@ -1,13 +1,13 @@
-# xinche-ui
+# ant-colony-ui
 
-> maodou xinche ui
+> Ant Colony UI Toolkit based on Ant Design and React
 
-[![NPM](https://img.shields.io/npm/v/xinche-ui.svg)](https://www.npmjs.com/package/xinche-ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/ant-colony-ui.svg)](https://www.npmjs.com/package/ant-colony-ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save xinche-ui
+npm install --save ant-colony-ui
 ```
 
 ## Usage
@@ -15,12 +15,12 @@ npm install --save xinche-ui
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'xinche-ui'
+import { Button } from 'ant-colony-ui'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <Button title="Default"/>
     )
   }
 }
@@ -28,4 +28,4 @@ class Example extends Component {
 
 ## License
 
-MIT © [docoder](https://github.com/docoder)
+MIT 漏 [docoder](https://github.com/docoder)

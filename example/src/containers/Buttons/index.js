@@ -4,7 +4,7 @@
 */
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from 'xinche-ui';
+import { Button } from 'ant-colony-ui';
 
 const ButtonsBody = styled.div`
     background: white;
@@ -19,10 +19,10 @@ export default class Buttons extends React.Component {
     render() {
         return (
             <ButtonsBody>
-                <StyledButton type="primary" title="Primary" onClick={()=>{}} />
-                <StyledButton title="Default" onClick={()=>{}} />
-                <StyledButton type="dashed" title="Dashed" onClick={()=>{}} />
-                <StyledButton type="danger" title="Danger" onClick={()=>{}} />
+                <StyledButton type="primary" title="Primary" />
+                <StyledButton title="Default" />
+                <StyledButton type="dashed" title="Dashed" />
+                <StyledButton type="danger" title="Danger" />
             </ButtonsBody>
         );
     }

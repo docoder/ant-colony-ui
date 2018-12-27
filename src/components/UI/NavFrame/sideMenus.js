@@ -18,10 +18,15 @@ const SubMenu = Menu.SubMenu;
 const FrameSider = styled(Sider)`
     padding-top: 60px;
 `;
+
 const FrameLink = styled(Link)`
-    .ant-menu-item & {
-        display: inline ;
-    }
+    color: inherit;
+    &:hover {
+        color: inherit;
+    };
+    &:focus {
+        text-decoration: none;
+    };
 `;
 
 class SideMenu extends Component {
@@ -29,7 +34,7 @@ class SideMenu extends Component {
         return (
             <Menu.Item key={item.index ? '/' : `/${item.key}`}>
                 <Icon type="right-circle" />
-                <FrameLink to={ item.index ? '/' : `/${item.key}` }>{item.label}</FrameLink>
+                <span><FrameLink to={ item.index ? '/' : `/${item.key}` }>{item.label}</FrameLink></span>
             </Menu.Item>
         )
     }

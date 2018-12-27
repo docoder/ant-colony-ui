@@ -37,6 +37,10 @@ const menus = [
                 key: 'BaseTable'
             }
         ]
+    },
+    {
+        label: '上传(Upload)',
+        key: 'Uploads'
     }
     
 ];

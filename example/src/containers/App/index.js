@@ -5,7 +5,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 import styled from 'styled-components';
-import { NavFrame } from 'xinche-ui';
+import { NavFrame } from 'ant-colony-ui';
 
 import menus from '../../config/menus';
 import connectRoute from '../../utils/ConnectRoute';
@@ -13,7 +13,8 @@ import asyncComponent from '../../utils/AsyncComponent';
 
 let pageLinks = [];
 const getPageRoute = (item) => {
-    return connectRoute(asyncComponent(() => import(`../${item.key}`), item.label || '无标题'));
+     const suffix = 'Ant Colony UI';
+    return connectRoute(asyncComponent(() => import(`../${item.key}`), `${item.label} | ${suffix}` || '无标题'));
 }
 menus.forEach( m => {
     if (m.key) {
@@ -40,9 +41,9 @@ export default class App extends React.Component {
             <AppBody>
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>Xinche UI</title>
+                    <title>Ant Colony UI</title>
                 </Helmet>
-                <NavFrame title='Xinche UI' collapsedTitle='DAUI' menus={menus} pageLinks={pageLinks} />
+                <NavFrame title='Ant Colony UI' collapsedTitle='ACUI' menus={menus} pageLinks={pageLinks} />
             </AppBody>
         );
     }

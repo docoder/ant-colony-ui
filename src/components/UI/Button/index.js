@@ -27,19 +27,20 @@ const StyledButton = styled(AntButton)`
 export default function Button(props) {
     return (
         <StyledButton {...props}>
-            {props.title}
+            {props.title || props.children}
         </StyledButton>
     );
 }
 Button.propTypes = {
     type: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    onClick: PropTypes.func,
     disabled: PropTypes.bool,
     loading: PropTypes.bool
 }
 Button.defaultProps = {
     type: 'default',
     disabled: false,
-    loading: false
+    loading: false,
+    onClick: () => {}
 }
