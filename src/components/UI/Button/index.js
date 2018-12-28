@@ -26,7 +26,14 @@ const StyledButton = styled(AntButton)`
 
 export default function Button(props) {
     return (
-        <StyledButton {...props}>
+        <StyledButton 
+            className={props.className}
+            type={props.type}
+            title={props.title}
+            onClick={props.onClick}
+            disabled={props.disabled}
+            loading={props.loading}
+        >
             {props.title || props.children}
         </StyledButton>
     );

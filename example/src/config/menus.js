@@ -41,6 +41,10 @@ const menus = [
     {
         label: '上传(Upload)',
         key: 'Uploads'
+    },
+    {
+        label: '弹出框(Modal)',
+        key: 'Modals'
     }
     
 ];

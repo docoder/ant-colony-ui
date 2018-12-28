@@ -5,7 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Table,
+    Table as AntTable,
     Popconfirm
 } from 'antd';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ const ActionButton = styled(Button)`
     margin-right: 10px;
     margin-bottom: 5px;
 `;
-const StyledTable = styled(Table)`
+const StyledTable = styled(AntTable)`
     .editable-cell {
       position: relative;
     }
@@ -35,9 +35,9 @@ const StyledTable = styled(Table)`
 const TableBody = styled.div`
     display: inline-block;
 `;
-export default class MyTable extends React.Component {
+export default class Table extends React.Component {
     render() {
-        const { columns, dataSource, className, loading } = this.props;
+        const { columns, dataSource, className, loading, pagination } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -90,6 +90,7 @@ export default class MyTable extends React.Component {
         return (
             <StyledTable
                 loading={loading}
+                pagination={pagination}
                 components={components}
                 rowClassName={() => 'editable-row'}
                 bordered
@@ -100,13 +101,14 @@ export default class MyTable extends React.Component {
         );
     }
 }
-MyTable.propTypes = {
+Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     onCellChange: PropTypes.func,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    pagination: PropTypes.object
 }
-MyTable.defaultProps = {
+Table.defaultProps = {
     onCellChange: (row) => {},
     loading: false
 }

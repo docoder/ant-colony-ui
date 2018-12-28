@@ -43,7 +43,6 @@ const TABLE_COLUMNS = [
                 confirm: true,
                 confirmLabel: '确定删除？',
                 show: (text, record, index) => {
-                    console.log(':::::1>', text, record, index)
                     return true
                 }
             },
@@ -53,7 +52,6 @@ const TABLE_COLUMNS = [
                     console.log('cccc>>>>bbbb')
                 },
                 show: (text, record, index) => {
-                    console.log(':::::2>', text, record, index)
                     return true
                 }
             }

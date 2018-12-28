@@ -10,6 +10,7 @@ import NavFrame from './components/UI/NavFrame';
 import Table from './components/UI/Table';
 import Upload from './components/UI/Upload';
 import ImageUpload from './components/UI/ImageUpload';
+import Modal from './components/UI/Modal';
 export {
     Alert,
     Button,
@@ -18,5 +19,6 @@ export {
     NavFrame,
     Table,
     Upload,
-    ImageUpload
+    ImageUpload,
+    Modal
 }
