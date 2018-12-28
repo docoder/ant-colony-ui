@@ -97,6 +97,8 @@ export default class BaseForm extends React.Component {
                     collapse
                     onSubmit={(values) => { console.log("====>", values)}}
                     actionDirection="right"
+                    unCollapseCount={9}
+                    rowCounts={[2,3]}
                 />
             </FormBody>
         );

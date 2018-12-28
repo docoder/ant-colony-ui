@@ -97,12 +97,15 @@ class MyForm extends React.Component {
     }
 
     getRows = () => {
-        const { forms, collapse, unCollapseCount, columnCount} = this.props;
+        const { forms, collapse, unCollapseCount, columnCount, rowCounts} = this.props;
         const count = (this.state.expand || !collapse) ? forms.length : unCollapseCount;
         const { getFieldDecorator } = this.props.form;
         let children = [];
         let rows = [];
-        forms.forEach( (item, index) => {
+        let rowIndex = 0;
+        let rowColIndex = 0;
+        forms.forEach((item, index) => {
+            rowColIndex += 1;
             children.push(
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     <FormItem label={item.label}>
@@ -119,13 +122,20 @@ class MyForm extends React.Component {
                     </FormItem>
                 </Col>
             );
-            if (children.length === columnCount || index === forms.length - 1) {
+            let cCount = columnCount
+            if (rowCounts&&rowCounts.length > 0 && rowCounts[rowIndex] && rowCounts[rowIndex] === rowColIndex) {
+                cCount = rowCounts[rowIndex];
+                rowColIndex = 0;
+            }
+
+            if (children.length === cCount || index === forms.length - 1) {
                 rows.push(
                     <Row key={item.key} gutter={24}>
                     {[...children]}
                     </Row>
                 )
-                children.length = 0;
+                children.length = 0
+                rowIndex += 1;
             }
         });
         return rows;
@@ -191,7 +201,8 @@ WrappedForm.propTypes = {
     unCollapseCount: PropTypes.number,
     onSubmit: PropTypes.func.isRequired,
     actionDirection: PropTypes.string,
-    columnCount: PropTypes.number
+    columnCount: PropTypes.number,
+    rowCounts: PropTypes.arrayOf(PropTypes.number)
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
