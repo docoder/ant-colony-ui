@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
-  Form, Row, Col, Input, Icon, Select
+  Form as AntForm, Row, Col, Input, Icon, Select
 } from 'antd';
 import Button from '../Button';
 
 const { TextArea } = Input;
-const FormItem = Form.Item;
-const StyledForm = styled(Form)`
+const FormItem = AntForm.Item;
+const StyledForm = styled(AntForm)`
     background: #fbfbfb;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
@@ -40,8 +40,14 @@ const CollapseToggle = styled.a`
 `;
 const FormBody = styled.div`
 `;
+const FormHeader = styled.div`
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+`;
 
-class MyForm extends React.Component {
+class Form extends React.Component {
     state = {
         expand: false,
     };
@@ -104,7 +110,16 @@ class MyForm extends React.Component {
         let rows = [];
         let rowIndex = 0;
         let rowColIndex = 0;
-        forms.forEach((item, index) => {
+        for (let index = 0; index< forms.length; index++) {
+            const item = forms[index];
+            if(item.type === 'header') {
+                rows.push(
+                    <Row key={item.key} gutter={24}>
+                        <FormHeader>{item.label}</FormHeader>
+                    </Row>
+                )
+                continue;
+            }
             rowColIndex += 1;
             children.push(
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
@@ -137,7 +152,7 @@ class MyForm extends React.Component {
                 children.length = 0
                 rowIndex += 1;
             }
-        });
+        }
         return rows;
     }
 
@@ -191,7 +206,7 @@ class MyForm extends React.Component {
         );
     }
 }
-const WrappedForm = Form.create()(MyForm);
+const WrappedForm = AntForm.create()(Form);
 WrappedForm.propTypes = {
     forms: PropTypes.arrayOf(PropTypes.object).isRequired,
     submitTitle: PropTypes.string,

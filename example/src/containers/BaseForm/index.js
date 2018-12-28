@@ -8,6 +8,11 @@ import styled from 'styled-components';
 
 const FORMS = [
     {
+        key: 'header1',
+        type: 'header',
+        label: '标题1'
+    },
+    {
         key: 'field1',
         label: '字段1',
         required: true
@@ -60,6 +65,11 @@ const FORMS = [
         label: '字段6',
         required: true,
         reg: { pattern: /^([1-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
+    },
+    {
+        key: 'header2',
+        type: 'header',
+        label: '标题2'
     },
     {
         key: 'field7',
