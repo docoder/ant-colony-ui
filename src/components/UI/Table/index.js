@@ -65,21 +65,22 @@ export default class Table extends React.Component {
                         if(a.show && typeof a.show === 'function') {
                             show = a.show(text, record, index);
                         }
+                        let callback = a.callback || (() => {})
                         return show ? (
                             a.confirm ? (
                                 <Popconfirm 
                                     key={a.label} 
                                     title={a.confirmLabel || '确定此操作？'} 
-                                    onConfirm={a.callback}
+                                    onConfirm={() => {callback(text, record, index)}}
                                     okText={a.okText || '确定'}
                                     cancelText={a.cancelText || '取消'}
                                 >
-                                    <ActionButton onClick={()=>{}} title={a.label} />
+                                    <ActionButton title={a.label} />
                                 </Popconfirm>
                             )
                             :
                             (
-                                <ActionButton key={a.label} onClick={()=>{}} title={a.label} />
+                                <ActionButton key={a.label} onClick={() => {callback(text, record, index)}} title={a.label} />
                             )
                         ) : null
                     })

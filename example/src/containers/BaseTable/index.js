@@ -51,21 +51,27 @@ const TABLE_COLUMNS = [
         dataIndex: 'operation',
         actions: [
             {
-                label: '删除',
-                callback: () => {
-                    console.log('cccc>>>>bbbb')
+                label: '查看',
+                callback: (text, record, index) => {
+                    console.log('callback编辑>>>>', text, record, index)
                 },
-                confirm: true,
-                confirmLabel: '确定删除？',
                 show: (text, record, index) => {
                     return true
                 }
             },
             {
                 label: '编辑',
-                callback: () => {
-                    console.log('cccc>>>>bbbb')
+                show: (text, record, index) => {
+                    return true
+                }
+            },
+            {
+                label: '删除',
+                callback: (text, record, index) => {
+                    console.log('callback删除>>>>', text, record, index)
                 },
+                confirm: true,
+                confirmLabel: '确定删除？',
                 show: (text, record, index) => {
                     return true
                 }
