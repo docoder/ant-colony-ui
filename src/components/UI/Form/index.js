@@ -28,11 +28,6 @@ const StyledForm = styled(Form)`
         flex: 1;
     }
 `;
-const FormCol = styled(Col)`
-    &.ant-col-8 {
-        display: ${props => props.show === 'true' ? 'block' : 'none'};
-    }
-`;
 const ButtonsCol = styled(Col)`
     text-align: ${props => props.direction === 'right' ? 'right' : 'left'};
 `;
@@ -102,14 +97,14 @@ class MyForm extends React.Component {
     }
 
     getRows = () => {
-        const { forms, collapse, unCollapseCount } = this.props;
+        const { forms, collapse, unCollapseCount, columnCount} = this.props;
         const count = (this.state.expand || !collapse) ? forms.length : unCollapseCount;
         const { getFieldDecorator } = this.props.form;
         let children = [];
         let rows = [];
         forms.forEach( (item, index) => {
             children.push(
-                <FormCol span={8} key={item.key} show={index < count ? 'true' : 'false'}>
+                <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     <FormItem label={item.label}>
                         {getFieldDecorator(`${item.key}`, {
                             rules: item.reg ? [
@@ -122,9 +117,9 @@ class MyForm extends React.Component {
                             this.getInput(item)
                         )}  
                     </FormItem>
-                </FormCol>
+                </Col>
             );
-            if (children.length === 3 || index === forms.length - 1) {
+            if (children.length === columnCount || index === forms.length - 1) {
                 rows.push(
                     <Row key={item.key} gutter={24}>
                     {[...children]}
@@ -195,14 +190,16 @@ WrappedForm.propTypes = {
     collapse: PropTypes.bool,
     unCollapseCount: PropTypes.number,
     onSubmit: PropTypes.func.isRequired,
-    actionDirection: PropTypes.string
+    actionDirection: PropTypes.string,
+    columnCount: PropTypes.number
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
     clearTitle: '重置',
     collapseTitle: '折叠',
     collapse: false,
-    unCollapseCount: 6,
-    actionDirection: 'left'
+    unCollapseCount: 8,
+    actionDirection: 'left',
+    columnCount: 4
 }
 export default WrappedForm;

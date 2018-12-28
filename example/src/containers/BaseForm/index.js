@@ -64,6 +64,18 @@ const FORMS = [
     {
         key: 'field7',
         label: '字段7'
+    },
+    {
+        key: 'field8',
+        label: '字段8'
+    },
+    {
+        key: 'field9',
+        label: '字段9'
+    },
+    {
+        key: 'field10',
+        label: '字段10'
     }
 ];
 

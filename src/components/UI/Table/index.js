@@ -107,7 +107,10 @@ Table.propTypes = {
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     onCellChange: PropTypes.func,
     loading: PropTypes.bool,
-    pagination: PropTypes.object
+    pagination: PropTypes.PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.bool
+    ])
 }
 Table.defaultProps = {
     onCellChange: (row) => {},
