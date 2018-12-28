@@ -42,14 +42,20 @@ const TABLE_COLUMNS = [
                 },
                 confirm: true,
                 confirmLabel: '确定删除？',
-                show: true
+                show: (text, record, index) => {
+                    console.log(':::::1>', text, record, index)
+                    return true
+                }
             },
             {
                 label: '编辑',
                 callback: () => {
                     console.log('cccc>>>>bbbb')
                 },
-                show: true
+                show: (text, record, index) => {
+                    console.log(':::::2>', text, record, index)
+                    return true
+                }
             }
         ]
     }

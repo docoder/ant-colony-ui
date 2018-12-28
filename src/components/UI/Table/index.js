@@ -14,6 +14,7 @@ import Button from '../Button';
 
 const ActionButton = styled(Button)`
     margin-right: 10px;
+    margin-bottom: 5px;
 `;
 const StyledTable = styled(Table)`
     .editable-cell {
@@ -36,7 +37,7 @@ const TableBody = styled.div`
 `;
 export default class MyTable extends React.Component {
     render() {
-        const { columns, dataSource, className } = this.props;
+        const { columns, dataSource, className, loading } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -58,9 +59,13 @@ export default class MyTable extends React.Component {
                 });
             }
             if (col.actions && col.actions.length > 0) {
-                newCol.render = (text, record) => {
+                newCol.render = (text, record, index) => {
                     return col.actions.map( a => {
-                        return a.show ? (
+                        let show = a.show;
+                        if(a.show && typeof a.show === 'function') {
+                            show = a.show(text, record, index);
+                        }
+                        return show ? (
                             a.confirm ? (
                                 <Popconfirm 
                                     key={a.label} 
@@ -84,6 +89,7 @@ export default class MyTable extends React.Component {
         });
         return (
             <StyledTable
+                loading={loading}
                 components={components}
                 rowClassName={() => 'editable-row'}
                 bordered
@@ -97,8 +103,10 @@ export default class MyTable extends React.Component {
 MyTable.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onCellChange: PropTypes.func
+    onCellChange: PropTypes.func,
+    loading: PropTypes.bool
 }
 MyTable.defaultProps = {
-    onCellChange: (row) => {}
+    onCellChange: (row) => {},
+    loading: false
 }
