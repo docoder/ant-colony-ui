@@ -16,7 +16,13 @@ const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 const FrameSider = styled(Sider)`
-    padding-top: 60px;
+    &.ant-layout-sider {
+        position: fixed;
+        padding-top: 60px;
+        overflow: auto;
+        height: 100vh;
+        left: 0;
+    }
 `;
 
 const FrameLink = styled(Link)`

@@ -17,6 +17,21 @@ const DATASOURCE = [
         name: 'Edward King 1',
         age: '32',
         address: 'London, Park Lane no. 1',
+    }, {
+        key: '2',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }, {
+        key: '3',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }, {
+        key: '4',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
     }
 ];
 const TABLE_COLUMNS = [

@@ -35,11 +35,12 @@ const FrameHeader = styled(Header)`
 
 const FrameMain = styled(Layout)`
     padding-top: 60px;
+    margin-left: 200px;
 `;
 
 const FrameBody = styled(Content)`
-    margin: 16px;
-    margin-bottom: 0;
+    margin: '24px 16px 0';
+    overflow: initial;
 `;
 const LogoutButton = styled(Button)`
     float: right;
