@@ -22,7 +22,7 @@ const StyledForm = styled(AntForm)`
         padding: 24px;
     }
     .ant-form-item {
-        display: flex;
+        display: ${props => props.position === 'left' ? 'flex' : 'inherit' };
     }
     .ant-form-item-control-wrapper {
         flex: 1;
@@ -271,13 +271,14 @@ class Form extends React.Component {
     }
 
     render() {
-        const { form, forms, submitTitle, clearTitle, collapse, collapseTitle, unCollapseCount, className, actionDirection } = this.props;
+        const { form, forms, submitTitle, clearTitle, collapse, collapseTitle, unCollapseCount, className, actionDirection, labelPostion } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
         return (
             <FormBody className={className}>
                 <StyledForm
                     onSubmit={this.handleSubmit}
+                    position={labelPostion}
                 >
                     
                     {this.getRows()}
@@ -309,7 +310,8 @@ WrappedForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     actionDirection: PropTypes.string,
     columnCount: PropTypes.number,
-    rowCounts: PropTypes.arrayOf(PropTypes.number)
+    rowCounts: PropTypes.arrayOf(PropTypes.number),
+    labelPostion: PropTypes.string
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
@@ -319,6 +321,7 @@ WrappedForm.defaultProps = {
     unCollapseCount: 8,
     actionDirection: 'left',
     columnCount: 4,
-    rowCounts: []
+    rowCounts: [],
+    labelPostion: 'left'
 }
 export default WrappedForm;
