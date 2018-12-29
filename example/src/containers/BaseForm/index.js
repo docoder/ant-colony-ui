@@ -80,12 +80,46 @@ const FORMS = [
         label: '字段8'
     },
     {
+        key: 'add2',
+        type: 'add',
+        addKeys: ['field7', 'field8']
+    },
+    {
+        key: 'header3',
+        type: 'header',
+        label: '标题3'
+    },
+    {
         key: 'field9',
         label: '字段9'
     },
     {
         key: 'field10',
         label: '字段10'
+    },
+    {
+        key: 'field11',
+        label: '字段11'
+    },
+    {
+        key: 'field12',
+        label: '字段12'
+    },
+    {
+        key: 'field13',
+        label: '字段13'
+    },
+    {
+        key: 'field14',
+        label: '字段14'
+    },
+    {
+        key: 'field15',
+        label: '字段15'
+    },
+    {
+        key: 'field16',
+        label: '字段16'
     }
 ];
 
@@ -104,11 +138,11 @@ export default class BaseForm extends React.Component {
             <FormBody>
                 <StyledForm
                     forms={FORMS}
-                    collapse
+                    collapse={false}
                     onSubmit={(values) => { console.log("====>", values)}}
                     actionDirection="right"
-                    unCollapseCount={9}
-                    rowCounts={[2,3]}
+                    unCollapseCount={13}
+                    rowCounts={[2,4,2,1,3,4]}
                 />
             </FormBody>
         );

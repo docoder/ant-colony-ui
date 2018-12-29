@@ -46,12 +46,32 @@ const FormHeader = styled.div`
     font-weight: bold;
     margin-bottom: 10px;
 `;
+const AddButton = styled(Button)`
+    width: 25%;
+    margin-left: 15px;
+    margin-bottom: 20px;
+`;
+const DeleteButton = styled(Icon)`
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    color: #999;
+    transition: all .3s;
+    &:hover {
+        color: #777;
+    }
+`;
 
 class Form extends React.Component {
     state = {
         expand: false,
     };
-    renderOptions = (item) => {
+    constructor(props) {
+        super(props)
+        this.rowCounts = this.props.rowCounts;
+    }
+     renderOptions = (item) => {
         let data = item.meta ? (item.meta.data || []) : [], items;
         if (typeof data == 'function') {
             let refValue = null;
@@ -70,7 +90,8 @@ class Form extends React.Component {
         let refLabel = null;
         item.meta = item.meta || {};
         if (item.meta.ref) {
-            const refItem = this.props.forms.find(i => i.key === item.meta.ref);
+             const formItems = this.props.form.getFieldValue('forms');
+            const refItem = formItems.find(i => i.key === item.meta.ref);
             refLabel = refItem.label;
         }
         switch (item.type) {
@@ -102,20 +123,70 @@ class Form extends React.Component {
         }
     }
 
+    formAddItem = (index, rowIndex) => {
+        const { form, columnCount } = this.props;
+        const formItems = form.getFieldValue('forms');
+        const item = formItems[index];
+        const filtItems = formItems.filter(f => ~item.addKeys.indexOf(f.key))
+        const itemsToAdd = JSON.parse(JSON.stringify(filtItems)).map((it, i)=> {
+            it.key = `${it.key}_${rowIndex}`
+            it.canDelete = true
+            if(i=== filtItems.length - 1) {
+                it.appendDeleteButton = true
+                it.rowIndex = rowIndex
+            }
+            return it;
+        })
+        formItems.splice(index, 0, ...itemsToAdd)
+        const count = this.rowCounts[rowIndex-1];
+        const rowCount = Math.floor(item.addKeys.length / this.rowCounts[rowIndex-1]);
+        this.rowCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
+
+        form.setFieldsValue({
+            forms: formItems
+        })
+    }
+    formRemoveItem = (keys, rowIndex) => {
+        const { form } = this.props;
+        const formItems = form.getFieldValue('forms');
+        const filtItems = formItems.filter(f => !~keys.indexOf(f.key))
+        const rowCount = Math.floor(keys.length / this.rowCounts[rowIndex-1]);
+        this.rowCounts.splice(rowIndex, rowCount)
+        form.setFieldsValue({
+            forms: filtItems
+        })
+    }
+
     getRows = () => {
-        const { forms, collapse, unCollapseCount, columnCount, rowCounts} = this.props;
-        const count = (this.state.expand || !collapse) ? forms.length : unCollapseCount;
-        const { getFieldDecorator } = this.props.form;
+        const { form, collapse, unCollapseCount, columnCount} = this.props;
+        const formItems = form.getFieldValue('forms');
+        const count = (this.state.expand || !collapse) ? formItems.length : unCollapseCount;
+        const { getFieldDecorator } = form;
         let children = [];
         let rows = [];
         let rowIndex = 0;
         let rowColIndex = 0;
-        for (let index = 0; index< forms.length; index++) {
-            const item = forms[index];
+        let rowColMaxCount = columnCount;
+        let deleteKeys = [];
+        for (let index = 0; index< formItems.length; index++) {
+            const item = formItems[index];
+            if(item.canDelete) {
+                deleteKeys.push(item.key)
+            }
             if(item.type === 'header') {
                 rows.push(
                     <Row key={item.key} gutter={24}>
                         <FormHeader>{item.label}</FormHeader>
+                    </Row>
+                )
+                continue;
+            }
+            if(item.type === 'add') {
+                rows.push(
+                    <Row key={item.key} gutter={24}>
+                        <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
+                            <Icon type="plus" />
+                        </AddButton>
                     </Row>
                 )
                 continue;
@@ -137,18 +208,30 @@ class Form extends React.Component {
                     </FormItem>
                 </Col>
             );
-            let cCount = columnCount
-            if (rowCounts&&rowCounts.length > 0 && rowCounts[rowIndex] && rowCounts[rowIndex] === rowColIndex) {
-                cCount = rowCounts[rowIndex];
+            if(this.rowCounts[rowIndex]) {
+                rowColMaxCount = this.rowCounts[rowIndex];
+            }
+            if (this.rowCounts.length > 0 && this.rowCounts[rowIndex] && this.rowCounts[rowIndex] === rowColIndex) {
+                rowColMaxCount = this.rowCounts[rowIndex];
                 rowColIndex = 0;
             }
 
-            if (children.length === cCount || index === forms.length - 1) {
+            if (children.length === rowColMaxCount || index === formItems.length - 1) {
                 rows.push(
                     <Row key={item.key} gutter={24}>
                     {[...children]}
+                    {
+                        item.appendDeleteButton && <DeleteButton
+                            className="dynamic-delete-button"
+                            type="minus-circle-o"
+                            onClick={this.formRemoveItem.bind(this, [...deleteKeys], rowIndex)}
+                        />
+                    }
                     </Row>
                 )
+                if (item.appendDeleteButton) {
+                    deleteKeys.length = 0;
+                }
                 children.length = 0
                 rowIndex += 1;
             }
@@ -158,13 +241,20 @@ class Form extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { forms, form, onSubmit } = this.props;
+        const { form, onSubmit } = this.props;
+        const formItems = form.getFieldValue('forms');
         form.validateFields((err, values) => {
             if(!err) {
-                forms.forEach( item => {
-                    form.setFieldsValue({
-                        [item.key]: '',
-                    })
+                formItems.forEach( item => {
+                    if(
+                        item.type !== 'header'
+                        && 
+                        item.type !== 'add'
+                        ) {
+                        form.setFieldsValue({
+                            [item.key]: '',
+                        })
+                    }
                 })
                 onSubmit(values);
             }
@@ -181,7 +271,9 @@ class Form extends React.Component {
     }
 
     render() {
-        const { forms, submitTitle, clearTitle, collapse, collapseTitle, unCollapseCount, className, actionDirection } = this.props;
+        const { form, forms, submitTitle, clearTitle, collapse, collapseTitle, unCollapseCount, className, actionDirection } = this.props;
+        form.getFieldDecorator('forms', { initialValue: forms });
+        const formItems =form.getFieldValue('forms');
         return (
             <FormBody className={className}>
                 <StyledForm
@@ -194,7 +286,7 @@ class Form extends React.Component {
                             <Button type="primary" htmlType="submit" title={submitTitle} />
                             <ClearButton onClick={this.handleReset} title={clearTitle} />
                             {
-                                collapse && forms.length > unCollapseCount && <CollapseToggle onClick={this.toggle}>
+                                collapse && formItems.length > unCollapseCount && <CollapseToggle onClick={this.toggle}>
                                                 {collapseTitle} <Icon type={this.state.expand ? 'up' : 'down'} />
                                             </CollapseToggle>
                             }
@@ -226,6 +318,7 @@ WrappedForm.defaultProps = {
     collapse: false,
     unCollapseCount: 8,
     actionDirection: 'left',
-    columnCount: 4
+    columnCount: 4,
+    rowCounts: []
 }
 export default WrappedForm;

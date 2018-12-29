@@ -33,6 +33,7 @@ export default function Button(props) {
             onClick={props.onClick}
             disabled={props.disabled}
             loading={props.loading}
+            htmlType={props.htmlType}
         >
             {props.title || props.children}
         </StyledButton>
@@ -43,7 +44,8 @@ Button.propTypes = {
     title: PropTypes.string,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    htmlType: PropTypes.string
 }
 Button.defaultProps = {
     type: 'default',
