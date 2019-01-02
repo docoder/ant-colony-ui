@@ -11,7 +11,6 @@ import styled from 'styled-components';
 const UploadTitle = styled.div`
     font-weight: bold;
     padding: 5px;
-    width: 104px;
 `;
 const UploadLabel = styled.div`
     margin-top: 8px;

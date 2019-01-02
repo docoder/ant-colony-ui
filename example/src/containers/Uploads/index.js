@@ -26,7 +26,7 @@ export default function Uploads () {
             <ImageUpload url="url" />
             <ImageUploadContainer>
                 <ImageUpload url="url" uploadTitle="已上传" />
-                <ImageUpload url="url" uploadTitle="已上传" imageCount={4} />
+                <ImageUpload url="url" uploadTitle="上传附件标题" imageCount={4} />
             </ImageUploadContainer>
         </UploadsBody>
     );
