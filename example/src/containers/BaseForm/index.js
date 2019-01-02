@@ -5,6 +5,7 @@
 import React from 'react';
 import { Form } from 'ant-colony-ui';
 import styled from 'styled-components';
+import { ImageUpload } from 'ant-colony-ui';
 
 const FORMS = [
     {
@@ -133,6 +134,9 @@ const StyledForm = styled(Form)`
 `;
 
 export default class BaseForm extends React.Component {
+    renderAccessoryComponent = () => {
+        return (<ImageUpload url="url" />)
+    }
     render() {
         return (
             <FormBody>
@@ -140,9 +144,12 @@ export default class BaseForm extends React.Component {
                     forms={FORMS}
                     collapse={false}
                     onSubmit={(values) => { console.log("====>", values)}}
-                    actionDirection="right"
+                    actionDirection="center"
                     unCollapseCount={13}
-                    rowCounts={[2,4,2,1,3,4]}
+                    rowColCounts={[2,4,2,1,3,4]}
+                    labelPostion="top"
+                    addLabel="新增"
+                    accessoryComponent= {this.renderAccessoryComponent}
                 />
             </FormBody>
         );
