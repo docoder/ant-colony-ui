@@ -82,7 +82,7 @@ class Form extends React.Component {
         super(props)
         this.rowColCounts = this.props.rowColCounts;
     }
-     renderOptions = (item) => {
+    renderOptions = (item) => {
         let data = item.meta ? (item.meta.data || []) : [], items;
         if (typeof data == 'function') {
             let refValue = null;
@@ -98,6 +98,7 @@ class Form extends React.Component {
         ))
     }
     getInput = (item) => {
+        const { allDisabled } = this.props;
         let refLabel = null;
         item.meta = item.meta || {};
         if (item.meta.ref) {
@@ -109,6 +110,7 @@ class Form extends React.Component {
             case 'select':
                 return (
                     <Select
+                        disabled={item.disabled || allDisabled || false}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
                         allowClear={item.meta.showSearch}
@@ -127,10 +129,10 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea placeholder={`请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                    <TextArea disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             default:
-                return (<Input placeholder={`请输入${item.label}`} />);
+                return (<Input disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} />);
         }
     }
 
@@ -169,7 +171,7 @@ class Form extends React.Component {
     }
 
     getRows = () => {
-        const { form, collapse, unCollapseCount, columnCount, addLabel} = this.props;
+        const { form, collapse, unCollapseCount, columnCount, addLabel, allDisabled} = this.props;
         const formItems = form.getFieldValue('forms');
         const count = (this.state.expand || !collapse) ? formItems.length : unCollapseCount;
         const { getFieldDecorator } = form;
@@ -193,13 +195,15 @@ class Form extends React.Component {
                 continue;
             }
             if(item.type === 'add') {
-                rows.push(
-                    <Row key={item.key} gutter={24}>
-                        <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
-                            <Icon type="plus" /> {addLabel}
-                        </AddButton>
-                    </Row>
-                )
+                if (!allDisabled) {
+                    rows.push(
+                        <Row key={item.key} gutter={24}>
+                            <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
+                                <Icon type="plus" /> {addLabel}
+                            </AddButton>
+                        </Row>
+                    )
+                }
                 continue;
             }
             rowColIndex += 1;
@@ -207,6 +211,7 @@ class Form extends React.Component {
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     <FormItem label={item.label}>
                         {getFieldDecorator(`${item.key}`, {
+                            initialValue: item.value,
                             rules: item.reg ? [
                                 { required: item.required, message: `${item.label}为必填项`},
                                 item.reg
@@ -288,7 +293,21 @@ class Form extends React.Component {
     }
 
     render() {
-        const { form, forms, submitTitle, clearTitle, collapse, collapseTitle, unCollapseCount, className, actionDirection, labelPostion, clearButtonShow } = this.props;
+        const { 
+            form,
+            forms,
+            submitTitle,
+            clearTitle,
+            collapse,
+            collapseTitle,
+            unCollapseCount,
+            className,
+            actionDirection,
+            labelPostion,
+            clearButtonShow,
+            actionsShow,
+            allDisabled
+        } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
         return (
@@ -300,18 +319,21 @@ class Form extends React.Component {
                     
                     {this.getRows()}
                     {this.renderAccessoryView()}
-                    <ActionRow>
-                        <ButtonsCol span={24} direction={actionDirection}>
-                            <Button type="primary" htmlType="submit" title={submitTitle} />
-                            {clearButtonShow && <ClearButton onClick={this.handleReset} title={clearTitle} />}
-                            {
-                                collapse && formItems.length > unCollapseCount && <CollapseToggle onClick={this.toggle}>
-                                                {collapseTitle} <Icon type={this.state.expand ? 'up' : 'down'} />
-                                            </CollapseToggle>
-                            }
-                            
-                        </ButtonsCol>
-                    </ActionRow>
+                    {
+                        (actionsShow || allDisabled) && <ActionRow>
+                            <ButtonsCol span={24} direction={actionDirection}>
+                                <Button type="primary" htmlType="submit" title={submitTitle} />
+                                {clearButtonShow && <ClearButton onClick={this.handleReset} title={clearTitle} />}
+                                {
+                                    collapse && formItems.length > unCollapseCount && <CollapseToggle onClick={this.toggle}>
+                                                    {collapseTitle} <Icon type={this.state.expand ? 'up' : 'down'} />
+                                                </CollapseToggle>
+                                }
+                                
+                            </ButtonsCol>
+                        </ActionRow>
+                    }
+                    
                 </StyledForm>
             </FormBody>
         );
@@ -331,7 +353,9 @@ WrappedForm.propTypes = {
     rowColCounts: PropTypes.arrayOf(PropTypes.number),
     labelPostion: PropTypes.string,
     addLabel: PropTypes.string,
-    clearButtonShow: PropTypes.bool
+    clearButtonShow: PropTypes.bool,
+    actionsShow: PropTypes.bool,
+    allDisabled: PropTypes.bool
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
@@ -344,6 +368,8 @@ WrappedForm.defaultProps = {
     rowColCounts: [],
     labelPostion: 'left',
     addLabel: '新增表单项',
-    clearButtonShow: true
+    clearButtonShow: true,
+    actionsShow: true,
+    allDisabled: false
 }
 export default WrappedForm;

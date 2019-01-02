@@ -96,7 +96,8 @@ const FORMS = [
     },
     {
         key: 'field10',
-        label: '字段10'
+        label: '字段10',
+        value: 'text10'
     },
     {
         key: 'field11',
@@ -120,7 +121,8 @@ const FORMS = [
     },
     {
         key: 'field16',
-        label: '字段16'
+        label: '字段16',
+        disabled: true
     }
 ];
 
@@ -150,6 +152,7 @@ export default class BaseForm extends React.Component {
                     labelPostion="top"
                     addLabel="新增"
                     accessoryComponent= {this.renderAccessoryComponent}
+                    allDisabled={false}
                 />
             </FormBody>
         );
