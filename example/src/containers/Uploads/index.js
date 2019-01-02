@@ -14,13 +14,20 @@ const UploadsBody = styled.div`
 const StyledUpload = styled(Upload)`
     margin-bottom: 10px;
 `;
-
+const ImageUploadContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
 
 export default function Uploads () {
     return (
         <UploadsBody>
             <StyledUpload url="url" />
             <ImageUpload url="url" />
+            <ImageUploadContainer>
+                <ImageUpload url="url" uploadTitle="已上传" />
+                <ImageUpload url="url" uploadTitle="已上传" imageCount={4} />
+            </ImageUploadContainer>
         </UploadsBody>
     );
 }
