@@ -4,30 +4,24 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { notification } from 'antd';
+import { Alert as AntAlert } from 'antd';
 
-export default function Alert(msg, type, tle) {
-    let title = tle;
-    if (!title) {
-        switch (type) {
-            case 'info':
-                title = '提示'
-            break;
-            case 'success':
-                title = '操作成功'
-            break;
-            case 'error':
-                title = '发生错误'
-            break;
-            case 'warning':
-                title = '警告！'
-            break;
-            default:
-                title = '提示'
-        }
-    }
-    notification[type]({
-        message: title,
-        description: msg,
-    });
+export default function Alert(props) {
+    return (
+        <AntAlert
+            className={props.className}
+            message={props.message}
+            description={props.description}
+            type={props.type}
+            closable
+            showIcon
+            onClose={props.onClose}
+        />
+    );
+}
+Alert.propTypes = {
+    type: PropTypes.string,
+    message: PropTypes.string,
+    description: PropTypes.string,
+    onClose: PropTypes.func
 }
