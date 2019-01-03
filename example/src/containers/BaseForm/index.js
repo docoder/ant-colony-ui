@@ -16,6 +16,7 @@ const FORMS = [
     {
         key: 'field1',
         label: '字段1',
+        onChange: (e) => {console.log('input onChange>>>', e.target.value)},
         required: true
     },
     {
@@ -23,6 +24,7 @@ const FORMS = [
         label: '字段2',
         required: true,
         type: 'select',
+        onChange: (value) => {console.log('select onChange>>>', value)},
         meta: {
             data: [
                 { value: 'a', label: 'A' },
@@ -55,7 +57,8 @@ const FORMS = [
     {
         key: 'field4',
         label: '字段4',
-        type: 'textArea'
+        type: 'textArea',
+         onChange: (e) => {console.log('textarea onChange>>>', e.target.value)},
     },
     {
         key: 'field5',

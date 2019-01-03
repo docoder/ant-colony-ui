@@ -110,6 +110,7 @@ class Form extends React.Component {
             case 'select':
                 return (
                     <Select
+                        onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
@@ -129,10 +130,10 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                    <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             default:
-                return (<Input disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} />);
+                return (<Input onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} />);
         }
     }
 
