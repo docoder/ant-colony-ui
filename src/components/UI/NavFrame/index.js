@@ -35,7 +35,7 @@ const FrameHeader = styled(Header)`
 
 const FrameMain = styled(Layout)`
     padding-top: 60px;
-    margin-left: 200px;
+    margin-left: ${props => props.collapsed === 'true' ? '80px' : '200px' };
 `;
 
 const FrameBody = styled(Content)`
@@ -74,7 +74,7 @@ export default class NavFrame extends React.Component {
                         <LogoutButton type='primary' onClick={logout} title="退出" />
                     </FrameHeader>
                     <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
-                    <FrameMain>
+                    <FrameMain collapsed={this.state.collapsed ? 'true' : 'false'}>
                         <FrameBody >
                             <Switch>
                             {this.renderRoutes(pageLinks)}
