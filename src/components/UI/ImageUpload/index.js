@@ -53,12 +53,16 @@ export default class ImageUpload extends React.Component {
                 <Upload
                     accept={this.props.accept}
                     url={this.props.url}
+                    multiple={this.props.multiple}
                     listType="picture-card"
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onSuccess={this.onSuccess}
                     onFail={this.onFail}
                     onRemove={this.onRemove}
+                    beforeUpload={this.props.beforeUpload}
+                    data={this.props.data}
+                    onChange={this.props.onChange}
                 >
                     {fileList.length >= imageCount ? 'none' : uploadButton}
                 </Upload>
