@@ -25,13 +25,15 @@ export default function Upload (props) {
         listType: props.listType,
         fileList: props.fileList,
         onPreview: props.onPreview,
-        onChange(info) {
+        beforeUpload: props.beforeUpload,
+        data: props.data,
+        onChange: props.onChange || ((info) => {
             if (info.file.status === 'done') {
                 props.onSuccess ? props.onSuccess(info) : Alert(`${info.file.name} 上传成功`, 'success');
             } else if (info.file.status === 'error') {
                 props.onFail ? props.onFail(info) : Alert(info.file.response ? (info.file.response.message || '上传失败') : '上传失败', 'error');
             }
-        },
+        })
     };
     return (
         <UploadBody className={props.className}>
@@ -62,7 +64,13 @@ Upload.propTypes = {
     onFail: PropTypes.func,
     listType: PropTypes.string,
     fileList: PropTypes.arrayOf(PropTypes.object),
-    onPreview: PropTypes.func
+    onPreview: PropTypes.func,
+    beforeUpload: PropTypes.func,
+    data: PropTypes.PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func
+    ]),
+    onChange: PropTypes.func
 }
 Upload.defaultProps = {
     accept: 'image/*, .xlsx, .pdf, .doc',
