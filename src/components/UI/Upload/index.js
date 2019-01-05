@@ -31,8 +31,8 @@ export default class Upload extends React.Component {
             beforeUpload: this.props.beforeUpload,
             data: this.props.data,
             onChange: (info) => {
-                if (info.file.status === 'done') {
-                    this.props.onSuccess(info);
+                if (info.file.status === 'done'||info.file.status === 'removed') {
+                    this.props.onUploadedChange(info);
                 } else if (info.file.status === 'error') {
                     this.props.onFail(info);
                 }
@@ -65,7 +65,7 @@ Upload.propTypes = {
     multiple: PropTypes.bool,
     showUploadList: PropTypes.bool,
     withCredentials: PropTypes.bool,
-    onSuccess: PropTypes.func,
+    onUploadedChange: PropTypes.func,
     onFail: PropTypes.func,
     listType: PropTypes.string,
     onPreview: PropTypes.func,
@@ -82,6 +82,6 @@ Upload.defaultProps = {
     multiple: false,
     showUploadList: false,
     withCredentials: true,
-    onSuccess: () => {},
+    onUploadedChange: () => {},
     onFail: () => {}
 }

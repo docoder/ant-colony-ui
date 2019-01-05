@@ -27,7 +27,7 @@ export default function Uploads () {
                 uploadTitle='上传附件标题'
                 withCredentials={false}
                 imageCount={4}
-                onSuccess={({ fileList })=>{console.log('Images:>>>', fileList)}}
+                onUploadedChange={({ fileList })=>{console.log('Images:>>>', fileList)}}
                 onRemove={(file) => {console.log('Images:remove>>>', file)}}
                 onFail={(info)=>{console.log('Images:fail>>>', info)}}
             />

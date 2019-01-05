@@ -33,8 +33,8 @@ export default class ImageUpload extends React.Component {
     }
 
     onChange = (info) => {
-        if (info.file.status === 'done') {
-            this.props.onSuccess(info);
+        if (info.file.status === 'done' || info.file.status === 'removed') {
+            this.props.onUploadedChange(info);
         } else if (info.file.status === 'error') {
             this.props.onFail(info);
         }
@@ -83,7 +83,7 @@ ImageUpload.propTypes = {
     imageCount: PropTypes.number,
     url: PropTypes.string.isRequired,
     accept: PropTypes.string,
-    onSuccess: PropTypes.func,
+    onUploadedChange: PropTypes.func,
     onFail: PropTypes.func,
     withCredentials: PropTypes.bool,
     onRemove: PropTypes.func //返回false不移除，支持返回 Promise (resolve(false) 或 reject 时不移除)
@@ -93,6 +93,6 @@ ImageUpload.defaultProps = {
     imageCount: 1,
     accept: 'image/*',
     withCredentials: true,
-    onSuccess: () => {},
+    onUploadedChange: () => {},
     onFail: () => {}
 }
