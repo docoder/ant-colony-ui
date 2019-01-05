@@ -21,7 +21,7 @@ export default function Upload (props) {
         action: props.url,
         multiple: props.multiple,
         showUploadList: props.listType || false,
-        withCredentials: true,
+        withCredentials: props.withCredentials,
         listType: props.listType,
         fileList: props.fileList,
         onPreview: props.onPreview,

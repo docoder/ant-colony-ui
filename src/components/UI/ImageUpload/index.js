@@ -58,6 +58,7 @@ export default class ImageUpload extends React.Component {
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onSuccess={this.onSuccess}
+                    withCredentials={this.props.withCredentials}
                     onFail={this.onFail}
                     onRemove={this.onRemove}
                     beforeUpload={this.props.beforeUpload}
@@ -82,10 +83,12 @@ ImageUpload.propTypes = {
     accept: PropTypes.string,
     onSuccess: PropTypes.func,
     onFail: PropTypes.func,
+    withCredentials: PropTypes.bool,
     onRemove: PropTypes.func //返回false不移除，支持返回 Promise (resolve(false) 或 reject 时不移除)
 }
 ImageUpload.defaultProps = {
     uploadLabel: '点击上传',
     imageCount: 1,
-    accept: 'image/*'
+    accept: 'image/*',
+    withCredentials: true
 }
