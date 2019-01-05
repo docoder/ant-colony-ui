@@ -14,7 +14,7 @@ const SpinContainer = styled.div`
     justify-content: center;
     align-items: center;
     background-color: rgba(255,255,255,0.2);
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
