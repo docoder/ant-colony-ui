@@ -17,7 +17,8 @@ const FORMS = [
         key: 'field1',
         label: '字段1',
         onChange: (e) => {console.log('input onChange>>>', e.target.value)},
-        required: true
+        required: true,
+        placeholder: '这是标题'
     },
     {
         key: 'field2',

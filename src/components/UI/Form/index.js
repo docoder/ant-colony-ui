@@ -115,7 +115,7 @@ class Form extends React.Component {
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
                         allowClear={item.meta.showSearch}
-                        placeholder={`请选择${item.label}`}
+                        placeholder={item.placeholder || `请选择${item.label}`}
                         notFoundContent={refLabel ? `请先选择 ${refLabel}` : '没有内容'}
                         >
                     {
@@ -130,10 +130,10 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                    <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             default:
-                return (<Input onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={`请输入${item.label}`} />);
+                return (<Input onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} />);
         }
     }
 
