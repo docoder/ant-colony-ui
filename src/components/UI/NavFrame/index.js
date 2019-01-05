@@ -5,10 +5,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Layout
+    Layout,
+    LocaleProvider
 } from 'antd';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+
 import SideMenus from './sideMenus';
 import Button from '../Button';
 
@@ -68,6 +71,7 @@ export default class NavFrame extends React.Component {
         const { menus, pageLinks, title, collapsedTitle, logout } = this.props;
         return (
             <Router>
+                <LocaleProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     <FrameHeader>
                         {this.state.collapsed === false ? title : collapsedTitle}
@@ -85,6 +89,7 @@ export default class NavFrame extends React.Component {
                         </Footer>
                     </FrameMain>
                 </Layout>
+                </LocaleProvider>
             </Router>
         );
     }

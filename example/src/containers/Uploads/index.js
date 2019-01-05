@@ -14,20 +14,23 @@ const UploadsBody = styled.div`
 const StyledUpload = styled(Upload)`
     margin-bottom: 10px;
 `;
-const ImageUploadContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
 
 export default function Uploads () {
     return (
         <UploadsBody>
             <StyledUpload url="url" />
             <ImageUpload url="url" />
-            <ImageUploadContainer>
-                <ImageUpload url="url" uploadTitle="已上传" />
-                <ImageUpload url="url" uploadTitle="上传附件标题" imageCount={4} />
-            </ImageUploadContainer>
+            <ImageUpload url="url" uploadTitle="已上传" />
+            <ImageUpload
+                url="url"
+                multiple
+                uploadTitle='上传附件标题'
+                withCredentials={false}
+                imageCount={4}
+                onSuccess={({ fileList })=>{console.log('Images:>>>', fileList)}}
+                onRemove={(file) => {console.log('Images:remove>>>', file)}}
+                onFail={(info)=>{console.log('Images:fail>>>', info)}}
+            />
         </UploadsBody>
     );
 }

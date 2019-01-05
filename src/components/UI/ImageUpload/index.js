@@ -4,8 +4,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Modal } from 'antd';
-import Upload from '../Upload';
+import { Icon, Modal, Upload } from 'antd';
 import styled from 'styled-components';
 
 const UploadTitle = styled.div`
@@ -33,9 +32,13 @@ export default class ImageUpload extends React.Component {
         });
     }
 
-    onSuccess = (info) => {
+    onChange = (info) => {
+        if (info.file.status === 'done') {
+            this.props.onSuccess(info);
+        } else if (info.file.status === 'error') {
+            this.props.onFail(info);
+        }
         this.setState({ fileList: info.fileList })
-        this.props.onSuccess(info)
     }
 
     render() {
@@ -52,20 +55,19 @@ export default class ImageUpload extends React.Component {
                 {uploadTitle && <UploadTitle>{imageCount > 1 ? `${uploadTitle} (${fileList.length}/${imageCount})` : uploadTitle }</UploadTitle>}
                 <Upload
                     accept={this.props.accept}
-                    url={this.props.url}
+                    action={this.props.url}
                     multiple={this.props.multiple}
                     listType="picture-card"
+                    showUploadList
                     fileList={fileList}
                     onPreview={this.handlePreview}
-                    onSuccess={this.onSuccess}
                     withCredentials={this.props.withCredentials}
-                    onFail={this.onFail}
-                    onRemove={this.onRemove}
+                    onRemove={this.props.onRemove}
                     beforeUpload={this.props.beforeUpload}
                     data={this.props.data}
-                    onChange={this.props.onChange}
+                    onChange={this.onChange}
                 >
-                    {fileList.length >= imageCount ? 'none' : uploadButton}
+                    {fileList.length >= imageCount ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img style={{ width: '100%' }} src={previewImage} />
@@ -90,5 +92,7 @@ ImageUpload.defaultProps = {
     uploadLabel: '点击上传',
     imageCount: 1,
     accept: 'image/*',
-    withCredentials: true
+    withCredentials: true,
+    onSuccess: () => {},
+    onFail: () => {}
 }
