@@ -30,6 +30,7 @@ export default class Upload extends React.Component {
             onRemove: this.props.onRemove,
             beforeUpload: this.props.beforeUpload,
             data: this.props.data,
+            defaultFileList: this.props.defaultFileList,
             onChange: (info) => {
                 if (info.file.status === 'done'||info.file.status === 'removed') {
                     this.props.onUploadedChange(info);
@@ -74,7 +75,8 @@ Upload.propTypes = {
     data: PropTypes.PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.func
-    ])
+    ]),
+    defaultFileList: PropTypes.arrayOf(PropTypes.object)
 }
 Upload.defaultProps = {
     accept: 'image/*, .xlsx, .pdf, .doc',
