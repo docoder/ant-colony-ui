@@ -32,18 +32,9 @@ export default class ImageUpload extends React.Component {
         });
     }
 
-    onChange = (info) => {
-        if (info.file.status === 'done' || info.file.status === 'removed') {
-            this.props.onUploadedChange(info);
-        } else if (info.file.status === 'error') {
-            this.props.onFail(info);
-        }
-        this.setState({ fileList: info.fileList })
-    }
-
     render() {
-        const { previewVisible, previewImage, fileList } = this.state;
-        const { imageCount, className, uploadLabel, uploadTitle } = this.props;
+        const { previewVisible, previewImage } = this.state;
+        const { imageCount, className, uploadLabel, uploadTitle, fileList } = this.props;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -52,23 +43,23 @@ export default class ImageUpload extends React.Component {
         );
         return (
             <div className={`clearfix ${className}`}>
-                {uploadTitle && <UploadTitle>{imageCount > 1 ? `${uploadTitle} (${fileList.length}/${imageCount})` : uploadTitle }</UploadTitle>}
+                {uploadTitle && <UploadTitle>{imageCount > 1 ? `${uploadTitle} (${this.props.fileList.length}/${imageCount})` : uploadTitle }</UploadTitle>}
                 <Upload
                     accept={this.props.accept}
                     action={this.props.url}
                     multiple={this.props.multiple}
                     listType="picture-card"
                     showUploadList
-                    fileList={fileList}
+                    fileList={this.props.fileList}
                     onPreview={this.handlePreview}
                     withCredentials={this.props.withCredentials}
                     onRemove={this.props.onRemove}
                     beforeUpload={this.props.beforeUpload}
                     data={this.props.data}
-                    onChange={this.onChange}
+                    onChange={this.props.onChange}
                     defaultFileList={this.props.defaultFileList}
                 >
-                    {fileList.length >= imageCount ? null : uploadButton}
+                    {this.props.fileList.length >= imageCount ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img style={{ width: '100%' }} src={previewImage} />
@@ -84,17 +75,15 @@ ImageUpload.propTypes = {
     imageCount: PropTypes.number,
     url: PropTypes.string.isRequired,
     accept: PropTypes.string,
-    onUploadedChange: PropTypes.func,
-    onFail: PropTypes.func,
     withCredentials: PropTypes.bool,
     onRemove: PropTypes.func,           //返回false不移除，支持返回 Promise (resolve(false) 或 reject 时不移除)
-    defaultFileList: PropTypes.arrayOf(PropTypes.object)
+    defaultFileList: PropTypes.arrayOf(PropTypes.object),
+    fileList: PropTypes.arrayOf(PropTypes.object)
 }
 ImageUpload.defaultProps = {
     uploadLabel: '点击上传',
     imageCount: 1,
     accept: 'image/*',
     withCredentials: true,
-    onUploadedChange: () => {},
-    onFail: () => {}
+    fileList: []
 }
