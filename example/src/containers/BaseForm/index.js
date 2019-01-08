@@ -140,6 +140,10 @@ const StyledForm = styled(Form)`
 `;
 
 export default class BaseForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.formRef = React.createRef();
+    }
     renderAccessoryComponent = () => {
         return (<ImageUpload url="url" />)
     }
@@ -147,9 +151,13 @@ export default class BaseForm extends React.Component {
         return (
             <FormBody>
                 <StyledForm
+                    ref={this.formRef}
                     forms={FORMS}
                     collapse={false}
-                    onSubmit={(values) => { console.log("====>", values)}}
+                    onSubmit={(values, clear) => {
+                        console.log("====>", values, this.formRef, this.formRef.current.clearFields)
+                        clear();
+                    }}
                     actionDirection="center"
                     unCollapseCount={13}
                     rowColCounts={[2,4,2,1,3,4]}

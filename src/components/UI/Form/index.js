@@ -262,24 +262,17 @@ class Form extends React.Component {
         return null;
     }
 
+    clearFields = () => {
+        this.props.form.resetFields()
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const { form, onSubmit } = this.props;
         const formItems = form.getFieldValue('forms');
         form.validateFields((err, values) => {
             if(!err) {
-                formItems.forEach( item => {
-                    if(
-                        item.type !== 'header'
-                        && 
-                        item.type !== 'add'
-                        ) {
-                        form.setFieldsValue({
-                            [item.key]: '',
-                        })
-                    }
-                })
-                onSubmit(values);
+                onSubmit(values, this.clearFields);
             }
         });
     }
