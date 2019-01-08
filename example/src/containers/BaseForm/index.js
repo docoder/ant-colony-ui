@@ -79,7 +79,7 @@ const FORMS = [
     {
         key: 'field7',
         label: '字段7',
-        value: 'AA',
+        value: 'bb',
         type: 'select',
         meta: {
             data: [

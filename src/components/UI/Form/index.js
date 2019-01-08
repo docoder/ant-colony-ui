@@ -210,7 +210,7 @@ class Form extends React.Component {
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     <FormItem label={item.label}>
                         {getFieldDecorator(`${item.key}`, {
-                            initialValue: item.value,
+                            initialValue: item.value ? item.value.toString() : item.value,
                             rules: item.reg ? [
                                 { required: item.required, message: `${item.label}为必填项`},
                                 item.reg
