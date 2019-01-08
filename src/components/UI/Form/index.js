@@ -59,6 +59,7 @@ const StyledRow = styled(Row)`
         display: flex; 
         flex-direction: row;
         align-items: center;
+        padding-right: 60px;
     }
 `;
 const DeleteButton = styled(Icon)`
@@ -145,7 +146,7 @@ class Form extends React.Component {
                 it.appendDeleteButton = true
                 it.rowIndex = rowIndex
             }
-            it.value = null
+            it.value = undefined
             return it;
         })
         formItems.splice(index, 0, ...itemsToAdd)
