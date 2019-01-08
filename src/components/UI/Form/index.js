@@ -145,6 +145,7 @@ class Form extends React.Component {
                 it.appendDeleteButton = true
                 it.rowIndex = rowIndex
             }
+            it.value = null
             return it;
         })
         formItems.splice(index, 0, ...itemsToAdd)
@@ -157,7 +158,6 @@ class Form extends React.Component {
         })
     }
     formRemoveItem = (keys, rowIndex) => {
-        console.log('------->>>>', keys, rowIndex)
         const { form, rowColCounts } = this.props;
         const formItems = form.getFieldValue('forms');
         const filtItems = formItems.filter(f => !~keys.indexOf(f.key))

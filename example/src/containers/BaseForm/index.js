@@ -78,7 +78,8 @@ const FORMS = [
     },
     {
         key: 'field7',
-        label: '字段7'
+        label: '字段7',
+        value: 'field7'
     },
     {
         key: 'field8',
@@ -155,21 +156,19 @@ export default class BaseForm extends React.Component {
             key: 'field7_3',
             label: '字段7',
             canDelete: true,
-            appendDeleteButton: true,
-            rowIndex: 3
+            value: 'field7_3'
         },
         {
             key: 'field8_3',
             label: '字段8',
             canDelete: true,
             appendDeleteButton: true,
-            rowIndex: 3
+            rowIndex: 3,
+            value: 'field8_3'
         }, {
             key: 'field7_4',
             label: '字段7',
             canDelete: true,
-            appendDeleteButton: true,
-            rowIndex: 4
         },
         {
             key: 'field8_4',
