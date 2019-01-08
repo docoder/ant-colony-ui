@@ -34,7 +34,7 @@ export default class ImageUpload extends React.Component {
 
     render() {
         const { previewVisible, previewImage } = this.state;
-        const { imageCount, className, uploadLabel, uploadTitle, fileList } = this.props;
+        const { imageCount, className, uploadLabel, uploadTitle, fileList, uploadButtonForceHide } = this.props;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -59,7 +59,7 @@ export default class ImageUpload extends React.Component {
                     onChange={this.props.onChange}
                     defaultFileList={this.props.defaultFileList}
                 >
-                    {this.props.fileList.length >= imageCount ? null : uploadButton}
+                    {(this.props.fileList.length >= imageCount || uploadButtonForceHide) ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img style={{ width: '100%' }} src={previewImage} />
@@ -78,12 +78,14 @@ ImageUpload.propTypes = {
     withCredentials: PropTypes.bool,
     onRemove: PropTypes.func,           //返回false不移除，支持返回 Promise (resolve(false) 或 reject 时不移除)
     defaultFileList: PropTypes.arrayOf(PropTypes.object),
-    fileList: PropTypes.arrayOf(PropTypes.object)
+    fileList: PropTypes.arrayOf(PropTypes.object),
+    uploadButtonForceHide: PropTypes.bool
 }
 ImageUpload.defaultProps = {
     uploadLabel: '点击上传',
     imageCount: 1,
     accept: 'image/*',
     withCredentials: true,
-    fileList: []
+    fileList: [],
+    uploadButtonForceHide: false
 }
