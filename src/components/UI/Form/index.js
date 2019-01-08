@@ -78,10 +78,6 @@ class Form extends React.Component {
     state = {
         expand: false,
     };
-    constructor(props) {
-        super(props)
-        this.rowColCounts = this.props.rowColCounts;
-    }
     renderOptions = (item) => {
         let data = item.meta ? (item.meta.data || []) : [], items;
         if (typeof data == 'function') {
@@ -138,7 +134,7 @@ class Form extends React.Component {
     }
 
     formAddItem = (index, rowIndex) => {
-        const { form, columnCount } = this.props;
+        const { form, columnCount, rowColCounts } = this.props;
         const formItems = form.getFieldValue('forms');
         const item = formItems[index];
         const filtItems = formItems.filter(f => ~item.addKeys.indexOf(f.key))
@@ -152,27 +148,28 @@ class Form extends React.Component {
             return it;
         })
         formItems.splice(index, 0, ...itemsToAdd)
-        const count = this.rowColCounts[rowIndex-1];
-        const rowCount = Math.floor(item.addKeys.length / this.rowColCounts[rowIndex-1]);
-        this.rowColCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
+        const count = rowColCounts[rowIndex-1];
+        const rowCount = Math.floor(item.addKeys.length / rowColCounts[rowIndex-1]);
+        rowColCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
 
         form.setFieldsValue({
             forms: formItems
         })
     }
     formRemoveItem = (keys, rowIndex) => {
-        const { form } = this.props;
+        console.log('------->>>>', keys, rowIndex)
+        const { form, rowColCounts } = this.props;
         const formItems = form.getFieldValue('forms');
         const filtItems = formItems.filter(f => !~keys.indexOf(f.key))
-        const rowCount = Math.floor(keys.length / this.rowColCounts[rowIndex-1]);
-        this.rowColCounts.splice(rowIndex, rowCount)
+        const rowCount = Math.floor(keys.length / rowColCounts[rowIndex-1]);
+        rowColCounts.splice(rowIndex, rowCount)
         form.setFieldsValue({
             forms: filtItems
         })
     }
 
     getRows = () => {
-        const { form, collapse, unCollapseCount, columnCount, addLabel, allDisabled} = this.props;
+        const { form, collapse, unCollapseCount, columnCount, addLabel, allDisabled, rowColCounts} = this.props;
         const formItems = form.getFieldValue('forms');
         const count = (this.state.expand || !collapse) ? formItems.length : unCollapseCount;
         const { getFieldDecorator } = form;
@@ -225,11 +222,11 @@ class Form extends React.Component {
                     </FormItem>
                 </Col>
             );
-            if(this.rowColCounts[rowIndex]) {
-                rowColMaxCount = this.rowColCounts[rowIndex];
+            if(rowColCounts[rowIndex]) {
+                rowColMaxCount = rowColCounts[rowIndex];
             }
-            if (this.rowColCounts.length > 0 && this.rowColCounts[rowIndex] && this.rowColCounts[rowIndex] === rowColIndex) {
-                rowColMaxCount = this.rowColCounts[rowIndex];
+            if (rowColCounts.length > 0 && rowColCounts[rowIndex] && rowColCounts[rowIndex] === rowColIndex) {
+                rowColMaxCount = rowColCounts[rowIndex];
                 rowColIndex = 0;
             }
 

@@ -148,6 +148,40 @@ export default class BaseForm extends React.Component {
         return (<ImageUpload url="url" />)
     }
     render() {
+        const index = FORMS.findIndex(f => f.key === 'add2')
+        const addKeys = FORMS[index].addKeys
+        let rowColCounts = [2,4,2,1,3,4]
+        let formAdd2Items = [{
+            key: 'field7_3',
+            label: '字段7',
+            canDelete: true,
+            appendDeleteButton: true,
+            rowIndex: 3
+        },
+        {
+            key: 'field8_3',
+            label: '字段8',
+            canDelete: true,
+            appendDeleteButton: true,
+            rowIndex: 3
+        }, {
+            key: 'field7_4',
+            label: '字段7',
+            canDelete: true,
+            appendDeleteButton: true,
+            rowIndex: 4
+        },
+        {
+            key: 'field8_4',
+            label: '字段8',
+            canDelete: true,
+            appendDeleteButton: true,
+            rowIndex: 4
+        }]
+        FORMS.splice(index, 0, ...formAdd2Items)
+        const rowCount = Math.floor(formAdd2Items.length / addKeys.length);
+        rowColCounts.splice(3, 0,  ...(Array(rowCount).fill(addKeys.length)))
+
         return (
             <FormBody>
                 <StyledForm
@@ -160,7 +194,7 @@ export default class BaseForm extends React.Component {
                     }}
                     actionDirection="center"
                     unCollapseCount={13}
-                    rowColCounts={[2,4,2,1,3,4]}
+                    rowColCounts={rowColCounts}
                     labelPostion="top"
                     addLabel="新增"
                     accessoryComponent= {this.renderAccessoryComponent}
