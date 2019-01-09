@@ -37,7 +37,7 @@ const TableBody = styled.div`
 `;
 export default class Table extends React.Component {
     render() {
-        const { columns, dataSource, className, loading, pagination } = this.props;
+        const { columns, dataSource, className, loading, pagination, onChange } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -98,6 +98,7 @@ export default class Table extends React.Component {
                 dataSource={dataSource}
                 columns={talbeColumns}
                 className={className}
+                onChange={onChange}
             />
         );
     }
@@ -110,7 +111,8 @@ Table.propTypes = {
     pagination: PropTypes.PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.bool
-    ])
+    ]),
+    onChange: PropTypes.func
 }
 Table.defaultProps = {
     onCellChange: (row) => {},

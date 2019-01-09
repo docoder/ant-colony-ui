@@ -89,10 +89,26 @@ const StyledTable = styled(Table)`
 `;
 
 export default class BaseTable extends React.Component {
+    state = {
+        pagination: {
+            current: 1,
+            total: DATASOURCE.length,
+            pageSize: 2
+        }
+    }
     render() {
         return (
             <TableBody>
-                <StyledTable columns={TABLE_COLUMNS} dataSource={DATASOURCE} onCellChange={(row) => { console.log('---->', row) }} />
+                <StyledTable
+                    columns={TABLE_COLUMNS}
+                    dataSource={DATASOURCE}
+                    onCellChange={(row) => { console.log('---onCellChange--->', row) }}
+                    pagination={this.state.pagination}
+                    onChange={(pagination, filters, sorter) => {
+                        console.log('---onChange--->', pagination, filters, sorter)
+                        this.setState({pagination})
+                    }}
+                />
             </TableBody>
         );
     }
