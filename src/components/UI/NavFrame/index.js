@@ -45,6 +45,9 @@ const FrameBody = styled(Content)`
     margin: '24px 16px 0';
     overflow: initial;
 `;
+const HeaderActions = styled.span`
+    margin-left: 30px;
+`;
 const LogoutButton = styled(Button)`
     float: right;
     margin-top: 16px;
@@ -68,14 +71,17 @@ export default class NavFrame extends React.Component {
     }
 
     render() {
-        const { menus, pageLinks, title, collapsedTitle, logout } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions } = this.props;
         return (
             <Router>
                 <LocaleProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     <FrameHeader>
                         {this.state.collapsed === false ? title : collapsedTitle}
-                        <LogoutButton type='primary' onClick={logout} title="退出" />
+                        <HeaderActions>
+                            {renderHeaderActions()}
+                            {logout && <LogoutButton type='primary' onClick={logout} title="退出" />}
+                        </HeaderActions>
                     </FrameHeader>
                     <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
                     <FrameMain collapsed={this.state.collapsed ? 'true' : 'false'}>
@@ -99,9 +105,10 @@ NavFrame.propTypes = {
     pageLinks: PropTypes.arrayOf(PropTypes.object).isRequired,
     title: PropTypes.string.isRequired,
     collapsedTitle: PropTypes.string,
-    logout: PropTypes.func
+    logout: PropTypes.func,
+    renderHeaderActions: PropTypes.func,
 }
 NavFrame.defaultProps = {
     collapsedTitle: '',
-    logout: () => {}
+    renderHeaderActions: () => null
 }

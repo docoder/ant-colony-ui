@@ -5,7 +5,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 import styled from 'styled-components';
-import { NavFrame } from 'ant-colony-ui';
+import { NavFrame, Button } from 'ant-colony-ui';
 
 import menus from '../../config/menus';
 import connectRoute from '../../utils/ConnectRoute';
@@ -43,7 +43,14 @@ export default class App extends React.Component {
                     <meta charSet="utf-8" />
                     <title>Ant Colony UI</title>
                 </Helmet>
-                <NavFrame title='Ant Colony UI' collapsedTitle='ACUI' menus={menus} pageLinks={pageLinks} />
+                <NavFrame
+                    title='Ant Colony UI'
+                    collapsedTitle='ACUI'
+                    menus={menus}
+                    pageLinks={pageLinks}
+                    logout={() => {}}
+                    renderHeaderActions={() => (<Button type="primary" title="Action" />)}
+                />
             </AppBody>
         );
     }
