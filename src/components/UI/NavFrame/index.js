@@ -34,11 +34,12 @@ const FrameHeader = styled(Header)`
     color: white;
     font-size: 20px;
     font-weight: 900;
+    z-index: 200;
 `;
 
 const FrameMain = styled(Layout)`
-    padding-top: 60px;
-    margin-left: ${props => props.collapsed === 'true' ? '80px' : '200px' };
+    padding-top: ${props => props.headerhide === 'true' ? '0px' : '60px' };
+    margin-left: ${props => props.sidehide === 'true' ? '0px' : (props.collapsed === 'true' ? '80px' : '200px') };
 `;
 
 const FrameBody = styled(Content)`
@@ -71,20 +72,28 @@ export default class NavFrame extends React.Component {
     }
 
     render() {
-        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide } = this.props;
         return (
             <Router>
                 <LocaleProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
-                    <FrameHeader>
-                        {this.state.collapsed === false ? title : collapsedTitle}
-                        <HeaderActions>
-                            {renderHeaderActions()}
-                            {logout && <LogoutButton type='primary' onClick={logout} title="退出" />}
-                        </HeaderActions>
-                    </FrameHeader>
-                    <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
-                    <FrameMain collapsed={this.state.collapsed ? 'true' : 'false'}>
+                    {
+                        !headerHide && <FrameHeader>
+                            {this.state.collapsed === false ? title : collapsedTitle}
+                            <HeaderActions>
+                                {renderHeaderActions()}
+                                {logout && <LogoutButton type='primary' onClick={logout} title="退出" />}
+                            </HeaderActions>
+                        </FrameHeader>
+                    }
+                    {
+                        !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
+                    }
+                    <FrameMain 
+                        collapsed={this.state.collapsed ? 'true' : 'false'}
+                        sidehide={sideMenusHide ? 'true' : 'false'}
+                        headerhide={headerHide ? 'true' : 'false'}
+                    >
                         <FrameBody >
                             <Switch>
                             {this.renderRoutes(pageLinks)}
@@ -107,8 +116,12 @@ NavFrame.propTypes = {
     collapsedTitle: PropTypes.string,
     logout: PropTypes.func,
     renderHeaderActions: PropTypes.func,
+    headerHide: PropTypes.bool,
+    sideMenusHide: PropTypes.bool
 }
 NavFrame.defaultProps = {
     collapsedTitle: '',
-    renderHeaderActions: () => null
+    headerHide: false,
+    sideMenusHide: false,
+    renderHeaderActions: () => null,
 }

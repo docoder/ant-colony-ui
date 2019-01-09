@@ -23,6 +23,7 @@ const FrameSider = styled(Sider)`
         height: 100vh;
         left: 0;
     }
+    z-index: 100;
 `;
 
 const FrameLink = styled(Link)`
