@@ -41,7 +41,7 @@ class SideMenu extends Component {
         return (
             <Menu.Item key={item.index ? '/' : `/${item.key}`}>
                 <Icon type="right-circle" />
-                <span><FrameLink to={ item.index ? '/' : `/${item.key}` }>{item.label}</FrameLink></span>
+                <span>{item.label}</span>
             </Menu.Item>
         )
     }
@@ -66,6 +66,9 @@ class SideMenu extends Component {
             }
         })
     }
+    selectMenu = ({ item, key, keyPath }) => {
+        this.props.history.push(key)
+    }
 
     render() {
         const { menus, location, collapsed, onCollapse } = this.props;
@@ -84,6 +87,7 @@ class SideMenu extends Component {
                     ]}
                     mode="inline"
                     selectedKeys={[selectedKey]}
+                    onClick={this.selectMenu}
                 >
                     {
                         this.renderMenus(menus)
