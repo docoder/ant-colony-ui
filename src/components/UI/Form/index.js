@@ -62,6 +62,12 @@ const StyledRow = styled(Row)`
         padding-right: 60px;
     }
 `;
+const StyledInput = styled(Input)`
+    &.ant-input-affix-wrapper .ant-input-suffix {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.25);
+    }
+`;
 const DeleteButton = styled(Icon)`
     cursor: pointer;
     position: relative;
@@ -131,7 +137,7 @@ class Form extends React.Component {
                 );
             default:
                 return (
-                    <Input 
+                    <StyledInput 
                         allowClear={true}
                         onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false} 
