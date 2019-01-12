@@ -96,7 +96,8 @@ export default class BaseTable extends React.Component {
         pagination: {
             current: 1,
             total: DATASOURCE.length,
-            pageSize: 2
+            pageSize: 2,
+            position: 'both'
         }
     }
     render() {
@@ -111,7 +112,7 @@ export default class BaseTable extends React.Component {
                         console.log('---onChange--->', pagination, filters, sorter)
                         this.setState({pagination})
                     }}
-                    scrollWith={1000}
+                    scrollWidth={1000}
                 />
             </TableBody>
         );
