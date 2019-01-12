@@ -138,7 +138,7 @@ class Form extends React.Component {
             default:
                 return (
                     <StyledInput
-                        allowClear={true}
+                        allowClear={false}
                         onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false} 
                         placeholder={item.placeholder || `请输入${item.label}`} 
