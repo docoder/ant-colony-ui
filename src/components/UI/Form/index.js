@@ -130,7 +130,14 @@ class Form extends React.Component {
                     <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             default:
-                return (<Input onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} />);
+                return (
+                    <Input 
+                        allowClear={true}
+                        onChange={item.onChange}
+                        disabled={item.disabled || allDisabled || false} 
+                        placeholder={item.placeholder || `请输入${item.label}`} 
+                    />
+                );
         }
     }
 

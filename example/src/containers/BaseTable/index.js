@@ -38,8 +38,9 @@ const TABLE_COLUMNS = [
     {
         title: 'name',
         dataIndex: 'name',
-        width: '30%',
-        editable: true
+        editable: true,
+        fixed: 'left',
+        width: 200
     }, {
         title: 'age',
         dataIndex: 'age',
@@ -76,7 +77,9 @@ const TABLE_COLUMNS = [
                     return true
                 }
             }
-        ]
+        ],
+        fixed: 'right',
+        width: 200
     }
 ];
 const TableBody = styled.div`
@@ -108,6 +111,7 @@ export default class BaseTable extends React.Component {
                         console.log('---onChange--->', pagination, filters, sorter)
                         this.setState({pagination})
                     }}
+                    scrollWith={1000}
                 />
             </TableBody>
         );
