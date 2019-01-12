@@ -137,7 +137,7 @@ class Form extends React.Component {
                 );
             default:
                 return (
-                    <StyledInput 
+                    <StyledInput
                         allowClear={true}
                         onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false} 
