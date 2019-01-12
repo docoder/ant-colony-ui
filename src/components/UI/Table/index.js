@@ -37,7 +37,7 @@ const TableBody = styled.div`
 `;
 export default class Table extends React.Component {
     render() {
-        const { columns, dataSource, className, loading, pagination, onChange } = this.props;
+        const { columns, dataSource, className, loading, pagination, onChange, scrollWith } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -55,6 +55,7 @@ export default class Table extends React.Component {
                     editable: col.editable,
                     dataIndex: col.dataIndex,
                     title: col.title,
+                    fixed: col.fixed,
                     handleSave: this.props.onCellChange,
                 });
             }
@@ -99,6 +100,7 @@ export default class Table extends React.Component {
                 columns={talbeColumns}
                 className={className}
                 onChange={onChange}
+                scroll={scrollWith ? {x: scrollWith} : undefined}
             />
         );
     }
@@ -112,7 +114,8 @@ Table.propTypes = {
         PropTypes.object,
         PropTypes.bool
     ]),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    scrollWith: PropTypes.number
 }
 Table.defaultProps = {
     onCellChange: (row) => {},
