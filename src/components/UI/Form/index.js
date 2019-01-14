@@ -105,7 +105,7 @@ class Form extends React.Component {
         let refLabel = null;
         item.meta = item.meta || {};
         if (item.meta.ref) {
-             const formItems = this.props.form.getFieldValue('forms');
+            const formItems = this.props.form.getFieldValue('forms');
             const refItem = formItems.find(i => i.key === item.meta.ref);
             refLabel = refItem.label;
         }
@@ -113,7 +113,16 @@ class Form extends React.Component {
             case 'select':
                 return (
                     <Select
-                        onChange={item.onChange}
+                        onChange={item.onChange ? (value) => {
+                            const formItems = this.props.form.getFieldValue('forms');
+                            const byRefItems = formItems.filter(i => i.meta && i.meta.ref && i.meta.ref === item.key);
+                            byRefItems.forEach(b => {
+                                this.props.form.setFieldsValue({
+                                    [b.key]: undefined
+                                })
+                            })
+                            item.onChange(value)
+                        } : null}
                         disabled={item.disabled || allDisabled || false}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
