@@ -105,7 +105,8 @@ export default class BaseForm extends React.Component {
             },
             {
                 key: 'field8',
-                label: '字段8'
+                label: '字段8',
+                reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
             },
             {
                 key: 'add2',
@@ -168,6 +169,7 @@ export default class BaseForm extends React.Component {
             canDelete: true,
             appendDeleteButton: true,
             rowIndex: rowIndex,
+            reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
         }, {
             key: `field7_${rowIndex+1}`,
             label: '字段7',
@@ -179,7 +181,8 @@ export default class BaseForm extends React.Component {
             canDelete: true,
             appendDeleteButton: true,
             rowIndex: rowIndex+1,
-            value: `field8_${rowIndex+1}`
+            value: `${rowIndex+1}`,
+            reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
         }]
         this.forms.splice(index, 0, ...formAdd2Items)
         const lastRowColCount = this.rowColCounts[rowIndex-1];

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import deepcopy from 'deepcopy';
 
 import {
   Form as AntForm, Row, Col, Input, Icon, Select
@@ -161,7 +162,7 @@ class Form extends React.Component {
         const formItems = form.getFieldValue('forms');
         const item = formItems[index];
         const filtItems = formItems.filter(f => ~item.addKeys.indexOf(f.key))
-        const itemsToAdd = JSON.parse(JSON.stringify(filtItems)).map((it, i)=> {
+        const itemsToAdd = deepcopy(filtItems).map((it, i)=> {
             it.key = `${it.key}_${rowIndex}`
             it.canDelete = true
             if(i=== filtItems.length - 1) {
@@ -175,7 +176,6 @@ class Form extends React.Component {
         const count = rowColCounts[rowIndex-1];
         const rowCount = Math.floor(item.addKeys.length / rowColCounts[rowIndex-1]);
         rowColCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
-
         form.setFieldsValue({
             forms: formItems
         })
