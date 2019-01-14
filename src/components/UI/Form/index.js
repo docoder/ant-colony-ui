@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import deepcopy from 'deepcopy';
 
 import {
   Form as AntForm, Row, Col, Input, Icon, Select
 } from 'antd';
 import Button from '../Button';
+import _ from 'lodash';
 
 const { TextArea } = Input;
 const FormItem = AntForm.Item;
@@ -151,7 +151,7 @@ class Form extends React.Component {
                         allowClear={false}
                         onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false} 
-                        placeholder={item.placeholder || `请输入${item.label}`} 
+                        placeholder={item.placeholder || `请输d入${item.label}`} 
                     />
                 );
         }
@@ -162,7 +162,7 @@ class Form extends React.Component {
         const formItems = form.getFieldValue('forms');
         const item = formItems[index];
         const filtItems = formItems.filter(f => ~item.addKeys.indexOf(f.key))
-        const itemsToAdd = deepcopy(filtItems).map((it, i)=> {
+        const itemsToAdd = _.cloneDeep(filtItems).map((it, i)=> {
             it.key = `${it.key}_${rowIndex}`
             it.canDelete = true
             if(i=== filtItems.length - 1) {
