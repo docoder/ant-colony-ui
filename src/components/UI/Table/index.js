@@ -86,7 +86,7 @@ const TableBody = styled.div`
 `;
 export default class Table extends React.Component {
     componentDidMount() {
-        if(this.props.floatingScroll && this.props.floatingScrollDomQuery) {
+        if(this.props.floatingScrollDomQuery) {
             floatingScroll(document.querySelectorAll(this.props.floatingScrollDomQuery))
         }
     }

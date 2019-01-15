@@ -139,7 +139,6 @@ export default class BaseTable extends React.Component {
                         this.setState({pagination})
                     }}
                     scrollWidth={1000}
-                    floatingScroll
                     floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
                 />
             </TableBody>
