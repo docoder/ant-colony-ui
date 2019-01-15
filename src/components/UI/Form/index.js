@@ -151,7 +151,7 @@ class Form extends React.Component {
                         allowClear={false}
                         onChange={item.onChange}
                         disabled={item.disabled || allDisabled || false} 
-                        placeholder={item.placeholder || `请输d入${item.label}`} 
+                        placeholder={item.placeholder || `请输入${item.label}`} 
                     />
                 );
         }

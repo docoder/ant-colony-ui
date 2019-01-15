@@ -26,6 +26,9 @@ export default class ImageUpload extends React.Component {
     handleCancel = () => this.setState({ previewVisible: false })
 
     handlePreview = (file) => {
+        if(this.props.beforePreview && !this.props.beforePreview(file)){
+            return;
+        }
         this.setState({
             previewImage: file.url || file.thumbUrl,
             previewVisible: true,
@@ -79,7 +82,9 @@ ImageUpload.propTypes = {
     onRemove: PropTypes.func,           //返回false不移除，支持返回 Promise (resolve(false) 或 reject 时不移除)
     defaultFileList: PropTypes.arrayOf(PropTypes.object),
     fileList: PropTypes.arrayOf(PropTypes.object),
-    uploadButtonForceHide: PropTypes.bool
+    uploadButtonForceHide: PropTypes.bool,
+    beforeUpload: PropTypes.func,
+    beforePreview: PropTypes.func
 }
 ImageUpload.defaultProps = {
     uploadLabel: '点击上传',

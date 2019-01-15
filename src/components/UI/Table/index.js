@@ -9,9 +9,9 @@ import {
     Popconfirm
 } from 'antd';
 import styled from 'styled-components';
-import { EditableFormRow, EditableCell } from './editableComponents'
+import { EditableFormRow, EditableCell } from './editableComponents';
 import Button from '../Button';
-
+import floatingScroll from './floatingScroll';
 const ActionButton = styled(Button)`
     margin-right: 10px;
     margin-bottom: 5px;
@@ -31,11 +31,65 @@ const StyledTable = styled(AntTable)`
       border-radius: 4px;
       padding: 4px 11px;
     }
+    .fl-scrolls {
+        bottom: 0;
+        height: 35px;
+        overflow: auto;
+        position: fixed;
+    }
+    .fl-scrolls,
+    .fl-scrolls div {
+        font-size: 1px;
+        line-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .fl-scrolls div {
+        height: 1px;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .fl-scrolls div:before {
+        content: '\A0';
+    }
+
+    .fl-scrolls-hidden {
+        bottom: 9999px;
+    }
+
+    .fl-scrolls-viewport {
+        position: relative;
+    }
+
+    .fl-scrolls-body {
+        overflow: auto;
+    }
+
+    .fl-scrolls-viewport .fl-scrolls {
+        left: 0;
+        position: absolute;
+    }
+
+    .fl-scrolls-hoverable .fl-scrolls {
+        opacity: 1;
+        transition: opacity 0.5s ease 0.3s;
+    }
+
+    .fl-scrolls-hoverable:hover .fl-scrolls {
+        opacity: 1;
+    }
 `;
 const TableBody = styled.div`
     display: inline-block;
 `;
 export default class Table extends React.Component {
+    componentDidMount() {
+        if(this.props.floatingScroll && this.props.floatingScrollDomQuery) {
+            floatingScroll(document.querySelectorAll(this.props.floatingScrollDomQuery))
+        }
+    }
     render() {
         const { columns, dataSource, className, loading, pagination, onChange, scrollWidth } = this.props;
         const components = {
@@ -116,9 +170,12 @@ Table.propTypes = {
         PropTypes.bool
     ]),
     onChange: PropTypes.func,
-    scrollWidth: PropTypes.number
+    scrollWidth: PropTypes.number,
+    floatingScroll: PropTypes.bool,
+    floatingScrollDomQuery: PropTypes.string
 }
 Table.defaultProps = {
     onCellChange: (row) => {},
-    loading: false
+    loading: false,
+    floatingScroll: false
 }

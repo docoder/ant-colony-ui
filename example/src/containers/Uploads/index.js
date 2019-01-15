@@ -17,7 +17,12 @@ const StyledUpload = styled(Upload)`
 
 export default class Uploads extends React.Component {
     state = {
-        fileList: []
+        fileList: [{
+            uid: '-1',
+            name: 'xxx.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        }]
     }
     render() {
         return (
@@ -41,6 +46,9 @@ export default class Uploads extends React.Component {
                         this.setState({ fileList: info.fileList })
                     }}
                     onRemove={(file) => {console.log('Images:remove>>>', file)}}
+                    beforePreview={(file) => {
+                        return true
+                    }}
                 />
             </UploadsBody>
         );

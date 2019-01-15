@@ -32,6 +32,32 @@ const DATASOURCE = [
         name: 'Edward King 1',
         age: '32',
         address: 'London, Park Lane no. 1',
+    },
+    {
+        key: '5',
+        name: 'Edward King 0',
+        age: '32',
+        address: 'London, Park Lane no. 0',
+    }, {
+        key: '6',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }, {
+        key: '7',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }, {
+        key: '8',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }, {
+        key: '9',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
     }
 ];
 const TABLE_COLUMNS = [
@@ -96,7 +122,7 @@ export default class BaseTable extends React.Component {
         pagination: {
             current: 1,
             total: DATASOURCE.length,
-            pageSize: 2,
+            pageSize: 6,
             position: 'both'
         }
     }
@@ -113,6 +139,8 @@ export default class BaseTable extends React.Component {
                         this.setState({pagination})
                     }}
                     scrollWidth={1000}
+                    floatingScroll
+                    floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
                 />
             </TableBody>
         );
