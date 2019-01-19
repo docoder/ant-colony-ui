@@ -220,7 +220,7 @@ class Form extends React.Component {
                     rows.push(
                         <Row key={item.key} gutter={24}>
                             <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
-                                <Icon type="plus" /> {addLabel}
+                                <Icon type="plus" /> {item.addLabel || addLabel}
                             </AddButton>
                         </Row>
                     )

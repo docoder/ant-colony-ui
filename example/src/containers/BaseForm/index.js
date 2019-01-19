@@ -111,6 +111,7 @@ export default class BaseForm extends React.Component {
             {
                 key: 'add2',
                 type: 'add',
+                addLabel: '新增字段',
                 addKeys: ['field7', 'field8']
             },
             {
@@ -206,7 +207,6 @@ export default class BaseForm extends React.Component {
                     unCollapseCount={13}
                     rowColCounts={this.rowColCounts}
                     labelPostion="top"
-                    addLabel="新增"
                     accessoryComponent= {this.renderAccessoryComponent}
                     allDisabled={false}
                 />
