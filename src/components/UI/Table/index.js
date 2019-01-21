@@ -111,7 +111,7 @@ export default class Table extends React.Component {
                     title: col.title,
                     fixed: col.fixed,
                     width: col.width,
-                    handleSave: this.props.onCellChange,
+                    handleSave: this.props.onCellSave,
                 });
             }
             if (col.actions && col.actions.length > 0) {
@@ -164,7 +164,7 @@ export default class Table extends React.Component {
 Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onCellChange: PropTypes.func,
+    onCellSave: PropTypes.func,
     loading: PropTypes.bool,
     pagination: PropTypes.PropTypes.oneOfType([
         PropTypes.object,
@@ -177,7 +177,7 @@ Table.propTypes = {
     rowSelection: PropTypes.object
 }
 Table.defaultProps = {
-    onCellChange: (row) => {},
+    onCellSave: (row) => {},
     loading: false,
     floatingScroll: false
 }
