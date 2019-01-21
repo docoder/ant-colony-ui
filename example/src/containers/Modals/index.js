@@ -25,6 +25,7 @@ export default function Modals () {
                     title="Modal"
                     onOk={() => {setVisible(false)}}
                     onCancel={() => {setVisible(false)}}
+                    width={1000}
                 >
                     This is a Modal !
                 </Modal>

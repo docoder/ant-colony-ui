@@ -91,7 +91,7 @@ export default class Table extends React.Component {
         }
     }
     render() {
-        const { columns, dataSource, className, loading, pagination, onChange, scrollWidth } = this.props;
+        const { columns, dataSource, className, loading, pagination, onChange, scrollWidth, rowSelection } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -148,6 +148,7 @@ export default class Table extends React.Component {
             <StyledTable
                 loading={loading}
                 pagination={pagination}
+                rowSelection={rowSelection}
                 components={components}
                 rowClassName={() => 'editable-row'}
                 bordered
@@ -172,7 +173,8 @@ Table.propTypes = {
     onChange: PropTypes.func,
     scrollWidth: PropTypes.number,
     floatingScroll: PropTypes.bool,
-    floatingScrollDomQuery: PropTypes.string
+    floatingScrollDomQuery: PropTypes.string,
+    rowSelection: PropTypes.object
 }
 Table.defaultProps = {
     onCellChange: (row) => {},

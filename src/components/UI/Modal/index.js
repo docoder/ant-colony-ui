@@ -14,6 +14,7 @@ export default function Modal(props) {
             onOk={props.onOk}
             onCancel={props.onCancel}
             footer={props.footer}
+            width={props.width}
         >
             {props.children}
         </AntModal>
@@ -24,6 +25,10 @@ Modal.propTypes = {
     title: PropTypes.string,
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
+    width: PropTypes.PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     footer: PropTypes.PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
