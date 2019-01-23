@@ -30,6 +30,7 @@ const StyledTable = styled(AntTable)`
       border: 1px solid #d9d9d9;
       border-radius: 4px;
       padding: 4px 11px;
+      min-height: 32px;
     }
     .fl-scrolls {
         bottom: 0;

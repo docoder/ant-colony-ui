@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const DATASOURCE = [
     {
         key: '0',
-        name: 'Edward King 0',
+        name: '',
         age: '32',
         address: 'London, Park Lane no. 0',
     }, {
