@@ -111,6 +111,8 @@ export default class Table extends React.Component {
                     title: col.title,
                     fixed: col.fixed,
                     width: col.width,
+                    reg: col.reg,
+                    required: col.required,
                     handleSave: this.props.onCellSave,
                 });
             }

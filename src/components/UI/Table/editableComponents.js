@@ -67,6 +67,8 @@ export class EditableCell extends React.Component {
     render() {
         const { editing } = this.state;
         const {
+            reg,
+            required,
             editable,
             dataIndex,
             title,
@@ -85,11 +87,13 @@ export class EditableCell extends React.Component {
                             editing ? (
                                 <FormItem style={{ margin: 0 }}>
                                     {form.getFieldDecorator(dataIndex, {
-                                        rules: [{
-                                            required: true,
-                                            message: `${title} is required.`,
-                                        }],
                                         initialValue: record[dataIndex],
+                                        rules: reg ? [
+                                            { required: required, message: `${title}为必填项`},
+                                            reg
+                                        ] : [
+                                            { required: required, message: `${title}为必填项`}
+                                        ]
                                     })(
                                         <Input
                                             ref={node => (this.input = node)}

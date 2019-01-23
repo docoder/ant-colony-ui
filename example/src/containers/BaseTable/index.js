@@ -66,10 +66,13 @@ const TABLE_COLUMNS = [
         dataIndex: 'name',
         editable: true,
         fixed: 'left',
-        width: 200
+        width: 200,
     }, {
         title: 'age',
         dataIndex: 'age',
+        editable: true,
+        required: true,
+        reg: { pattern: /^[1-9]\d*$/, message: '请输入正整数'}
     }, {
         title: 'address',
         dataIndex: 'address',
