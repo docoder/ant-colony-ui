@@ -21,7 +21,7 @@ const SpinContainer = styled.div`
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 2000;
 `;
 const SpinBox = styled.div`
     padding: 30px 30px;
