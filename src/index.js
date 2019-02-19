@@ -11,6 +11,9 @@ import Table from './components/UI/Table';
 import Upload from './components/UI/Upload';
 import ImageUpload from './components/UI/ImageUpload';
 import Modal from './components/UI/Modal';
+import Collapse from './components/UI/Collapse';
+import Input from './components/UI/Input';
+import Toggle from './components/UI/Toggle';
 export {
     Alert,
     Button,
@@ -20,5 +23,8 @@ export {
     Table,
     Upload,
     ImageUpload,
-    Modal
+    Modal,
+    Collapse,
+    Input,
+    Toggle
 }

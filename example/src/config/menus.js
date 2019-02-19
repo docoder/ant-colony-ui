@@ -39,6 +39,14 @@ const menus = [
         ]
     },
     {
+        label: '折叠面板(Collapse)',
+        key: 'Collapses'
+    },
+    {
+        label: '切换(Toggle)',
+        key: 'Toggles'
+    },
+    {
         label: '上传(Upload)',
         key: 'Uploads'
     },

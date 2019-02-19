@@ -49,6 +49,18 @@ export default class BaseForm extends React.Component {
                 }
             },
             {
+                key: 'info1',
+                type: 'info',
+                label: '信息1',
+                value: '信息1的值'
+            },
+            {
+                key: 'info2',
+                type: 'info',
+                label: '信息2',
+                value: '信息2的值'
+            },
+            {
                 key: 'field3',
                 label: '字段3',
                 required: true,
@@ -152,9 +164,20 @@ export default class BaseForm extends React.Component {
                 key: 'field16',
                 label: '字段16',
                 disabled: true
+            },
+            {
+                key: 'field17',
+                label: '字段17',
+                type: 'date'
+            },
+            {
+                key: 'field18',
+                label: '字段18',
+                type: 'date',
+                showTime: true
             }
         ];
-        this.rowColCounts = [2,4,2,1,3,4]
+        this.rowColCounts = [2,2,4,2,1,3,4]
         const index = this.forms.findIndex(f => f.key === 'add2')
         let rowIndex = 3;
         // const addKeys = this.forms[index].addKeys
@@ -194,13 +217,13 @@ export default class BaseForm extends React.Component {
         return (<ImageUpload url="url" />)
     }
     render() {
-
         return (
             <FormBody>
                 <StyledForm
                     forms={this.forms}
                     collapse={false}
                     onSubmit={(values, clear) => {
+                        console.log('==form====>', values)
                         clear();
                     }}
                     actionDirection="center"

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
-  Form as AntForm, Row, Col, Input, Icon, Select
+  Form as AntForm, Row, Col, Input, Icon, Select, DatePicker
 } from 'antd';
 import Button from '../Button';
 import _ from 'lodash';
@@ -81,6 +81,22 @@ const DeleteButton = styled(Icon)`
         color: #777;
     }
 `;
+const InfoLabel = styled.span`
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: default;
+    text-align: right;
+    line-height: 39.9999px;
+    white-space: nowrap;
+`;
+const InfoValue = styled.span`
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    cursor: default;
+    text-align: right;
+    line-height: 39.9999px;
+    white-space: nowrap;
+`;
 
 class Form extends React.Component {
     state = {
@@ -144,6 +160,13 @@ class Form extends React.Component {
                 }
                 return (
                     <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                );
+            case 'date':
+                return (
+                    <DatePicker
+                        showTime={item.showTime}
+                        format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
+                    />
                 );
             default:
                 return (
@@ -230,19 +253,12 @@ class Form extends React.Component {
             rowColIndex += 1;
             children.push(
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
-                    <FormItem label={item.label}>
-                        {getFieldDecorator(`${item.key}`, {
-                            initialValue: (item.value || item.value === 0) ? item.value.toString() : item.value,
-                            rules: item.reg ? [
-                                { required: item.required, message: `${item.label}为必填项`},
-                                item.reg
-                            ] : [
-                                { required: item.required, message: `${item.label}为必填项`}
-                            ],
-                        })(
-                            this.getInput(item)
-                        )}  
-                    </FormItem>
+                    {
+                        item.type === 'info' ? <span><InfoLabel>{item.label}</InfoLabel>: <InfoValue>{item.value}</InfoValue></span>
+                        : (
+                            this.getFormItem(item)
+                        )
+                    }
                 </Col>
             );
             if(rowColCounts[rowIndex]) {
@@ -275,9 +291,26 @@ class Form extends React.Component {
         }
         return rows;
     }
+    getFormItem = (item) => {
+        return (
+            <FormItem label={item.label}>
+                {getFieldDecorator(`${item.key}`, {
+                    initialValue: (item.value || item.value === 0) ? item.value.toString() : item.value,
+                    rules: item.reg ? [
+                        { required: item.required, message: `${item.label}为必填项`},
+                        item.reg
+                    ] : [
+                        { required: item.required, message: `${item.label}为必填项`}
+                    ],
+                })(
+                    this.getInput(item)
+                )}  
+            </FormItem>
+        )
+    }
     renderAccessoryView = () => {
         if(this.props.accessoryComponent) {
-            return (<Row>{this.props.accessoryComponent()}</Row>)
+            return (<Row>{this.props.accessoryComponent(this.getFormItem)}</Row>)
         }
         return null;
     }
