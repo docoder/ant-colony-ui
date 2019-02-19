@@ -97,6 +97,13 @@ const InfoValue = styled.span`
     line-height: 39.9999px;
     white-space: nowrap;
 `;
+const InfoContainer = styled.span`
+    padding-left: 2px;
+    padding-right: 2px;
+`;
+const Spacer = styled.div`
+    height: 2px;
+`;
 
 class Form extends React.Component {
     state = {
@@ -254,7 +261,7 @@ class Form extends React.Component {
             children.push(
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     {
-                        item.type === 'info' ? <span><InfoLabel>{item.label}</InfoLabel>: <InfoValue>{item.value}</InfoValue></span>
+                        item.type === 'info' ? <InfoContainer><InfoLabel>{item.label}</InfoLabel>: <InfoValue>{item.value}</InfoValue><Spacer/></InfoContainer>
                         : (
                             this.getFormItem(item)
                         )
