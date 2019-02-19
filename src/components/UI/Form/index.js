@@ -292,6 +292,7 @@ class Form extends React.Component {
         return rows;
     }
     getFormItem = (item) => {
+        const { getFieldDecorator } = this.props.form;
         return (
             <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {

@@ -15,6 +15,9 @@ const FormBody = styled.div`
 const StyledForm = styled(Form)`
     margin-top: 20px;
 `;
+const AccessoryInputContainer = styled.div`
+    width: 200px;
+`;
 
 export default class BaseForm extends React.Component {
     constructor(props) {
@@ -213,8 +216,21 @@ export default class BaseForm extends React.Component {
         const rowCount = Math.floor(formAdd2Items.length / lastRowColCount);
         this.rowColCounts.splice(rowIndex, 0,  ...(Array(rowCount).fill(lastRowColCount)))
     }
-    renderAccessoryComponent = () => {
-        return (<ImageUpload url="url" />)
+    renderAccessoryComponent = (getFormItem) => {
+        return (
+            <div>
+                <ImageUpload url="url" />
+                <AccessoryInputContainer>
+                    {
+                        getFormItem({
+                            key: 'field99',
+                            label: '字段99',
+                            reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
+                        })
+                    }
+                </AccessoryInputContainer>
+            </div>
+        )
     }
     render() {
         return (
