@@ -13,7 +13,7 @@ function Collapse(props) {
             defaultActiveKey={props.defaultActiveKey}
             onChange={props.onChange}
             accordion={props.accordion}
-
+            expandIcon={({ isActive }) => isActive ? <Icon type="minus-square" /> : <Icon type="plus-square" />}
         />
     );
 }
