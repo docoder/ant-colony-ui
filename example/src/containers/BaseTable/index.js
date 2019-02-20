@@ -135,7 +135,7 @@ export default class BaseTable extends React.Component {
                 <StyledTable
                     columns={TABLE_COLUMNS}
                     dataSource={DATASOURCE}
-                    onCellChange={(row) => { console.log('---onCellChange--->', row) }}
+                    onCellSave={(row) => { console.log('---onCellChange--->', row) }}
                     pagination={this.state.pagination}
                     onChange={(pagination, filters, sorter) => {
                         console.log('---onChange--->', pagination, filters, sorter)
