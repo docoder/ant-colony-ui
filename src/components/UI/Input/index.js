@@ -34,6 +34,7 @@ export default class Input extends React.Component {
                 <AntInput
                     ref={node => (this.input = node)}
                     onPressEnter={this.inputDone}
+                    defaultValue={this.props.defaultValue}
                 />
             </InputBody>
         );
@@ -42,7 +43,8 @@ export default class Input extends React.Component {
 Input.propTypes = {
     withInputDoneListen: PropTypes.bool,
     done: PropTypes.func,
-    didMount: PropTypes.func
+    didMount: PropTypes.func,
+    defaultValue: PropTypes.string
 }
 Input.defaultProps = {
     done: () =>{},

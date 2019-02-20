@@ -43,7 +43,8 @@ export default function Collapses () {
                                 withInputDoneListen
                                 done={(target) => {
                                     console.log('====Collapses input 1 done====>', input.value, target.input.value)
-                                }} 
+                                }}
+                                defaultValue="123"
                             />
                         </span>
                     } key="1">
