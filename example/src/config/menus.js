@@ -43,6 +43,10 @@ const menus = [
         key: 'Collapses'
     },
     {
+        label: '面板(Panel)',
+        key: 'Panels'
+    },
+    {
         label: '切换(Toggle)',
         key: 'Toggles'
     },
