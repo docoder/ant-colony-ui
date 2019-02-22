@@ -16,7 +16,13 @@ const CardContainer = styled.div`
 
 function Panel(props) {
     let padding = true
-    if (props.children[0].props && ~props.children[0].type && ~props.children[0].type.displayName && ~props.children[0].type.displayName.indexOf('Grid')) {
+    if (props.children 
+        && props.children.length > 0 
+        && props.children[0] 
+        && props.children[0].props 
+        && ~props.children[0].type 
+        && ~props.children[0].type.displayName 
+        && ~props.children[0].type.displayName.indexOf('Grid')) {
         padding = false
     }
     return (

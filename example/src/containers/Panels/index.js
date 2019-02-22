@@ -27,6 +27,10 @@ const StyledGridPanel = styled(Panel)`
 const GridTitle = styled.span`
     color: #999;
 `;
+const GridExtraValue = styled.span`
+    font-size: 16px;
+    font-weight: 500;
+`;
 
 export default class Panels extends React.Component {
     render() {
@@ -45,14 +49,24 @@ export default class Panels extends React.Component {
                         面板2内层面板3内容
                     </StyledInnerPanel>
                 </StyledPanel>
-                <StyledGridPanel title="面板3">
-                    <Panel.Grid width="50%"><GridTitle>标题1</GridTitle>: 内容2</Panel.Grid>
-                    <Panel.Grid width="50%"><GridTitle>标题2</GridTitle>: 内容2</Panel.Grid>
-                    <Panel.Grid width="50%"><GridTitle>标题2</GridTitle>: 内容2</Panel.Grid>
-                    <Panel.Grid width="50%"><GridTitle>标题2</GridTitle>: 内容2</Panel.Grid>
-                    <Panel.Grid width="50%"><GridTitle>标题2</GridTitle>: 内容2</Panel.Grid>
-                    <StyledGrid width="50%"><GridTitle>标题3</GridTitle>: 内容1</StyledGrid>
+                <StyledGridPanel title="面板3" extra={<div><GridTitle>状态: </GridTitle><GridExtraValue>状态1</GridExtraValue></div>}>
+                    <Panel.Grid width="50%"><GridTitle>标题1: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="50%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="50%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="50%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="50%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <StyledGrid width="50%"><GridTitle>标题3: </GridTitle>内容1</StyledGrid>
                 </StyledGridPanel>
+                <Panel title="面板4" extra={<div><GridTitle>状态: </GridTitle><GridExtraValue>状态2</GridExtraValue></div>}>
+                    <Panel.Grid width="33.33%"><GridTitle>标题1: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="33.33%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="33.33%"><GridTitle>标题2: </GridTitle>内容2</Panel.Grid>
+                    <Panel.Grid width="100%">
+                        <Panel type="inner" title="附件信息">
+                            文档.docx
+                        </Panel>
+                    </Panel.Grid>
+                </Panel>
             </PanelsBody>
         );
     }
