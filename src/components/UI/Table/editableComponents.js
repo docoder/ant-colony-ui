@@ -4,13 +4,18 @@
 */
 import React from 'react';
 // import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import {
     Input,
     Form,
+    Select
 } from 'antd';
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
+const StyledSelect = styled(Select)`
+    width: 100%;
+`;
 
 const EditableRow = ({ form, index, ...props }) => (
     <EditableContext.Provider value={form}>
@@ -48,7 +53,8 @@ export class EditableCell extends React.Component {
 
     handleClickOutside = (e) => {
         const { editing } = this.state;
-        if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
+        const { type } = this.props;
+        if (editing && type!== 'select' && this.cell !== e.target && !this.cell.contains(e.target)) {
             this.save();
         }
     }
@@ -63,10 +69,51 @@ export class EditableCell extends React.Component {
             handleSave({ ...record, ...values });
         });
     }
-
+    getInput = () => {
+        const {
+            type,
+            title
+        } = this.props;
+        switch (type) {
+            case 'select':
+                return (
+                    <StyledSelect
+                        ref={node => (this.input = node)}
+                        onBlur={this.save}
+                        optionFilterProp="children"
+                        showSearch={true}
+                        allowClear={true}
+                        placeholder={`请选择${title}`}
+                        notFoundContent="没有内容"
+                    >
+                    {
+                        this.renderOptions()
+                    }
+                    </StyledSelect>
+                );
+            default:
+                return (
+                    <Input
+                        ref={node => (this.input = node)}
+                        onPressEnter={this.save}
+                    />
+                );
+        }
+    }
+    renderOptions = () => {
+        const {
+            meta,
+        } = this.props;
+        let data = meta ? (meta.data || []) : []
+        return data.map((item, index) => (
+            <Select.Option value={ item.value.toString() } key={ item.value }>{ item.label }</Select.Option>
+        ))
+    }
     render() {
         const { editing } = this.state;
         const {
+            type,
+            meta,
             reg,
             required,
             editable,
@@ -77,6 +124,11 @@ export class EditableCell extends React.Component {
             handleSave,
             ...restProps
         } = this.props;
+        let children = restProps.children.slice();
+        if (type === 'select' && children && (children[2] || children[2] === 0)) {
+            const selectedData = meta.data.filter(d => d.value === children[2])[0]
+            if (selectedData) children[2] = selectedData.label
+        }
         return (
             <td ref={node => (this.cell = node)} {...restProps}>
             {editable ? (
@@ -95,10 +147,7 @@ export class EditableCell extends React.Component {
                                             { required: required, message: `${title}为必填项`}
                                         ]
                                     })(
-                                        <Input
-                                            ref={node => (this.input = node)}
-                                            onPressEnter={this.save}
-                                        />
+                                        this.getInput()
                                     )}
                               </FormItem>
                             ) : (
@@ -107,13 +156,13 @@ export class EditableCell extends React.Component {
                                 style={{ paddingRight: 24 }}
                                 onClick={this.toggleEdit}
                             >
-                                {restProps.children}
+                                {children}
                             </div>
                             )
                         );
                     }}
                 </EditableContext.Consumer>
-            ) : restProps.children}
+            ) : children}
             </td>
         );
     }

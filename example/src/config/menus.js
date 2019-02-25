@@ -39,6 +39,10 @@ const menus = [
         ]
     },
     {
+        label: '标签页(Tabs)',
+        key: 'Tabs'
+    },
+    {
         label: '折叠面板(Collapse)',
         key: 'Collapses'
     },

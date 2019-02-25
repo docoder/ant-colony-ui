@@ -330,7 +330,6 @@ class Form extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { form, onSubmit } = this.props;
-        const formItems = form.getFieldValue('forms');
         form.validateFields((err, values) => {
             if(!err) {
                 onSubmit(values, this.clearFields);

@@ -34,7 +34,6 @@ function Panel(props) {
         <AntCollapse.Panel
             {...props}
             header={props.header}
-            key={props.panelKey}
             showArrow={props.showArrow}
         />
     )
@@ -44,7 +43,6 @@ Panel.propTypes = {
         PropTypes.string,
         PropTypes.element
     ]),
-    panelKey: PropTypes.string,
     showArrow: PropTypes.bool
 }
 Panel.defaultProps = {

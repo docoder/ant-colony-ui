@@ -11,11 +11,13 @@ const DATASOURCE = [
         key: '0',
         name: '',
         age: '32',
+        gender: 'male',
         address: 'London, Park Lane no. 0',
     }, {
         key: '1',
         name: 'Edward King 1',
         age: '32',
+        gender: '2',
         address: 'London, Park Lane no. 1',
     }, {
         key: '2',
@@ -74,6 +76,17 @@ const TABLE_COLUMNS = [
         required: true,
         reg: { pattern: /^[1-9]\d*$/, message: '请输入正整数'}
     }, {
+        title: 'gender',
+        dataIndex: 'gender',
+        editable: true,
+        type: 'select',
+        meta: {
+            data: [
+                {label: 'male', value: '1'},
+                {label: 'female', value: '2'}
+            ]
+        }
+    },{
         title: 'address',
         dataIndex: 'address',
     }, {

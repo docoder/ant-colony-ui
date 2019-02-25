@@ -15,6 +15,7 @@ import Collapse from './components/UI/Collapse';
 import Input from './components/UI/Input';
 import Toggle from './components/UI/Toggle';
 import Panel from './components/UI/Panel';
+import Tabs from './components/UI/Tabs';
 export {
     Alert,
     Button,
@@ -28,5 +29,6 @@ export {
     Collapse,
     Input,
     Toggle,
-    Panel
+    Panel,
+    Tabs
 }
