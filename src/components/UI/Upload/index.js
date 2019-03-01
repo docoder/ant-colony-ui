@@ -32,7 +32,7 @@ export default class Upload extends React.Component {
             data: this.props.data,
             defaultFileList: this.props.defaultFileList,
             onChange: (info) => {
-                if (info.file.status === 'done'||info.file.status === 'removed') {
+                if (info.file.status === 'done' || info.file.status === 'removed') {
                     this.props.onUploadedChange(info);
                 } else if (info.file.status === 'error') {
                     this.props.onFail(info);
@@ -79,7 +79,6 @@ Upload.propTypes = {
     defaultFileList: PropTypes.arrayOf(PropTypes.object)
 }
 Upload.defaultProps = {
-    accept: 'image/*, .xlsx, .pdf, .doc',
     title: '点击上传',
     multiple: false,
     showUploadList: false,
