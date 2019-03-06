@@ -6,7 +6,7 @@ import React from 'react';
 import { Form } from 'ant-colony-ui';
 import styled from 'styled-components';
 import { ImageUpload } from 'ant-colony-ui';
-
+import moment from 'moment';
 const FormBody = styled.div`
     background: white;
     min-height: 360px;
@@ -177,6 +177,7 @@ export default class BaseForm extends React.Component {
                 key: 'field18',
                 label: '字段18',
                 type: 'date',
+                value: moment(),
                 showTime: true
             }
         ];

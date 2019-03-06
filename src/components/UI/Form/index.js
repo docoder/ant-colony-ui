@@ -303,7 +303,7 @@ class Form extends React.Component {
         return (
             <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {
-                    initialValue: (item.value || item.value === 0) ? item.value.toString() : item.value,
+                    initialValue: (item.value || item.value === 0) ? ( item.type === 'date' ? item.value : item.value.toString()) : item.value,
                     rules: item.reg ? [
                         { required: item.required, message: `${item.label}为必填项`},
                         item.reg
