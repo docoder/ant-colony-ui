@@ -16,9 +16,21 @@ const UploadBody = styled.div`
 export default class Upload extends React.Component {
     constructor(props) {
         super(props);
+        let fileList = this.props.defaultFileList;
+        if (fileList && fileList.length <= 0) fileList = undefined
         this.state = {
-             fileList: this.props.defaultFileList || [],
+             fileList
         }
+    }
+    static getDerivedStateFromProps(props, state) {
+        if (!state.fileList) {
+            let fileList = props.defaultFileList;
+            if (fileList && fileList.length <= 0) fileList = undefined
+            return {
+                fileList
+            };
+        }
+        return null;
     }
     render() {
         const uploadProps = {
