@@ -301,19 +301,20 @@ class Form extends React.Component {
     }
     getFormItem = (item) => {
         const { getFieldDecorator } = this.props.form;
+        const { allDisabled } = this.props;
         return (
             <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {
                     initialValue: (item.value || item.value === 0) ? ( item.type === 'date' ? item.value : item.value.toString()) : item.value,
                     rules: item.reg ? [
-                        { required: item.required, message: `${item.label}为必填项`},
+                        { required: item.required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`},
                         item.reg
                     ] : [
-                        { required: item.required, message: `${item.label}为必填项`}
+                        { required: item.required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`}
                     ],
                 })(
                     this.getInput(item)
-                )}  
+                )}
             </FormItem>
         )
     }

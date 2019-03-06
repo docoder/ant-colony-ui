@@ -177,6 +177,7 @@ export default class BaseForm extends React.Component {
                 key: 'field18',
                 label: '字段18',
                 type: 'date',
+                required: true,
                 disabled: true,
                 value: moment(),
                 showTime: true
