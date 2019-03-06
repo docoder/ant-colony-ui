@@ -375,7 +375,7 @@ class Form extends React.Component {
                     {this.getRows()}
                     {this.renderAccessoryView()}
                     {
-                        (actionsShow && !allDisabled) && <ActionRow>
+                        (actionsShow) && <ActionRow>
                             <ButtonsCol span={24} direction={actionDirection}>
                                 <Button type="primary" htmlType="submit" title={submitTitle} />
                                 {clearButtonShow && <ClearButton onClick={this.handleReset} title={clearTitle} />}
