@@ -147,7 +147,7 @@ class Form extends React.Component {
                             })
                             item.onChange(value)
                         } : null}
-                        disabled={item.disabled || allDisabled || false}
+                        disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
                         allowClear={item.meta.showSearch}
@@ -166,7 +166,7 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={item.onChange} disabled={item.disabled || allDisabled || false} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                    <TextArea onChange={item.onChange} disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             case 'date':
                 return (
@@ -181,7 +181,7 @@ class Form extends React.Component {
                     <StyledInput
                         allowClear={false}
                         onChange={item.onChange}
-                        disabled={item.disabled || allDisabled || false} 
+                        disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         placeholder={item.placeholder || `请输入${item.label}`} 
                     />
                 );
