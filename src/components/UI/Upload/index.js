@@ -14,8 +14,11 @@ const UploadBody = styled.div`
     display: inline-block;
 `;
 export default class Upload extends React.Component {
-    state = {
-        fileList: [],
+    constructor(props) {
+        super(props);
+        this.state = {
+             fileList: this.props.defaultFileList || [],
+        }
     }
     render() {
         const uploadProps = {

@@ -27,7 +27,21 @@ export default class Uploads extends React.Component {
     render() {
         return (
             <UploadsBody>
-                <StyledUpload url="url" />
+                <StyledUpload 
+                    url="url" 
+                    defaultFileList={[
+                        {
+                            name: "bx-upload.svg",
+                            status: "done",
+                            uid: "rc-upload-1551879926587-2",
+                            url: "https://image.guazistatic.com/gz01190306/21/46/4dde721a1d40622f91d1bdd46c699a1a.svg"
+                        }
+                    ]}
+                    listType="text"
+                    onUploadedChange={(info) => {
+                        console.log('=====>', info)
+                    }}
+                />
                 <ImageUpload url="url" />
                 <ImageUpload url="url" uploadTitle="已上传" />
                 <ImageUpload
