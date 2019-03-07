@@ -251,6 +251,7 @@ export default class BaseForm extends React.Component {
                     labelPostion="top"
                     accessoryComponent= {this.renderAccessoryComponent}
                     allDisabled={false}
+                    disableEnterSubmit={false}
                 />
             </FormBody>
         );

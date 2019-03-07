@@ -362,14 +362,15 @@ class Form extends React.Component {
             labelPostion,
             clearButtonShow,
             actionsShow,
-            allDisabled
+            allDisabled,
+            disableEnterSubmit
         } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
         return (
             <FormBody className={className}>
                 <StyledForm
-                    onSubmit={this.handleSubmit}
+                    onSubmit={disableEnterSubmit ? undefined : this.handleSubmit}
                     position={labelPostion}
                 >
                     
@@ -378,7 +379,7 @@ class Form extends React.Component {
                     {
                         (actionsShow) && <ActionRow>
                             <ButtonsCol span={24} direction={actionDirection}>
-                                <Button type="primary" htmlType="submit" title={submitTitle} />
+                                <Button type="primary" htmlType={disableEnterSubmit ? null : 'submit'} onClick={this.handleSubmit} title={submitTitle} />
                                 {clearButtonShow && <ClearButton onClick={this.handleReset} title={clearTitle} />}
                                 {
                                     collapse && formItems.length > unCollapseCount && <CollapseToggle onClick={this.toggle}>
@@ -411,7 +412,8 @@ WrappedForm.propTypes = {
     addLabel: PropTypes.string,
     clearButtonShow: PropTypes.bool,
     actionsShow: PropTypes.bool,
-    allDisabled: PropTypes.bool
+    allDisabled: PropTypes.bool,
+    disableEnterSubmit: PropTypes.bool
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
@@ -426,6 +428,7 @@ WrappedForm.defaultProps = {
     addLabel: '新增表单项',
     clearButtonShow: true,
     actionsShow: true,
-    allDisabled: false
+    allDisabled: false,
+    disableEnterSubmit: false
 }
 export default WrappedForm;
