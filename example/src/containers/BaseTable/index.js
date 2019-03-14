@@ -18,16 +18,19 @@ const DATASOURCE = [
         name: 'Edward King 1',
         age: '32',
         gender: '2',
+        edit: true,
         address: 'London, Park Lane no. 1',
     }, {
         key: '2',
         name: 'Edward King 1',
         age: '32',
+        edit: false,
         address: 'London, Park Lane no. 1',
     }, {
         key: '3',
         name: 'Edward King 1',
         age: '32',
+        edit: true,
         address: 'London, Park Lane no. 1',
     }, {
         key: '4',
@@ -78,7 +81,9 @@ const TABLE_COLUMNS = [
     }, {
         title: 'gender',
         dataIndex: 'gender',
-        editable: true,
+        editable: (record, rowIndex) => {
+            return record.edit
+        },
         type: 'select',
         meta: {
             data: [

@@ -105,19 +105,25 @@ export default class Table extends React.Component {
             }
             let newCol = { ...col };
             if (col.editable) {
-                newCol.onCell = record => ({
-                    record,
-                    editable: col.editable,
-                    dataIndex: col.dataIndex,
-                    title: col.title,
-                    fixed: col.fixed,
-                    width: col.width,
-                    reg: col.reg,
-                    required: col.required,
-                    type: col.type,
-                    meta: col.meta,
-                    handleSave: this.props.onCellSave,
-                });
+                newCol.onCell = (record, rowIndex) => {
+                    let editable = col.editable;
+                    if(col.editable && typeof col.editable === 'function') {
+                        editable = col.editable(record, rowIndex);
+                    }
+                    return {
+                        record,
+                        editable: editable,
+                        dataIndex: col.dataIndex,
+                        title: col.title,
+                        fixed: col.fixed,
+                        width: col.width,
+                        reg: col.reg,
+                        required: col.required,
+                        type: col.type,
+                        meta: col.meta,
+                        handleSave: this.props.onCellSave,
+                    }
+                };
             }
             if (col.actions && col.actions.length > 0) {
                 newCol.render = (text, record, index) => {
