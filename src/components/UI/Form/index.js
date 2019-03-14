@@ -143,20 +143,20 @@ class Form extends React.Component {
         switch (item.type) {
             case 'checkbox':
             return (
-                <Checkbox.Group>
+                <Checkbox.Group style={{width: '100%'}}>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol key={d.value} span={8}><StyledCheckbox disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
                     }
                 </Row>
                 </Checkbox.Group>
             )
             case 'radio':
             return (
-                <Radio.Group>
+                <Radio.Group style={{width: '100%'}}>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol key={d.value} span={8}><StyledRadio disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
                     }
                 </Row>
                 </Radio.Group>

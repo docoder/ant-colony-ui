@@ -190,8 +190,7 @@ export default class BaseForm extends React.Component {
                 data: [
                     {value: 1, label: 'AAAAAAAA'},
                     {value: 2, label: 'BBBBBBBB', disabled: true},
-                    {value: 3, label: 'CCCCCCCC'},
-                    {value: 4, label: 'DDDDDDDD'}
+                    {value: 3, label: 'CCCCCCCC'}
                ]
             },
             {
@@ -201,9 +200,9 @@ export default class BaseForm extends React.Component {
                 required: true,
                 value: 1,
                 data: [
-                    {value: 1, label: 'aaaaaaaa'},
-                    {value: 2, label: 'bbbbbbbb', disabled: true},
-                    {value: 3, label: 'cccccccc'},
+                    {value: 1, label: 'aaaaaaaa', span: 24},
+                    {value: 2, label: 'bbbbbbbb', disabled: true, span: 12},
+                    {value: 3, label: 'cccccccc', span: 12},
                     {value: 4, label: 'dddddddd'}
                ]
             }
