@@ -156,6 +156,11 @@ export default class BaseTable extends React.Component {
                     }}
                     scrollWidth={1000}
                     floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
+                    rowSelection = {{
+                        onChange: (selectedRowKeys, selectedRows) => {
+                            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                        }
+                    }}
                 />
             </TableBody>
         );

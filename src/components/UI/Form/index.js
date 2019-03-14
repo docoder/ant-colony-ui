@@ -146,7 +146,7 @@ class Form extends React.Component {
                 <Checkbox.Group>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol span={8}><StyledCheckbox key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={8}><StyledCheckbox disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
                     }
                 </Row>
                 </Checkbox.Group>
@@ -156,7 +156,7 @@ class Form extends React.Component {
                 <Radio.Group>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol span={8}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={8}><StyledRadio disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
                     }
                 </Row>
                 </Radio.Group>
