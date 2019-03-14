@@ -181,6 +181,31 @@ export default class BaseForm extends React.Component {
                 disabled: true,
                 value: moment(),
                 showTime: true
+            },
+            {
+                key: 'field19',
+                label: '字段19',
+                type: 'checkbox',
+                value: [1, 2],
+                data: [
+                    {value: 1, label: 'AAAAAAAA'},
+                    {value: 2, label: 'BBBBBBBB', disabled: true},
+                    {value: 3, label: 'CCCCCCCC'},
+                    {value: 4, label: 'DDDDDDDD'}
+               ]
+            },
+            {
+                key: 'field20',
+                label: '字段20',
+                type: 'radio',
+                required: true,
+                value: 1,
+                data: [
+                    {value: 1, label: 'aaaaaaaa'},
+                    {value: 2, label: 'bbbbbbbb', disabled: true},
+                    {value: 3, label: 'cccccccc'},
+                    {value: 4, label: 'dddddddd'}
+               ]
             }
         ];
         this.rowColCounts = [2,2,4,2,1,3,4]

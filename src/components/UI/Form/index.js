@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
-  Form as AntForm, Row, Col, Input, Icon, Select, DatePicker
+  Form as AntForm, Row, Col, Input, Icon, Select, DatePicker, Radio, Checkbox
 } from 'antd';
 import Button from '../Button';
 import _ from 'lodash';
@@ -104,6 +104,13 @@ const InfoContainer = styled.span`
 const Spacer = styled.div`
     height: 2px;
 `;
+const StyledCheckbox = styled(Checkbox)`
+`;
+const StyledRadio = styled(Radio)`
+`;
+const StyledCol = styled(Col)`
+    line-height: 2;
+`;
 
 class Form extends React.Component {
     state = {
@@ -134,6 +141,26 @@ class Form extends React.Component {
             refLabel = refItem.label;
         }
         switch (item.type) {
+            case 'checkbox':
+            return (
+                <Checkbox.Group>
+                <Row>
+                    {
+                        item.data.map( d => <StyledCol span={8}><StyledCheckbox key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
+                    }
+                </Row>
+                </Checkbox.Group>
+            )
+            case 'radio':
+            return (
+                <Radio.Group>
+                <Row>
+                    {
+                        item.data.map( d => <StyledCol span={8}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
+                    }
+                </Row>
+                </Radio.Group>
+            )
             case 'select':
                 return (
                     <Select
@@ -299,13 +326,27 @@ class Form extends React.Component {
         }
         return rows;
     }
+    getInitialValue = (item) => {
+        if (item.value || item.value === 0) {
+            switch(item.type) {
+                case 'date':
+                case 'checkbox':
+                case 'radio':
+                return item.value
+                default:
+                return item.value.toString()
+            }
+        }else {
+            return item.value;
+        }
+    }
     getFormItem = (item) => {
         const { getFieldDecorator } = this.props.form;
         const { allDisabled } = this.props;
         return (
             <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {
-                    initialValue: (item.value || item.value === 0) ? ( item.type === 'date' ? item.value : item.value.toString()) : item.value,
+                    initialValue: this.getInitialValue(item),
                     rules: item.reg ? [
                         { required: item.required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`},
                         item.reg
