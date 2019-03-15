@@ -13,14 +13,19 @@ const InputBody = styled.div`
 export default class Input extends React.Component {
     componentDidMount() {
         if (this.props.withInputDoneListen) {
-            document.addEventListener('click', this.inputDone, true);
+            document.addEventListener('click', this.handleClickOutside, true);
         }
         this.props.didMount(this.input)
     }
 
     componentWillUnmount() {
         if (this.props.withInputDoneListen) {
-            document.removeEventListener('click', this.inputDone, true);
+            document.removeEventListener('click', this.handleClickOutside, true);
+        }
+    }
+    handleClickOutside = (e) => {
+        if (this.inputBody !== e.target && !this.inputBody.contains(e.target)) {
+            this.inputDone();
         }
     }
     inputDone = () => {
@@ -30,7 +35,7 @@ export default class Input extends React.Component {
     }
     render() {
         return (
-            <InputBody className={this.props.className}>
+            <InputBody ref={node => (this.inputBody = node)} className={this.props.className}>
                 <AntInput
                     ref={node => (this.input = node)}
                     onPressEnter={this.inputDone}
