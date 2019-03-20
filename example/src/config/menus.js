@@ -51,8 +51,8 @@ const menus = [
         key: 'Panels'
     },
     {
-        label: '切换(Toggle)',
-        key: 'Toggles'
+        label: '选择按钮(Toggle & Checkbox)',
+        key: 'SelectButton'
     },
     {
         label: '上传(Upload)',

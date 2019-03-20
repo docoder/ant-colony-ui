@@ -21,7 +21,7 @@ function Toggle(props) {
     );
 }
 Toggle.propTypes = {
-    defaultValue: PropTypes.PropTypes.any,
+    defaultValue: PropTypes.any,
     buttonStyle: PropTypes.oneOf(['outline', 'solid']),
     onChange: PropTypes.func
 }

@@ -16,6 +16,7 @@ import Input from './components/UI/Input';
 import Toggle from './components/UI/Toggle';
 import Panel from './components/UI/Panel';
 import Tabs from './components/UI/Tabs';
+import Checkbox from './components/UI/Checkbox';
 export {
     Alert,
     Button,
@@ -30,5 +31,6 @@ export {
     Input,
     Toggle,
     Panel,
-    Tabs
+    Tabs,
+    Checkbox
 }

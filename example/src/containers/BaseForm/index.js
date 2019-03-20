@@ -91,6 +91,7 @@ export default class BaseForm extends React.Component {
                 key: 'field4',
                 label: '字段4',
                 type: 'textArea',
+                rows: 4,
                 onChange: (e) => {console.log('textarea onChange>>>', e.target.value)},
             },
             {
