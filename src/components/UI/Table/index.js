@@ -81,25 +81,75 @@ const StyledTable = styled(AntTable)`
     .fl-scrolls-hoverable:hover .fl-scrolls {
         opacity: 1;
     }
+    .columnconfig {
+        padding: 0;
+    }
 `;
 const TableBody = styled.div`
     display: inline-block;
 `;
+
+const storage = window.localStorage;
 export default class Table extends React.Component {
+    constructor(props) {
+        super(props)
+        let columns = this.props.columns;
+        if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            const columnsStr = storage.getItem(this.props.columnsConfigGlobalTableKey);
+            if (columnsStr && columnsStr.length > 0) {
+                let filterColumns = JSON.parse(columnsStr)
+                if (filterColumns.length > 0) {
+                    columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
+                }
+            }
+        }
+        this.setColumns(columns)
+    }
+    setColumns = (columns) => {
+        if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            console.log('--->', columns.length, this.props.columns.length)
+            this.newColumns = [{
+                title: '',
+                width: 28,
+                fixed: 'left',
+                dataIndex: 'columnConfig',
+                className: 'columnconfig',
+                filteredValue: columns.map(c => c.dataIndex),
+                filters: this.props.columns.map(c => ({text: c.title, value: c.dataIndex})),
+            }, ...columns]
+        }else {
+            this.newColumns = [...columns]
+        }
+    }
     componentDidMount() {
         if(this.props.floatingScrollDomQuery) {
             floatingScroll(document.querySelectorAll(this.props.floatingScrollDomQuery))
         }
     }
+    handleChange = (pagination, filters, sorter) => {
+        if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            let filterColumns = filters.columnConfig
+            if (filterColumns.length > 0) {
+                this.setColumns(this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex)))
+            }else {
+                filterColumns = this.props.columns.map(c => c.dataIndex)
+                this.setColumns(this.props.columns)
+            }
+            storage.setItem(this.props.columnsConfigGlobalTableKey, JSON.stringify(filterColumns))
+        }
+        this.props.onChange(pagination, filters, sorter);
+    }
     render() {
-        const { columns, dataSource, className, loading, pagination, onChange, scrollWidth, rowSelection } = this.props;
+        const { columns, dataSource, className, loading, pagination, scrollWidth, rowSelection } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
                 cell: EditableCell,
             },
         };
-        const talbeColumns = columns.map((col) => {
+        let newDataSource = dataSource.map(d => ({columnConfig: '', ...d}))
+
+        const tableColumns = this.newColumns.map((col) => {
             if (!col.editable && (!col.actions || col.actions.length <= 0)) {
                 return col;
             }
@@ -163,10 +213,10 @@ export default class Table extends React.Component {
                 components={components}
                 rowClassName={() => 'editable-row'}
                 bordered
-                dataSource={dataSource}
-                columns={talbeColumns}
+                dataSource={newDataSource}
+                columns={tableColumns}
                 className={className}
-                onChange={onChange}
+                onChange={this.handleChange}
                 scroll={scrollWidth ? {x: scrollWidth} : undefined}
             />
         );
@@ -185,7 +235,8 @@ Table.propTypes = {
     scrollWidth: PropTypes.number,
     floatingScroll: PropTypes.bool,
     floatingScrollDomQuery: PropTypes.string,
-    rowSelection: PropTypes.object
+    rowSelection: PropTypes.object,
+    columnsConfigGlobalTableKey: PropTypes.string
 }
 Table.defaultProps = {
     onCellSave: (row) => {},

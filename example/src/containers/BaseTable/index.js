@@ -166,6 +166,7 @@ export default class BaseTable extends React.Component {
                             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
                         }
                     }}
+                    columnsConfigGlobalTableKey="antColonyUIBaseTable"
                 />
             </TableBody>
         );
