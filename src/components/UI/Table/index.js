@@ -1,17 +1,15 @@
+/* eslint-disable*/
 /*
 * @Author: lijian
 * @Email:  lijian46@guazi.com
 */
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-    Table as AntTable,
-    Popconfirm
-} from 'antd';
-import styled from 'styled-components';
-import { EditableFormRow, EditableCell } from './editableComponents';
-import Button from '../Button';
-import floatingScroll from './floatingScroll';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Table as AntTable, Popconfirm} from 'antd'
+import styled from 'styled-components'
+import { EditableFormRow, EditableCell } from './editableComponents'
+import Button from '../Button'
+import floatingScroll from './floatingScroll'
 const ActionButton = styled(Button)`
     margin-right: 10px;
     margin-bottom: 5px;
@@ -89,25 +87,24 @@ const TableBody = styled.div`
     display: inline-block;
 `;
 
-const storage = window.localStorage;
+const storage = window.localStorage
 export default class Table extends React.Component {
     constructor(props) {
         super(props)
-        let columns = this.props.columns;
+        this.columns = this.props.columns;
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
             const columnsStr = storage.getItem(this.props.columnsConfigGlobalTableKey);
             if (columnsStr && columnsStr.length > 0) {
                 let filterColumns = JSON.parse(columnsStr)
                 if (filterColumns.length > 0) {
-                    columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
+                    this.columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
                 }
             }
         }
-        this.setColumns(columns)
+        this.setColumns(this.columns)
     }
     setColumns = (columns) => {
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
-            console.log('--->', columns.length, this.props.columns.length)
             this.newColumns = [{
                 title: '',
                 width: 28,
@@ -140,7 +137,7 @@ export default class Table extends React.Component {
         this.props.onChange(pagination, filters, sorter);
     }
     render() {
-        const { columns, dataSource, className, loading, pagination, scrollWidth, rowSelection } = this.props;
+        const { columns, dataSource, className, loading, pagination, scrollWidth, rowSelection, columnsConfigGlobalTableKey} = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -205,6 +202,14 @@ export default class Table extends React.Component {
             }
             return newCol;
         });
+        let scroll = scrollWidth ? {x: scrollWidth} : undefined
+        if (columnsConfigGlobalTableKey && scroll && this.columns.length < columns.length) {
+            if(this.columns.length > 6) {
+                scroll = {x: scrollWidth * (this.columns.length / columns.length)}
+            }else {
+                scroll = undefined
+            }
+        }
         return (
             <StyledTable
                 loading={loading}
@@ -217,7 +222,7 @@ export default class Table extends React.Component {
                 columns={tableColumns}
                 className={className}
                 onChange={this.handleChange}
-                scroll={scrollWidth ? {x: scrollWidth} : undefined}
+                scroll={scroll}
             />
         );
     }
