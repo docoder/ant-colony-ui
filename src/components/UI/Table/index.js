@@ -204,16 +204,13 @@ export default class Table extends React.Component {
             return newCol;
         });
         let scroll = scrollWidth ? {x: scrollWidth} : undefined
-            console.log('---1->', this.columns)
         if (columnsConfigGlobalTableKey && scroll && this.columns.length < columns.length) {
-            console.log('----2>', this.columns.length)
             if(this.columns.length > 6) {
                 scroll = {x: scrollWidth * (this.columns.length / columns.length)}
             }else {
                 scroll = undefined
             }
         }
-        console.log('--->', scroll)
         return (
             <StyledTable
                 loading={loading}
