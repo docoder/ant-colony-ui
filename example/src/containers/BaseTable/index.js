@@ -145,6 +145,9 @@ export default class BaseTable extends React.Component {
             total: DATASOURCE.length,
             pageSize: 6,
             position: 'both'
+        },
+        data: {
+            test: 'test'
         }
     }
     render() {
@@ -156,7 +159,7 @@ export default class BaseTable extends React.Component {
                     onCellSave={(row) => { console.log('---onCellChange--->', row) }}
                     pagination={this.state.pagination}
                     onChange={(pagination, filters, sorter) => {
-                        console.log('---onChange--->', pagination, filters, sorter)
+                        console.log('---onChange--->', this.state.data, pagination, filters, sorter)
                         this.setState({pagination})
                     }}
                     scrollWidth={1000}
