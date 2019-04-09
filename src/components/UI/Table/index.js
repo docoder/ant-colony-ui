@@ -161,6 +161,7 @@ export default class Table extends React.Component {
                     return {
                         record,
                         editable: editable,
+                        disabled: col.disabled,
                         dataIndex: col.dataIndex,
                         title: col.title,
                         fixed: col.fixed,

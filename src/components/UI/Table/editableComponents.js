@@ -72,7 +72,8 @@ export class EditableCell extends React.Component {
     getInput = () => {
         const {
             type,
-            title
+            title,
+            disabled,
         } = this.props;
         switch (type) {
             case 'select':
@@ -85,6 +86,7 @@ export class EditableCell extends React.Component {
                         allowClear={true}
                         placeholder={`请选择${title}`}
                         notFoundContent="没有内容"
+                        disabled={disabled}
                     >
                     {
                         this.renderOptions()
@@ -96,6 +98,7 @@ export class EditableCell extends React.Component {
                     <Input
                         ref={node => (this.input = node)}
                         onPressEnter={this.save}
+                        disabled={disabled}
                     />
                 );
         }
