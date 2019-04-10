@@ -101,7 +101,10 @@ export default class BaseForm extends React.Component {
             {
                 key: 'field6',
                 label: '字段6',
-                required: true,
+                required: (values)=>{
+                    console.log('-字段6--required-->', values); 
+                    return !values.field20 || values.field20 ===1
+                },
                 reg: { pattern: /^([1-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
             },
             {
@@ -187,6 +190,7 @@ export default class BaseForm extends React.Component {
                 key: 'field19',
                 label: '字段19',
                 type: 'checkbox',
+                onChange: (value) => {console.log('-checkbox-->', value)},
                 value: [1, 2],
                 data: [
                     {value: 1, label: 'AAAAAAAA'},
@@ -199,6 +203,7 @@ export default class BaseForm extends React.Component {
                 label: '字段20',
                 type: 'radio',
                 required: true,
+                onChange: (e) => {console.log('-radio-->', e)},
                 value: 1,
                 data: [
                     {value: 1, label: 'aaaaaaaa', span: 24},

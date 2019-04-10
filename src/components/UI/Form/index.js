@@ -146,14 +146,14 @@ class Form extends React.Component {
                 <Checkbox.Group style={{width: '100%'}}>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox onChange={item.onChange} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
                     }
                 </Row>
                 </Checkbox.Group>
             )
             case 'radio':
             return (
-                <Radio.Group style={{width: '100%'}}>
+                <Radio.Group onChange={item.onChange} style={{width: '100%'}}>
                 <Row>
                     {
                         item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
@@ -198,6 +198,7 @@ class Form extends React.Component {
             case 'date':
                 return (
                     <DatePicker
+                        onChange={item.onChange}
                         showTime={item.showTime}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
@@ -341,17 +342,21 @@ class Form extends React.Component {
         }
     }
     getFormItem = (item) => {
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator, getFieldsValue } = this.props.form;
         const { allDisabled } = this.props;
+        let required = item.required;
+        if(item.required && typeof item.required === 'function') {
+            required = item.required(getFieldsValue());
+        }
         return (
             <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {
                     initialValue: this.getInitialValue(item),
                     rules: item.reg ? [
-                        { required: item.required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`},
+                        { required: required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`},
                         item.reg
                     ] : [
-                        { required: item.required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`}
+                        { required: required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`}
                     ],
                 })(
                     this.getInput(item)
