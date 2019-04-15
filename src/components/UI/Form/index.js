@@ -15,6 +15,7 @@ import _ from 'lodash';
 
 const { TextArea } = Input;
 const FormItem = AntForm.Item;
+const { RangePicker } = DatePicker;
 const StyledForm = styled(AntForm)`
     background: #fbfbfb;
     border: 1px solid #d9d9d9;
@@ -198,6 +199,15 @@ class Form extends React.Component {
             case 'date':
                 return (
                     <DatePicker
+                        onChange={item.onChange}
+                        showTime={item.showTime}
+                        disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
+                        format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
+                    />
+                );
+            case 'rangeDate':
+                return (
+                    <RangePicker
                         onChange={item.onChange}
                         showTime={item.showTime}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
