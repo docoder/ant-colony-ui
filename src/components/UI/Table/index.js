@@ -91,21 +91,25 @@ const storage = window.localStorage
 export default class Table extends React.Component {
     constructor(props) {
         super(props)
-        this.columns = this.props.columns;
+        this.columns = this.props.columns; //显示列为所有列
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
             const columnsStr = storage.getItem(this.props.columnsConfigGlobalTableKey);
             if (columnsStr && columnsStr.length > 0) {
+                //有缓存
                 let filterColumns = JSON.parse(columnsStr)
                 if (filterColumns.length > 0) {
+                    //显示列为缓存列
                     this.columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
                 }
             }
         }
         this.setColumns(this.columns)
     }
+    //设置显示列
     setColumns = (columns) => {
         this.columns = columns
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            //列可配置 开启，显示配置操作列，同时只显示筛选过的列
             this.newColumns = [{
                 title: '',
                 width: 28,
@@ -116,6 +120,7 @@ export default class Table extends React.Component {
                 filters: this.props.columns.map(c => ({text: c.title, value: c.dataIndex})),
             }, ...columns]
         }else {
+            //列可配置 关闭
             this.newColumns = [...columns]
         }
     }
@@ -126,19 +131,23 @@ export default class Table extends React.Component {
     }
     handleChange = (pagination, filters, sorter) => {
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            // 列可配置 开启
             let filterColumns = filters.columnConfig
             if (filterColumns.length > 0) {
+                //过滤掉未筛选的列
                 this.setColumns(this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex)))
             }else {
+                //重置操作（hack，即没有筛选任何一列，设置为筛选了所有列）
                 filterColumns = this.props.columns.map(c => c.dataIndex)
                 this.setColumns(this.props.columns)
             }
+            //缓存列的筛选配置
             storage.setItem(this.props.columnsConfigGlobalTableKey, JSON.stringify(filterColumns))
         }
         this.props.onChange(pagination, filters, sorter);
     }
     render() {
-        const { columns, dataSource, className, loading, pagination, scrollWidth, rowSelection, columnsConfigGlobalTableKey} = this.props;
+        const { rowKey, columns, dataSource, className, loading, pagination, scrollWidth, rowSelection, columnsConfigGlobalTableKey} = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -214,6 +223,7 @@ export default class Table extends React.Component {
         }
         return (
             <StyledTable
+                rowKey={rowKey}
                 loading={loading}
                 pagination={pagination}
                 rowSelection={rowSelection}
@@ -230,6 +240,7 @@ export default class Table extends React.Component {
     }
 }
 Table.propTypes = {
+    rowKey: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     dataSource: PropTypes.arrayOf(PropTypes.object).isRequired,
     onCellSave: PropTypes.func,
@@ -248,5 +259,6 @@ Table.propTypes = {
 Table.defaultProps = {
     onCellSave: (row) => {},
     loading: false,
-    floatingScroll: false
+    floatingScroll: false,
+    rowKey: 'key'
 }
