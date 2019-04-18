@@ -156,7 +156,6 @@ export default class BaseTable extends React.Component {
                 <StyledTable
                     columns={TABLE_COLUMNS}
                     dataSource={DATASOURCE}
-                    onCellSave={(row) => { console.log('---onCellChange--->', row) }}
                     pagination={this.state.pagination}
                     onChange={(pagination, filters, sorter) => {
                         console.log('---onChange--->', this.state.data, pagination, filters, sorter)
@@ -168,6 +167,15 @@ export default class BaseTable extends React.Component {
                         onChange: (selectedRowKeys, selectedRows) => {
                             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
                         }
+                    }}
+                    onCellSave={(row) => {
+                        console.log('---onCellChange--->', row)
+                        let newList = DATASOURCE
+                        let newItem = newList.find(s => s.key === row.key);
+                        Object.keys(newItem).forEach(k => {
+                            newItem[k] = row[k]
+                        })
+                        this.forceUpdate()
                     }}
                     columnsConfigGlobalTableKey="antColonyUIBaseTable"
                 />

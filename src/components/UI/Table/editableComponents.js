@@ -80,7 +80,7 @@ export class EditableCell extends React.Component {
                 return (
                     <StyledSelect
                         ref={node => (this.input = node)}
-                        onChange={this.save}
+                        onChange={()=>{setTimeout(this.save)}}
                         optionFilterProp="children"
                         showSearch={true}
                         allowClear={true}
