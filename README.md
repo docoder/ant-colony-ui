@@ -37,14 +37,19 @@
       - select
       - textArea
       - date
-      - rangeDate
+      - **checkbox**
+      - **radio**
+      - **rangeDate**
     - placeholder
     - required
+      - bool
+      - **function**
     - reg
       - pattern
       - message
     - value
     - disabled
+    - **alwaysEnable**
     - meta  `type为select时有效`
       - ref 
         - 表单联动时需要参考的字段的 key
@@ -56,6 +61,7 @@
       - 需要动态添加的字段的key值的数组
     - showTime `type为date时有效`
     - onChange
+    - data `type为select时有效`
   - accessoryComponent
     - 函数
     - 可返回不受表单控制的附加 UI，
@@ -87,13 +93,17 @@
         - left
         - top
     - . . . . . . 
-  - . . . . . . 
+  - **disableEnterSubmit**
+  - … …
 - Table
   - columns `必填`,  为Object的数组, Object字段如下
     - title `必填`
     - dataIndex`必填`
     - editable
+      - bool
+      - **function**
     - required
+    - **disabled**
     - fixed
     - width
     - reg
@@ -120,6 +130,8 @@
   - onChange
     - 参数 pagination, filters, sorter
     - 主要用 pagination 进行分页
+  - **columnsConfigGlobalTableKey**
+    - 列配置的开启并指定全局唯一key（建议：项目唯一性简称+功能Model名+页面名+Table名等），用于缓存
   - . . . . . . 
 - . . . . . .
 
