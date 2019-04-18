@@ -37,6 +37,7 @@
       - select
       - textArea
       - date
+      - rangeDate
     - placeholder
     - required
     - reg

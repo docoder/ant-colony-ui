@@ -80,7 +80,7 @@ export class EditableCell extends React.Component {
                 return (
                     <StyledSelect
                         ref={node => (this.input = node)}
-                        onBlur={this.save}
+                        onChange={this.save}
                         optionFilterProp="children"
                         showSearch={true}
                         allowClear={true}
