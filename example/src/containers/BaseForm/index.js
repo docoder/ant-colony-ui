@@ -217,6 +217,11 @@ export default class BaseForm extends React.Component {
                 label: '字段21',
                 type: 'rangeDate'
             },
+            {
+                key: 'field22',
+                label: '字段22',
+                type: 'month'
+            },
         ];
         this.rowColCounts = [2,2,4,2,1,3,4]
         const index = this.forms.findIndex(f => f.key === 'add2')
