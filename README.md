@@ -40,6 +40,7 @@
       - **checkbox**
       - **radio**
       - **rangeDate**
+      - **month**
     - placeholder
     - required
       - bool

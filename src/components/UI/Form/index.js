@@ -366,15 +366,16 @@ class Form extends React.Component {
         if(item.required && typeof item.required === 'function') {
             required = item.required(getFieldsValue());
         }
+        const isRequired = required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false));
         return (
-            <FormItem label={item.label}>
+            <FormItem label={item.label} validateStatus={isRequired ? undefined : "success"} help={isRequired ? undefined : ""}>
                 {getFieldDecorator(`${item.key}`, {
                     initialValue: this.getInitialValue(item),
                     rules: item.reg ? [
-                        { required: required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`},
+                        { required: isRequired, message: `${item.label}为必填项`},
                         item.reg
                     ] : [
-                        { required: required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false)), message: `${item.label}为必填项`}
+                        { required: isRequired, message: `${item.label}为必填项`}
                     ],
                 })(
                     this.getInput(item)
