@@ -132,6 +132,9 @@ class Form extends React.Component {
             <Select.Option value={ item.value.toString() } key={ item.value }>{ item.label }</Select.Option>
         ))
     }
+    itemOnChange = (item, ...args) => {
+        item.onChange(...args, this.props.form)
+    }
     getInput = (item) => {
         const { allDisabled } = this.props;
         let refLabel = null;
@@ -147,14 +150,14 @@ class Form extends React.Component {
                 <Checkbox.Group style={{width: '100%'}}>
                 <Row>
                     {
-                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox onChange={item.onChange} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
+                        item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
                     }
                 </Row>
                 </Checkbox.Group>
             )
             case 'radio':
             return (
-                <Radio.Group onChange={item.onChange} style={{width: '100%'}}>
+                <Radio.Group onChange={(...args)=>{this.itemOnChange(item,...args)}} style={{width: '100%'}}>
                 <Row>
                     {
                         item.data.map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
@@ -173,7 +176,7 @@ class Form extends React.Component {
                                     [b.key]: undefined
                                 })
                             })
-                            item.onChange(value)
+                            item.onChange(value, this.props.form)
                         } : null}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)}
                         optionFilterProp="children"
@@ -194,12 +197,12 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={item.onChange} disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
+                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} placeholder={item.placeholder || `请输入${item.label}`} autosize={{ minRows, maxRows }} />
                 );
             case 'date':
                 return (
                     <DatePicker
-                        onChange={item.onChange}
+                        onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         showTime={item.showTime}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
@@ -208,7 +211,7 @@ class Form extends React.Component {
             case 'rangeDate':
                 return (
                     <RangePicker
-                        onChange={item.onChange}
+                        onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         showTime={item.showTime}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
@@ -217,7 +220,7 @@ class Form extends React.Component {
             case 'month':
                 return (
                     <MonthPicker
-                        onChange={item.onChange}
+                        onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         format={item.format || 'YYYY-MM-DD'}
                     />
@@ -226,7 +229,7 @@ class Form extends React.Component {
                 return (
                     <StyledInput
                         allowClear={false}
-                        onChange={item.onChange}
+                        onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         placeholder={item.placeholder || `请输入${item.label}`} 
                     />
@@ -349,6 +352,8 @@ class Form extends React.Component {
         if (item.value || item.value === 0) {
             switch(item.type) {
                 case 'date':
+                case 'month':
+                case 'rangeDate':
                 case 'checkbox':
                 case 'radio':
                 return item.value

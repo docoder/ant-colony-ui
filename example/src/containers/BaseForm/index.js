@@ -190,7 +190,10 @@ export default class BaseForm extends React.Component {
                 key: 'field19',
                 label: '字段19',
                 type: 'checkbox',
-                onChange: (value) => {console.log('-checkbox-->', value)},
+                onChange: (value, form) => {
+                    console.log('-checkbox-->', value, form)
+                    form.setFieldsValue({'field2': 'a'})
+                },
                 value: [1, 2],
                 data: [
                     {value: 1, label: 'AAAAAAAA'},
