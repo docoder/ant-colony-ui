@@ -133,7 +133,9 @@ class Form extends React.Component {
         ))
     }
     itemOnChange = (item, ...args) => {
-        item.onChange(...args, this.props.form)
+        if(item.onChange) {
+            item.onChange(...args, this.props.form)
+        }
     }
     getInput = (item) => {
         const { allDisabled } = this.props;
