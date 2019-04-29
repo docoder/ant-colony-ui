@@ -21,7 +21,7 @@ const StyledForm = styled(AntForm)`
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     &.ant-form {
-        padding: 24px;
+        padding: 16px;
     }
     .ant-form-item {
         display: ${props => props.position === 'left' ? 'flex' : 'inherit' };
