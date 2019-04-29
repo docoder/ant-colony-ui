@@ -32,9 +32,9 @@ export default {
           javascriptEnabled: true,
           modifyVars: {
             'font-size-base': '12px',
-            'form-item-margin-bottom': '8px',
-            'table-padding-vertical': '8px',
-            'table-padding-horizontal': '8px',
+            'form-item-margin-bottom': '16px',
+            'table-padding-vertical': '12px',
+            'table-padding-horizontal':'12px',
             'btn-height-base': '27px',
             'card-padding-base': '16px',
             'card-head-padding': '12px'
