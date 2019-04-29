@@ -19,7 +19,7 @@ const DATASOURCE = [
         age: '32',
         gender: '2',
         edit: true,
-        address: 'London, Park Lane no. 1',
+        address: 'London, Park Lane no. 1'
     }, {
         key: '2',
         name: 'Edward King 1',

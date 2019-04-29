@@ -31,7 +31,7 @@ const StyledForm = styled(AntForm)`
     }
 `;
 const ActionRow = styled(Row)`
-    padding-top: 32px;
+    padding-top: 12px;
 `;
 const ButtonsCol = styled(Col)`
     text-align: ${props => props.direction === 'right' ? 'right' : (props.direction === 'left' ? 'left': 'center')};
@@ -47,7 +47,7 @@ const FormBody = styled.div`
 `;
 const FormHeader = styled.div`
     padding-left: 10px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
 `;
@@ -74,16 +74,17 @@ const DeleteButton = styled(Icon)`
     cursor: pointer;
     position: relative;
     top: 4px;
-    font-size: 24px;
+    font-size: 18px;
     color: #999;
     transition: all .3s;
     margin-bottom: 33px;
+    margin-left: -4px;
     &:hover {
         color: #777;
     }
 `;
 const InfoLabel = styled.span`
-    font-size: 14px;
+    font-size: 12px;
     color: rgba(0, 0, 0, 0.85);
     cursor: default;
     text-align: right;
@@ -230,7 +231,7 @@ class Form extends React.Component {
             default:
                 return (
                     <StyledInput
-                        allowClear={false}
+                        allowClear={item.allowClear}
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         placeholder={item.placeholder || `请输入${item.label}`} 

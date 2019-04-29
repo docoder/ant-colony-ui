@@ -33,7 +33,8 @@ export default class BaseForm extends React.Component {
                 label: '字段1',
                 onChange: (e) => {console.log('input onChange>>>', e.target.value)},
                 required: true,
-                placeholder: '这是标题'
+                placeholder: '这是标题',
+                allowClear: true
             },
             {
                 key: 'field2',
@@ -198,7 +199,7 @@ export default class BaseForm extends React.Component {
                 data: [
                     {value: 1, label: 'AAAAAAAA'},
                     {value: 2, label: 'BBBBBBBB', disabled: true},
-                    {value: 3, label: 'CCCCCCCC'}
+                    {value: 3, label: 'CCCCCCCC', span: 24}
                ]
             },
             {
@@ -288,10 +289,10 @@ export default class BaseForm extends React.Component {
                         console.log('==form====>', values)
                         clear();
                     }}
-                    actionDirection="center"
+                    actionDirection="left"
                     unCollapseCount={13}
                     rowColCounts={this.rowColCounts}
-                    labelPostion="top"
+                    labelPostion="left"
                     accessoryComponent= {this.renderAccessoryComponent}
                     allDisabled={false}
                     disableEnterSubmit={false}

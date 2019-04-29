@@ -25,13 +25,31 @@ export default {
   plugins: [
     external(),
     postcss({
-      modules: true
+      extensions: ['.css', '.scss', '.less'],
+      use : [
+        'sass', 
+        ['less', { 
+          javascriptEnabled: true,
+          modifyVars: {
+            'font-size-base': '12px',
+            'form-item-margin-bottom': '8px',
+            'table-padding-vertical': '8px',
+            'table-padding-horizontal': '8px',
+            'btn-height-base': '27px',
+            'card-padding-base': '16px',
+            'card-head-padding': '12px'
+          },
+        }]
+      ],
     }),
     url(),
     svgr(),
     babel({
       exclude: 'node_modules/**',
-      plugins: [ 'external-helpers', 'babel-plugin-styled-components' ]
+      plugins: [ 
+        'external-helpers', 
+        'babel-plugin-styled-components'
+      ]
     }),
     resolve(),
     commonjs()

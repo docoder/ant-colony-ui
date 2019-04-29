@@ -16,7 +16,12 @@ const EditableContext = React.createContext();
 const StyledSelect = styled(Select)`
     width: 100%;
 `;
-
+const StyledInput = styled(Input)`
+    &.ant-input-affix-wrapper .ant-input-suffix {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.25);
+    }
+`;
 const EditableRow = ({ form, index, ...props }) => (
     <EditableContext.Provider value={form}>
         <tr {...props} />
@@ -95,7 +100,8 @@ export class EditableCell extends React.Component {
                 );
             default:
                 return (
-                    <Input
+                    <StyledInput
+                        allowClear={true}
                         ref={node => (this.input = node)}
                         onPressEnter={this.save}
                         disabled={disabled}

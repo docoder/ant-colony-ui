@@ -13,6 +13,12 @@ const CardContainer = styled.div`
         padding: ${props => props.padding ? '24px 32px' : '0'};
     }
 `;
+const StyledCard = styled(Card)`
+    &.ant-card-wider-padding .ant-card-head {
+        padding: 0 16px;
+        min-height: inherit; 
+    }
+`;
 
 function Panel(props) {
     let padding = true
@@ -27,13 +33,13 @@ function Panel(props) {
     }
     return (
         <CardContainer className={props.className} padding={padding}>
-            <Card
+            <StyledCard
                 title={props.title}
                 type={props.type}
                 extra={props.extra}
             >
                 {props.children}
-            </Card>
+            </StyledCard>
         </CardContainer>
     );
 }

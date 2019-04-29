@@ -6,7 +6,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button as AntButton } from 'antd';
 import styled from 'styled-components';
-
 const StyledButton = styled(AntButton)`
     &.ant-btn-danger {
         color: white;
