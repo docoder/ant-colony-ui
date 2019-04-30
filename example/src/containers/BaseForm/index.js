@@ -292,7 +292,7 @@ export default class BaseForm extends React.Component {
                     actionDirection="left"
                     unCollapseCount={13}
                     rowColCounts={this.rowColCounts}
-                    labelPostion="left"
+                    labelPostion="top"
                     accessoryComponent= {this.renderAccessoryComponent}
                     allDisabled={false}
                     disableEnterSubmit={false}

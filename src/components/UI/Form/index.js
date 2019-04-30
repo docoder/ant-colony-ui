@@ -44,12 +44,16 @@ const CollapseToggle = styled.a`
     font-size: 12px;
 `;
 const FormBody = styled.div`
+    & .ant-form-item-label {
+        text-align: left;
+    }
 `;
 const FormHeader = styled.div`
     padding-left: 10px;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+    margin-top: 15px;
 `;
 const AddButton = styled(Button)`
     width: 25%;
@@ -87,7 +91,7 @@ const InfoLabel = styled.span`
     font-size: 12px;
     color: rgba(0, 0, 0, 0.85);
     cursor: default;
-    text-align: right;
+    text-align: left;
     line-height: 39.9999px;
     white-space: nowrap;
 `;
@@ -95,7 +99,7 @@ const InfoValue = styled.span`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.65);
     cursor: default;
-    text-align: right;
+    text-align: left;
     line-height: 39.9999px;
     white-space: nowrap;
 `;
