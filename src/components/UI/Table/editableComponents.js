@@ -180,7 +180,8 @@ export class EditableCell extends React.Component {
         if (type === 'tags' && children && (children[2])) {
             children[2] = children[2].map(c => {
                 const option = meta.data.filter(d => d.value === c)[0]
-                return <Tag key={c}>{option.label}</Tag>
+                if (option) return <Tag key={c}>{option.label}</Tag>
+                return c
             })
         }
 
