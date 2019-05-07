@@ -16,11 +16,31 @@ const EditableContext = React.createContext();
 const StyledSelect = styled(Select)`
     width: 100%;
 `;
+const StyledTagSelect = styled(Select)`
+    width: 100%;
+`;
 const StyledInput = styled(Input)`
     &.ant-input-affix-wrapper .ant-input-suffix {
         font-size: 12px;
         color: rgba(0, 0, 0, 0.25);
     }
+`;
+const Tag = styled.div`
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 24px;
+    margin-top: 3px;
+    line-height: 22px;
+    margin-right: 4px;
+    padding: 0 20px 0 10px;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 2px;
 `;
 const EditableRow = ({ form, index, ...props }) => (
     <EditableContext.Provider value={form}>
@@ -59,7 +79,7 @@ export class EditableCell extends React.Component {
     handleClickOutside = (e) => {
         const { editing } = this.state;
         const { type } = this.props;
-        if (editing && type!== 'select' && this.cell !== e.target && !this.cell.contains(e.target)) {
+        if (editing && type!== 'select' && type!=='tags' && this.cell !== e.target && !this.cell.contains(e.target)) {
             this.save();
         }
     }
@@ -98,6 +118,25 @@ export class EditableCell extends React.Component {
                     }
                     </StyledSelect>
                 );
+            case 'tags':
+                return (
+                    <StyledTagSelect
+                        mode="tags"
+                        ref={node => (this.input = node)}
+                        onBlur={this.save}
+                        optionFilterProp="children"
+                        showSearch={true}
+                        allowClear={true}
+                        placeholder={`请选择${title}`}
+                        notFoundContent="没有内容"
+                        disabled={disabled}
+
+                    >
+                    {
+                        this.renderOptions()
+                    }
+                    </StyledTagSelect>
+                )
             default:
                 return (
                     <StyledInput
@@ -138,6 +177,13 @@ export class EditableCell extends React.Component {
             const selectedData = meta.data.filter(d => d.value === children[2])[0]
             if (selectedData) children[2] = selectedData.label
         }
+        if (type === 'tags' && children && (children[2])) {
+            children[2] = children[2].map(c => {
+                const option = meta.data.filter(d => d.value === c)[0]
+                return <Tag key={c}>{option.label}</Tag>
+            })
+        }
+
         return (
             <td ref={node => (this.cell = node)} {...restProps}>
             {editable ? (

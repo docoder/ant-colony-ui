@@ -36,6 +36,8 @@ const DATASOURCE = [
         key: '4',
         name: 'Edward King 1',
         age: '32',
+        tags: ['a10','c12'],
+        edit: true,
         address: 'London, Park Lane no. 1',
     },
     {
@@ -65,6 +67,10 @@ const DATASOURCE = [
         address: 'London, Park Lane no. 1',
     }
 ];
+const children = [];
+for (let i = 10; i < 36; i++) {
+    children.push({label: i.toString(36).toUpperCase() + i, value: i.toString(36) + i});
+}
 const TABLE_COLUMNS = [
     {
         title: 'name',
@@ -76,7 +82,7 @@ const TABLE_COLUMNS = [
         title: 'age',
         dataIndex: 'age',
         editable: true,
-        required: true,
+        required: true, 
         reg: { pattern: /^[1-9]\d*$/, message: '请输入正整数'}
     }, {
         title: 'gender',
@@ -90,6 +96,14 @@ const TABLE_COLUMNS = [
                 {label: 'male', value: '1'},
                 {label: 'female', value: '2'}
             ]
+        }
+    },{
+        title: 'tags',
+        dataIndex: 'tags',
+        editable: true,
+        type: 'tags',
+        meta: {
+            data: children       
         }
     },{
         title: 'address',
