@@ -20,15 +20,27 @@ const StyledTable = styled(AntTable)`
     }
 
     .editable-cell-value-wrap {
-      padding: 5px 12px;
+      padding: 7px 12px;
       cursor: pointer;
+    }
+    .editable-tags{
+      padding: 1px 3px;
+      cursor: pointer;
+      line-height: 1;
     }
 
     .editable-row:hover .editable-cell-value-wrap {
       border: 1px solid #d9d9d9;
       border-radius: 4px;
-      padding: 4px 11px;
+      padding: 6px 11px;
       min-height: 32px;
+    }
+    .editable-row:hover .editable-tags{
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      padding: 1px 3px;
+      min-height: 32px;
+      line-height: 1;
     }
     .fl-scrolls {
         bottom: 0;

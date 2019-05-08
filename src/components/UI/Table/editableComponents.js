@@ -32,10 +32,10 @@ const Tag = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 24px;
-    margin-top: 3px;
+    margin-top: 2px;
     line-height: 22px;
     margin-right: 4px;
-    padding: 0 20px 0 10px;
+    padding: 0 10px 0 10px;
     overflow: hidden;
     color: rgba(0, 0, 0, 0.65);
     background-color: #fafafa;
@@ -208,8 +208,7 @@ export class EditableCell extends React.Component {
                               </FormItem>
                             ) : (
                             <div
-                                className="editable-cell-value-wrap"
-                                style={{ paddingRight: 24 }}
+                                className={type === 'tags' ? 'editable-tags' : 'editable-cell-value-wrap'}
                                 onClick={this.toggleEdit}
                             >
                                 {children}
