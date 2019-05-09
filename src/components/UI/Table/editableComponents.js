@@ -67,6 +67,12 @@ export class EditableCell extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.editable) {
+            document.removeEventListener('click', this.handleClickOutside, true);
+            document.addEventListener('click', this.handleClickOutside, true);
+        }
+    }
     toggleEdit = () => {
         const editing = !this.state.editing;
         this.setState({ editing }, () => {
