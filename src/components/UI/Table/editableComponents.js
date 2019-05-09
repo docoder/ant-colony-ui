@@ -85,7 +85,7 @@ export class EditableCell extends React.Component {
     handleClickOutside = (e) => {
         const { editing } = this.state;
         const { type } = this.props;
-        if (editing && type!== 'select' && type!=='tags' && this.cell !== e.target && !this.cell.contains(e.target)) {
+        if (editing && type!== 'select' && type!=='tags' && type!=='multiple' && this.cell !== e.target && !this.cell.contains(e.target)) {
             this.save();
         }
     }
@@ -143,6 +143,25 @@ export class EditableCell extends React.Component {
                     }
                     </StyledTagSelect>
                 )
+            case 'multiple':
+                return (
+                    <StyledTagSelect
+                        mode="multiple"
+                        ref={node => (this.input = node)}
+                        onBlur={this.save}
+                        optionFilterProp="children"
+                        showSearch={true}
+                        allowClear={true}
+                        placeholder={`请选择${title}`}
+                        notFoundContent="没有内容"
+                        disabled={disabled}
+
+                    >
+                    {
+                        this.renderOptions()
+                    }
+                    </StyledTagSelect>
+                )
             default:
                 return (
                     <StyledInput
@@ -183,7 +202,7 @@ export class EditableCell extends React.Component {
             const selectedData = meta.data.filter(d => d.value === children[2])[0]
             if (selectedData) children[2] = selectedData.label
         }
-        if (type === 'tags' && children && (children[2])) {
+        if ((type === 'tags' || type === 'multiple') && children && (children[2])) {
             children[2] = children[2].map(c => {
                 const option = meta.data.filter(d => d.value === c)[0]
                 if (option) return <Tag key={c}>{option.label}</Tag>
@@ -214,7 +233,7 @@ export class EditableCell extends React.Component {
                               </FormItem>
                             ) : (
                             <div
-                                className={type === 'tags' ? 'editable-tags' : 'editable-cell-value-wrap'}
+                                className={(type === 'tags' || type === 'multiple') ? 'editable-tags' : 'editable-cell-value-wrap'}
                                 onClick={this.toggleEdit}
                             >
                                 {children}

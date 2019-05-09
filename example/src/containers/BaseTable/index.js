@@ -36,7 +36,7 @@ const DATASOURCE = [
         key: '4',
         name: 'Edward King 1',
         age: '32',
-        tags: ['a10','c12'],
+        multiple: ['a10','c12'],
         edit: true,
         address: 'London, Park Lane no. 1',
     },
@@ -98,10 +98,10 @@ const TABLE_COLUMNS = [
             ]
         }
     },{
-        title: 'tags',
-        dataIndex: 'tags',
+        title: 'multiple',
+        dataIndex: 'multiple',
         editable: true,
-        type: 'tags',
+        type: 'multiple',
         meta: {
             data: children       
         }
