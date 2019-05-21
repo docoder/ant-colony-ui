@@ -46,6 +46,7 @@ export default class Upload extends React.Component {
             beforeUpload: this.props.beforeUpload,
             data: this.props.data,
             defaultFileList: this.props.defaultFileList,
+            customRequest: this.props.customRequest,
             onChange: (info) => {
                 if (info.file.status === 'done' || info.file.status === 'removed') {
                     this.props.onUploadedChange(info);
@@ -91,7 +92,8 @@ Upload.propTypes = {
         PropTypes.object,
         PropTypes.func
     ]),
-    defaultFileList: PropTypes.arrayOf(PropTypes.object)
+    defaultFileList: PropTypes.arrayOf(PropTypes.object),
+    customRequest: PropTypes.func
 }
 Upload.defaultProps = {
     title: '点击上传',
