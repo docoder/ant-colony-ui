@@ -66,8 +66,28 @@ export default class NavFrame extends React.Component {
     renderRoutes = (pls) => {
         return pls.map(p => {
             let exact = false;
+            let redirect = false;
             if (p.link === '/') exact = true;
-            return (<Route key={p.link} exact={exact} path={p.link} component={p.page} />)
+            if (p.link !== '/' && p.index) redirect = true
+            if (typeof p.page === 'function' && p.page.name !== 'ConnectRoute') {
+                if (redirect) {
+                    return (<React.Fragment key={p.link}>
+                        <Route exact path="/" render={() => <Redirect to={p.link} />} />
+                        <Route exact={exact} path={p.link} render={p.page} />
+                    </React.Fragment>)
+                }else {
+                    return <Route key={p.link} exact={exact} path={p.link} render={p.page} />
+                }
+            } else {
+                if (redirect) {
+                    return (<React.Fragment key={p.link}>
+                        <Route exact path="/" component={() => <Redirect to={p.link} />} />
+                        <Route exact={exact} path={p.link} component={p.page} />
+                    </React.Fragment>)
+                }else {
+                    return <Route key={p.link} exact={exact} path={p.link} component={p.page} />
+                }
+            }
         })
     }
 
