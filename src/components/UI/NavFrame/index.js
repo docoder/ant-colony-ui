@@ -9,7 +9,7 @@ import {
     LocaleProvider
 } from 'antd';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 import SideMenus from './sideMenus';
