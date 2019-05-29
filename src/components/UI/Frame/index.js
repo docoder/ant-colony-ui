@@ -74,7 +74,7 @@ export default class NavFrame extends React.Component {
     render() {
         const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide } = this.props;
         return (
-            <Router>
+            <div>
                 <LocaleProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     {
@@ -112,7 +112,7 @@ export default class NavFrame extends React.Component {
                     </FrameMain>
                 </Layout>
                 </LocaleProvider>
-            </Router>
+            </div>
         );
     }
 }
