@@ -17,6 +17,7 @@ import Toggle from './components/UI/Toggle';
 import Panel from './components/UI/Panel';
 import Tabs from './components/UI/Tabs';
 import Checkbox from './components/UI/Checkbox';
+import Frame from './components/UI/Frame';
 import './index.less';
 export {
     Alert,
@@ -33,5 +34,6 @@ export {
     Toggle,
     Panel,
     Tabs,
-    Checkbox
+    Checkbox,
+    Frame
 }
