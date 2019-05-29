@@ -20,7 +20,7 @@ const FrameSider = styled(Sider)`
     }
     z-index: 100;
 `;
-class SideMenu extends Component {
+export default class SideMenu extends Component {
     renderMenuItem = (item) => {
         return (
             <Menu.Item key={`/${item.key}`}>
@@ -87,4 +87,3 @@ SideMenu.defaultProps = {
     collapsed: false,
     onCollapse: () => {}
 }
-export default withRouter(SideMenu);
