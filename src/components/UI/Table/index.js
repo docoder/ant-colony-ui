@@ -172,7 +172,7 @@ export default class Table extends React.Component {
         };
         let newDataSource = dataSource.map(d => ({columnConfig: '', ...d}))
 
-        const tableColumns = this.newColumns.map((col) => {
+        const tableColumns = this.state.newColumns.map((col) => {
             if (!col.editable && (!col.actions || col.actions.length <= 0)) {
                 return col;
             }
