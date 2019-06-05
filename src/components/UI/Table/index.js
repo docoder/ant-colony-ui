@@ -104,18 +104,9 @@ export default class Table extends React.Component {
     constructor(props) {
         super(props)
         this.columns = this.props.columns; //显示列为所有列
-        if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
-            const columnsStr = storage.getItem(this.props.columnsConfigGlobalTableKey);
-            if (columnsStr && columnsStr.length > 0) {
-                //有缓存
-                let filterColumns = JSON.parse(columnsStr)
-                if (filterColumns.length > 0) {
-                    //显示列为缓存列
-                    this.columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
-                }
-            }
+        this.state={
+            newColumns: this.columns
         }
-        this.setColumns(this.columns)
     }
     //设置显示列
     setColumns = (columns) => {
@@ -135,11 +126,24 @@ export default class Table extends React.Component {
             //列可配置 关闭
             this.newColumns = [...columns]
         }
+        this.setState({newColumns: this.newColumns})
     }
     componentDidMount() {
         if(this.props.floatingScrollDomQuery) {
             floatingScroll(document.querySelectorAll(this.props.floatingScrollDomQuery))
         }
+        if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
+            const columnsStr = storage.getItem(this.props.columnsConfigGlobalTableKey);
+            if (columnsStr && columnsStr.length > 0) {
+                //有缓存
+                let filterColumns = JSON.parse(columnsStr)
+                if (filterColumns.length > 0) {
+                    //显示列为缓存列
+                    this.columns = this.props.columns.filter( c => ~filterColumns.indexOf(c.dataIndex))
+                }
+            }
+        }
+        this.setColumns(this.columns)
     }
     handleChange = (pagination, filters, sorter) => {
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
@@ -270,6 +274,7 @@ Table.propTypes = {
 }
 Table.defaultProps = {
     onCellSave: (row) => {},
+    onChange: () => {},
     loading: false,
     floatingScroll: false,
     rowKey: 'key'
