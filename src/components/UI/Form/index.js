@@ -175,6 +175,7 @@ class Form extends React.Component {
             case 'select':
                 return (
                     <Select
+                        mode={item.meta.mode}
                         onChange={item.onChange ? (value) => {
                             const formItems = this.props.form.getFieldValue('forms');
                             const byRefItems = formItems.filter(i => i.meta && i.meta.ref && i.meta.ref === item.key);

@@ -76,6 +76,7 @@ export default class BaseForm extends React.Component {
                 type: 'select',
                 meta: {
                     ref: 'field2',
+                    mode: 'multiple',
                     data: (refValue) => {
                         const dic = {
                             a: [{ value: 'a0', label: 'A0' }, { value: 'a1', label: 'A1' }, { value: 'a2', label: 'A2' }],
