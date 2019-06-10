@@ -45,10 +45,19 @@ export default {
     url(),
     svgr(),
     babel({
+      babelrc: false,
+      compact: true,
       exclude: 'node_modules/**',
+      "presets": [
+          ["env", {
+              "modules": false
+          }],
+          "stage-0",
+          "react"
+      ],
       plugins: [ 
         'external-helpers', 
-        'babel-plugin-styled-components'
+        'babel-plugin-styled-components',
       ]
     }),
     resolve(),

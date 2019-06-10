@@ -18,7 +18,7 @@ import Panel from './components/UI/Panel';
 import Tabs from './components/UI/Tabs';
 import Checkbox from './components/UI/Checkbox';
 import Frame from './components/UI/Frame';
-import './index.less';
+import './index.less'
 export {
     Alert,
     Button,
