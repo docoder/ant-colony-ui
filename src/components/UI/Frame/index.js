@@ -53,7 +53,7 @@ const LogoutButton = styled(Button)`
     margin-top: 16px;
 `;
 
-export default class NavFrame extends React.Component {
+export default class Frame extends React.Component {
     constructor(props) {
         super(props)
         const pathSnippets = window.location.pathname.split('/').filter(i => i);
@@ -116,7 +116,7 @@ export default class NavFrame extends React.Component {
         );
     }
 }
-NavFrame.propTypes = {
+Frame.propTypes = {
     menus: PropTypes.arrayOf(PropTypes.object).isRequired,
     title: PropTypes.string.isRequired,
     collapsedTitle: PropTypes.string,
@@ -127,7 +127,7 @@ NavFrame.propTypes = {
     didMount: PropTypes.func,
     onMenuSelect: PropTypes.func
 }
-NavFrame.defaultProps = {
+Frame.defaultProps = {
     collapsedTitle: '',
     headerHide: false,
     sideMenusHide: false,

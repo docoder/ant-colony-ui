@@ -16,11 +16,11 @@ const getPageRoute = (item) => {
      const suffix = 'Ant Colony UI';
     return connectRoute(asyncComponent(() => import(`../${item.key}`), `${item.label} | ${suffix}` || '无标题'));
 }
-const getPageRoute2 = (item) => {
-     const suffix = 'Ant Colony UI';
-     const A = connectRoute(asyncComponent(() => import(`../${item.key}`), `${item.label} | ${suffix}` || '无标题'));
-    return (props) => <A {...props} />;
-}
+// const getPageRoute2 = (item) => {
+//      const suffix = 'Ant Colony UI';
+//      const A = connectRoute(asyncComponent(() => import(`../${item.key}`), `${item.label} | ${suffix}` || '无标题'));
+//     return (props) => <A {...props} />;
+// }
 menus.forEach( m => {
     if (m.key) {
         pageLinks.push({ page: getPageRoute(m), label: m.label, link: m.index ? '/' : `/${m.key}`});
