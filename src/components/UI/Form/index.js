@@ -372,6 +372,34 @@ class Form extends React.Component {
             return item.value;
         }
     }
+    // getFormItem = (item) => {
+    //     const { getFieldDecorator, getFieldsValue } = this.props.form;
+    //     const { allDisabled } = this.props;
+    //     let required = item.required;
+    //     if(item.required && typeof item.required === 'function') {
+    //         required = item.required(getFieldsValue());
+    //     }else {
+    //         required = undefined
+    //     }
+    //     const staticRequired = !(item.alwaysEnable ? false : (item.disabled || allDisabled || false))
+    //     const isRequired = required && staticRequired;
+    //     const requiredChangeToFalse = (isRequired !== undefined && !isRequired && staticRequired);
+    //     return (
+    //         <FormItem label={item.label} validateStatus={ requiredChangeToFalse ? "success" : undefined } help={requiredChangeToFalse ? "" : undefined}>
+    //             {getFieldDecorator(`${item.key}`, {
+    //                 initialValue: this.getInitialValue(item),
+    //                 rules: item.reg ? [
+    //                     { required: isRequired, message: `${item.label}为必填项`},
+    //                     item.reg
+    //                 ] : [
+    //                     { required: isRequired, message: `${item.label}为必填项`}
+    //                 ],
+    //             })(
+    //                 this.getInput(item)
+    //             )}
+    //         </FormItem>
+    //     )
+    // }
     getFormItem = (item) => {
         const { getFieldDecorator, getFieldsValue } = this.props.form;
         const { allDisabled } = this.props;
@@ -381,7 +409,7 @@ class Form extends React.Component {
         }
         const isRequired = required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false));
         return (
-            <FormItem label={item.label} validateStatus={isRequired ? undefined : "success"} help={isRequired ? undefined : ""}>
+            <FormItem label={item.label}>
                 {getFieldDecorator(`${item.key}`, {
                     initialValue: this.getInitialValue(item),
                     rules: item.reg ? [

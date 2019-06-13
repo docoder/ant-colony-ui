@@ -98,7 +98,8 @@ export default class BaseForm extends React.Component {
             },
             {
                 key: 'field5',
-                label: '字段5'
+                label: '字段5',
+                reg: { pattern: /^([1-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
             },
             {
                 key: 'field6',
