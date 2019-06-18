@@ -128,7 +128,21 @@ export default class BaseForm extends React.Component {
             {
                 key: 'field8',
                 label: '字段8',
-                reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
+                reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'},
+                type: 'select',
+                meta: {
+                    ref: 'field7',
+                    data: (refValue) => {
+                        console.log('----->', refValue)
+                        return [
+                            { value: 'aa', label: 'AA' },
+                            { value: 0, label: 'BB' },
+                            { value: 'cc', label: 'CC' },
+                            { value: 'dd', label: 'DD' }
+                        ].filter(item => item.value === refValue); 
+                    },
+                    showSearch: true
+                }
             },
             {
                 key: 'add2',
@@ -230,40 +244,40 @@ export default class BaseForm extends React.Component {
             },
         ];
         this.rowColCounts = [2,2,4,2,1,3,4]
-        const index = this.forms.findIndex(f => f.key === 'add2')
-        let rowIndex = 3;
-        // const addKeys = this.forms[index].addKeys
-        let formAdd2Items = [{
-            key: `field7_${rowIndex}`,
-            label: '字段7',
-            canDelete: true,
-            value: `field7_${rowIndex}`
-        },
-        {
-            key: `field8_${rowIndex}`,
-            label: '字段8',
-            canDelete: true,
-            appendDeleteButton: true,
-            rowIndex: rowIndex,
-            reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
-        }, {
-            key: `field7_${rowIndex+1}`,
-            label: '字段7',
-            canDelete: true,
-        },
-        {
-            key: `field8_${rowIndex+1}`,
-            label: '字段8',
-            canDelete: true,
-            appendDeleteButton: true,
-            rowIndex: rowIndex+1,
-            value: `${rowIndex+1}`,
-            reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
-        }]
-        this.forms.splice(index, 0, ...formAdd2Items)
-        const lastRowColCount = this.rowColCounts[rowIndex-1];
-        const rowCount = Math.floor(formAdd2Items.length / lastRowColCount);
-        this.rowColCounts.splice(rowIndex, 0,  ...(Array(rowCount).fill(lastRowColCount)))
+        // const index = this.forms.findIndex(f => f.key === 'add2')
+        // let rowIndex = 3;
+        // // const addKeys = this.forms[index].addKeys
+        // let formAdd2Items = [{
+        //     key: `field7_${rowIndex}`,
+        //     label: '字段7',
+        //     canDelete: true,
+        //     value: `field7_${rowIndex}`
+        // },
+        // {
+        //     key: `field8_${rowIndex}`,
+        //     label: '字段8',
+        //     canDelete: true,
+        //     appendDeleteButton: true,
+        //     rowIndex: rowIndex,
+        //     reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
+        // }, {
+        //     key: `field7_${rowIndex+1}`,
+        //     label: '字段7',
+        //     canDelete: true,
+        // },
+        // {
+        //     key: `field8_${rowIndex+1}`,
+        //     label: '字段8',
+        //     canDelete: true,
+        //     appendDeleteButton: true,
+        //     rowIndex: rowIndex+1,
+        //     value: `${rowIndex+1}`,
+        //     reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'}
+        // }]
+        // this.forms.splice(index, 0, ...formAdd2Items)
+        // const lastRowColCount = this.rowColCounts[rowIndex-1];
+        // const rowCount = Math.floor(formAdd2Items.length / lastRowColCount);
+        // this.rowColCounts.splice(rowIndex, 0,  ...(Array(rowCount).fill(lastRowColCount)))
     }
     renderAccessoryComponent = (getFormItem) => {
         return (

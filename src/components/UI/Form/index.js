@@ -258,6 +258,9 @@ class Form extends React.Component {
                 it.rowIndex = rowIndex
             }
             it.value = undefined
+            if (it.meta && it.meta.ref) {
+                it.meta.ref = `${it.meta.ref}_${rowIndex}`
+            }
             return it;
         })
         formItems.splice(index, 0, ...itemsToAdd)
