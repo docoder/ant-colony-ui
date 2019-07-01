@@ -92,10 +92,14 @@ const TABLE_COLUMNS = [
         },
         type: 'select',
         meta: {
-            data: [
-                {label: 'male', value: '1'},
-                {label: 'female', value: '2'}
-            ]
+            ref: 'age',
+            data: (refValue) => {
+                console.log('---->>>', refValue)
+                return [
+                    {label: 'male', value: '1'},
+                    {label: 'female', value: '2'}
+                ]
+            }
         }
     },{
         title: 'multiple',

@@ -173,12 +173,26 @@ export class EditableCell extends React.Component {
                 );
         }
     }
-    renderOptions = () => {
+    getSelectItems = () => {
         const {
             meta,
+            record
         } = this.props;
-        let data = meta ? (meta.data || []) : []
-        return data.map((item, index) => (
+        let data = meta.data, items;
+        if (typeof data == 'function') {
+            let refValue = null;
+            if (meta.ref) {
+                refValue = record[meta.ref]
+            }
+            items = refValue ? data(refValue) : []
+        }else {
+            items = data;
+        }
+        return items;
+    }
+    renderOptions = () => {
+       
+        return this.getSelectItems().map((item, index) => (
             <Select.Option value={ item.value.toString() } key={ item.value }>{ item.label }</Select.Option>
         ))
     }
@@ -199,12 +213,12 @@ export class EditableCell extends React.Component {
         } = this.props;
         let children = restProps.children.slice();
         if (type === 'select' && children && (children[2] || children[2] === 0)) {
-            const selectedData = meta.data.filter(d => d.value === children[2])[0]
+            const selectedData = this.getSelectItems().filter(d => d.value === children[2])[0]
             if (selectedData) children[2] = selectedData.label
         }
         if ((type === 'tags' || type === 'multiple') && children && (children[2])) {
             children[2] = children[2].map(c => {
-                const option = meta.data.filter(d => d.value === c)[0]
+                const option = this.getSelectItems().filter(d => d.value === c)[0]
                 if (option) return <Tag key={c}>{option.label}</Tag>
                 return c
             })
