@@ -305,6 +305,9 @@ export default class BaseForm extends React.Component {
                         console.log('==form====>', values)
                         clear();
                     }}
+                    onReset={() => {
+                        console.log('===reset===')
+                    }}
                     actionDirection="left"
                     unCollapseCount={13}
                     rowColCounts={this.rowColCounts}

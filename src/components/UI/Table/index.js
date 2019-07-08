@@ -1,7 +1,7 @@
 /* eslint-disable*/
 /*
-* @Author: lijian
-* @Email:  lijian46@guazi.com
+* @Author: docoder
+* @Email:  docoder@163.com
 */
 import React from 'react'
 import PropTypes from 'prop-types'

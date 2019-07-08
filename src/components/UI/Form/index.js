@@ -1,6 +1,6 @@
 /*
-* @Author: lijian
-* @Email:  lijian46@guazi.com
+* @Author: docoder
+* @Email:  docoder@163.com
 */
 
 import React from 'react';
@@ -452,6 +452,7 @@ class Form extends React.Component {
     }
 
     handleReset = () => {
+        this.props.onReset();
         this.props.form.resetFields();
     }
 
@@ -517,6 +518,7 @@ WrappedForm.propTypes = {
     collapse: PropTypes.bool,
     unCollapseCount: PropTypes.number,
     onSubmit: PropTypes.func.isRequired,
+    onReset: PropTypes.func,
     actionDirection: PropTypes.oneOf(['left', 'right', 'center']),
     columnCount: PropTypes.number,
     rowColCounts: PropTypes.arrayOf(PropTypes.number),
@@ -541,6 +543,7 @@ WrappedForm.defaultProps = {
     clearButtonShow: true,
     actionsShow: true,
     allDisabled: false,
-    disableEnterSubmit: false
+    disableEnterSubmit: false,
+    onReset: () => {}
 }
 export default WrappedForm;

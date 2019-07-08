@@ -1,6 +1,6 @@
 /*
-* @Author: lijian
-* @Email:  lijian46@guazi.com
+* @Author: docoder
+* @Email:  docoder@163.com
 */
 class FScroll {
     constructor(cont) {
