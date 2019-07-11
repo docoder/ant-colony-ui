@@ -11,7 +11,7 @@ import {
   Form as AntForm, Row, Col, Input, Icon, Select, DatePicker, Radio, Checkbox
 } from 'antd';
 import Button from '../Button';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 const { TextArea } = Input;
 const FormItem = AntForm.Item;
@@ -250,7 +250,7 @@ class Form extends React.Component {
         const formItems = form.getFieldValue('forms');
         const item = formItems[index];
         const filtItems = formItems.filter(f => ~item.addKeys.indexOf(f.key))
-        const itemsToAdd = _.cloneDeep(filtItems).map((it, i)=> {
+        const itemsToAdd = cloneDeep(filtItems).map((it, i)=> {
             it.key = `${it.key}_${rowIndex}`
             it.canDelete = true
             if(i=== filtItems.length - 1) {
