@@ -54,6 +54,10 @@
     - meta  `type为select时有效`
       - ref 
         - 表单联动时需要参考的字段的 key
+      - **mode**
+        - undefined  `default`
+        - tags
+        - multiple
       - data `function / array`
         - 若有ref配置，function的参数 refValue 为参考字段的值
       - showSearch
@@ -78,6 +82,8 @@
       - JSON Out
     - clear
       - 函数，调用可清空表单
+  - onReset
+    - 重置表单回调
   - layout
     - columnCount
       - 默认列数
@@ -103,6 +109,16 @@
     - editable
       - bool
       - **function**
+    - **type**  `editable 为 true时有效`
+      - input  `default` 
+      - select
+      - tags
+      - multiple
+    - **meta** `type 为 select tags multiple 时有效`
+      - ref 
+        - 可以参考 Table 同 Row 的其他列字段，与之联动
+      - data `function / array`
+        - 若有ref配置，function的参数 refValue 为参考字段的值
     - required
     - **disabled**
     - fixed
