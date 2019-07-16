@@ -186,6 +186,10 @@ export default class BaseTable extends React.Component {
                             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
                         }
                     }}
+                    rowClassName={(record, text) => {
+                         console.log('---rowClassName--->', record, text)
+                         return 'testClassName'
+                    }}
                     onCellSave={(row) => {
                         console.log('---onCellChange--->', row)
                         let newList = DATASOURCE

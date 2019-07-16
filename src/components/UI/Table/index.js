@@ -163,7 +163,18 @@ export default class Table extends React.Component {
         this.props.onChange(pagination, filters, sorter);
     }
     render() {
-        const { rowKey, columns, dataSource, className, loading, pagination, scrollWidth, rowSelection, columnsConfigGlobalTableKey} = this.props;
+        const { 
+            rowKey, 
+            columns, 
+            dataSource, 
+            className, 
+            loading, 
+            pagination, 
+            scrollWidth, 
+            rowSelection, 
+            columnsConfigGlobalTableKey, 
+            rowClassName
+        } = this.props;
         const components = {
             body: {
                 row: EditableFormRow,
@@ -244,7 +255,13 @@ export default class Table extends React.Component {
                 pagination={pagination}
                 rowSelection={rowSelection}
                 components={components}
-                rowClassName={() => 'editable-row'}
+                rowClassName={(record, index) => {
+                    let className = ''
+                    if(rowClassName) {
+                        className += rowClassName(record, index)
+                    }
+                    return `${className} editable-row`
+                }}
                 bordered
                 dataSource={newDataSource}
                 columns={tableColumns}
@@ -270,7 +287,8 @@ Table.propTypes = {
     floatingScroll: PropTypes.bool,
     floatingScrollDomQuery: PropTypes.string,
     rowSelection: PropTypes.object,
-    columnsConfigGlobalTableKey: PropTypes.string
+    columnsConfigGlobalTableKey: PropTypes.string,
+    rowClassName: PropTypes.func
 }
 Table.defaultProps = {
     onCellSave: (row) => {},
