@@ -72,7 +72,7 @@ export default class Frame extends React.Component {
     }
 
     render() {
-        const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide } = this.props;
+        const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderRoutes } = this.props;
         return (
             <div>
                 <LocaleProvider locale={zhCN}>
@@ -105,6 +105,7 @@ export default class Frame extends React.Component {
                     >
                         <FrameBody >
                             <div ref={this.frameRef}></div>
+                            {renderRoutes()}
                         </FrameBody>
                         <Footer style={{ textAlign: 'center' }}>
                             ©2018
@@ -125,7 +126,8 @@ Frame.propTypes = {
     headerHide: PropTypes.bool,
     sideMenusHide: PropTypes.bool,
     didMount: PropTypes.func,
-    onMenuSelect: PropTypes.func
+    onMenuSelect: PropTypes.func,
+    renderRoutes: PropTypes.func
 }
 Frame.defaultProps = {
     collapsedTitle: '',
@@ -133,5 +135,6 @@ Frame.defaultProps = {
     sideMenusHide: false,
     renderHeaderActions: () => null,
     didMount: () => {},
-    onMenuSelect: () => {}
+    onMenuSelect: () => {},
+    renderRoutes: () => {}
 }
