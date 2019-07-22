@@ -57,7 +57,7 @@ export default class Frame extends React.Component {
     constructor(props) {
         super(props)
         const pathSnippets = window.location.pathname.split('/').filter(i => i);
-        const defaultSelectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
+        const defaultSelectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[pathSnippets.length - 1]}`;
         this.state = {
             collapsed: false,
             menuSelectedKey: defaultSelectedKey
@@ -69,7 +69,7 @@ export default class Frame extends React.Component {
     }
     componentDidUpdate() {
         const pathSnippets = window.location.pathname.split('/').filter(i => i);
-         const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
+         const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[pathSnippets.length - 1]}`;
          if (selectedKey !== this.state.menuSelectedKey ) this.setState({menuSelectedKey: selectedKey})
     }
     onCollapse = (collapsed) => {
