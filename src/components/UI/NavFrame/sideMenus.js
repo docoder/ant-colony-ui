@@ -67,7 +67,7 @@ class SideMenu extends Component {
     }
 
     render() {
-        const { menus, location, collapsed, onCollapse } = this.props;
+        const { menus, location, collapsed, onCollapse, renderSiderTopSection } = this.props;
         const pathSnippets = location.pathname.split('/').filter(i => i);
         const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
         return (
@@ -76,6 +76,7 @@ class SideMenu extends Component {
                 collapsed={collapsed}
                 onCollapse={onCollapse}
             >
+                {renderSiderTopSection()}
                 <Menu 
                     theme="dark" 
                     defaultSelectedKeys={[
@@ -94,6 +95,15 @@ class SideMenu extends Component {
     }
 }
 SideMenu.propTypes = {
-    location: PropTypes.object.isRequired
+    menus: PropTypes.arrayOf(PropTypes.object).isRequired,
+    collapsed: PropTypes.bool,
+    onCollapse: PropTypes.func,
+    location: PropTypes.object.isRequired,
+    renderSiderTopSection: PropTypes.func
+}
+SideMenu.defaultProps = {
+     collapsed: false,
+    onCollapse: () => {},
+    renderSiderTopSection: () => null
 }
 export default withRouter(SideMenu);

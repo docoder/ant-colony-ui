@@ -64,35 +64,41 @@ export default class NavFrame extends React.Component {
     }
     
     renderRoutes = (pls) => {
-        return pls.map(p => {
-            let exact = false;
-            let redirect = false;
-            if (p.link === '/') exact = true;
-            if (p.link !== '/' && p.index) redirect = true
-            // if (typeof p.page === 'function' && p.page.name !== 'ConnectRoute') {
-            //     if (redirect) {
-            //         return (<React.Fragment key={p.link}>
-            //             <Route exact path="/" render={() => <Redirect to={p.link} />} />
-            //             <Route exact={exact} path={p.link} render={p.page} />
-            //         </React.Fragment>)
-            //     }else {
-            //         return <Route key={p.link} exact={exact} path={p.link} render={p.page} />
-            //     }
-            // } else {
-                if (redirect) {
-                    return (<React.Fragment key={p.link}>
-                        <Route exact path="/" component={() => <Redirect to={p.link} />} />
-                        <Route exact={exact} path={p.link} component={p.page} />
-                    </React.Fragment>)
-                }else {
-                    return <Route key={p.link} exact={exact} path={p.link} component={p.page} />
+        if (this.props.renderRoutes) return this.props.renderRoutes()
+        return (
+            <Switch>
+                {
+                    pls.map(p => {
+                    let exact = false;
+                    let redirect = false;
+                    if (p.link === '/') exact = true;
+                    if (p.link !== '/' && p.index) redirect = true
+                    // if (typeof p.page === 'function' && p.page.name !== 'ConnectRoute') {
+                    //     if (redirect) {
+                    //         return (<React.Fragment key={p.link}>
+                    //             <Route exact path="/" render={() => <Redirect to={p.link} />} />
+                    //             <Route exact={exact} path={p.link} render={p.page} />
+                    //         </React.Fragment>)
+                    //     }else {
+                    //         return <Route key={p.link} exact={exact} path={p.link} render={p.page} />
+                    //     }
+                    // } else {
+                        if (redirect) {
+                            return (<React.Fragment key={p.link}>
+                                <Route exact path="/" component={() => <Redirect to={p.link} />} />
+                                <Route exact={exact} path={p.link} component={p.page} />
+                            </React.Fragment>)
+                        }else {
+                            return <Route key={p.link} exact={exact} path={p.link} component={p.page} />
+                        }
+                    // }
+                    })
                 }
-            // }
-        })
+            </Switch>
+        )
     }
-
     render() {
-        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
         return (
             <Router>
                 <LocaleProvider locale={zhCN}>
@@ -107,7 +113,7 @@ export default class NavFrame extends React.Component {
                         </FrameHeader>
                     }
                     {
-                        !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} />
+                        !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} renderSiderTopSection={renderSiderTopSection} />
                     }
                     <FrameMain 
                         collapsed={this.state.collapsed ? 'true' : 'false'}
@@ -115,9 +121,7 @@ export default class NavFrame extends React.Component {
                         headerhide={headerHide ? 'true' : 'false'}
                     >
                         <FrameBody >
-                            <Switch>
-                            {this.renderRoutes(pageLinks)}
-                            </Switch>
+                        {this.renderRoutes(pageLinks)}
                         </FrameBody>
                         <Footer style={{ textAlign: 'center' }}>
                             ©2018
@@ -137,11 +141,14 @@ NavFrame.propTypes = {
     logout: PropTypes.func,
     renderHeaderActions: PropTypes.func,
     headerHide: PropTypes.bool,
-    sideMenusHide: PropTypes.bool
+    sideMenusHide: PropTypes.bool,
+    renderRoutes: PropTypes.func,
+    renderSiderTopSection: PropTypes.func
 }
 NavFrame.defaultProps = {
     collapsedTitle: '',
     headerHide: false,
     sideMenusHide: false,
     renderHeaderActions: () => null,
+    renderSiderTopSection: () => null
 }

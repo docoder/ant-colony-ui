@@ -51,13 +51,14 @@ export default class SideMenu extends Component {
         })
     }
     render() {
-        const { menus, selectedKey, onMenuSelect, collapsed, onCollapse } = this.props;
+        const { menus, selectedKey, onMenuSelect, collapsed, onCollapse, renderSiderTopSection } = this.props;
         return (
             <FrameSider
                 collapsible
                 collapsed={collapsed}
                 onCollapse={onCollapse}
             >
+                {renderSiderTopSection()}
                 <Menu 
                     theme="dark" 
                     defaultSelectedKeys={[
@@ -80,10 +81,12 @@ SideMenu.propTypes = {
     selectedKey: PropTypes.string,
     onMenuSelect: PropTypes.func,
     collapsed: PropTypes.bool,
-    onCollapse: PropTypes.func
+    onCollapse: PropTypes.func,
+    renderSiderTopSection: PropTypes.func,
 }
 SideMenu.defaultProps = {
     onMenuSelect: () =>{},
     collapsed: false,
-    onCollapse: () => {}
+    onCollapse: () => {},
+    renderSiderTopSection: () => {}
 }

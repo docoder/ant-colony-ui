@@ -40,6 +40,11 @@ console.log('==PageLinks==>', pageLinks.map(pl => ({label: pl.label, link: pl.li
 
 const AppBody = styled.div`
 `;
+const SiderTopSection = styled.div`
+    padding: 20px;
+    color: white;
+    font-size: 14px;
+`
 export default class App extends React.Component {
     render() {
         return (
@@ -55,6 +60,9 @@ export default class App extends React.Component {
                     pageLinks={pageLinks}
                     logout={() => {}}
                     renderHeaderActions={() => (<Button type="primary" title="Action" />)}
+                    renderSiderTopSection={() => {
+                        return (<SiderTopSection>Sider Top Info</SiderTopSection>)
+                    }}
                 />
             </AppBody>
         );

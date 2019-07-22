@@ -67,12 +67,16 @@ export default class Frame extends React.Component {
     componentDidMount() {
         this.props.didMount(this.frameRef.current)
     }
+    componentDidUpdate() {
+         const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
+         if (selectedKey !== this.state.menuSelectedKey ) this.setState({menuSelectedKey: selectedKey})
+    }
     onCollapse = (collapsed) => {
         this.setState({ collapsed });
     }
 
     render() {
-        const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderRoutes } = this.props;
+        const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderRoutes, renderSiderTopSection } = this.props;
         return (
             <div>
                 <LocaleProvider locale={zhCN}>
@@ -96,6 +100,7 @@ export default class Frame extends React.Component {
                             menus={menus}
                             collapsed={this.state.collapsed}
                             onCollapse={this.onCollapse}
+                            renderSiderTopSection={renderSiderTopSection}
                         />
                     }
                     <FrameMain 
@@ -127,7 +132,8 @@ Frame.propTypes = {
     sideMenusHide: PropTypes.bool,
     didMount: PropTypes.func,
     onMenuSelect: PropTypes.func,
-    renderRoutes: PropTypes.func
+    renderRoutes: PropTypes.func,
+    renderSiderTopSection: PropTypes.func
 }
 Frame.defaultProps = {
     collapsedTitle: '',
@@ -136,5 +142,6 @@ Frame.defaultProps = {
     renderHeaderActions: () => null,
     didMount: () => {},
     onMenuSelect: () => {},
-    renderRoutes: () => {}
+    renderRoutes: () => {},
+    renderSiderTopSection: () => null
 }
