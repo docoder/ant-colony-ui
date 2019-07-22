@@ -4,7 +4,7 @@
 */
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from 'ant-colony-ui';
+import { Button, Tooltip } from 'ant-colony-ui';
 
 const ButtonsBody = styled.div`
     background: white;
@@ -19,7 +19,11 @@ export default class Buttons extends React.Component {
     render() {
         return (
             <ButtonsBody>
-                <StyledButton type="primary" title="Primary" />
+                <Tooltip title="This is a tooltip!">
+                    <span>
+                        <StyledButton type="primary" title="Primary" />
+                    </span>
+                </Tooltip>
                 <StyledButton title="Default" />
                 <StyledButton type="dashed" title="Dashed" />
                 <StyledButton type="danger" title="Danger" />

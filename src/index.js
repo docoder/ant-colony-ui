@@ -18,6 +18,7 @@ import Panel from './components/UI/Panel';
 import Tabs from './components/UI/Tabs';
 import Checkbox from './components/UI/Checkbox';
 import Frame from './components/UI/Frame';
+import Tooltip from './components/UI/Tooltip';
 import './index.less'
 export {
     Alert,
@@ -35,5 +36,6 @@ export {
     Panel,
     Tabs,
     Checkbox,
-    Frame
+    Frame,
+    Tooltip
 }
