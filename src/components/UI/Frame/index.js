@@ -68,6 +68,7 @@ export default class Frame extends React.Component {
         this.props.didMount(this.frameRef.current)
     }
     componentDidUpdate() {
+        const pathSnippets = window.location.pathname.split('/').filter(i => i);
          const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
          if (selectedKey !== this.state.menuSelectedKey ) this.setState({menuSelectedKey: selectedKey})
     }
