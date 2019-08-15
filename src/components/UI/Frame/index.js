@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Layout,
-    LocaleProvider
+    ConfigProvider
 } from 'antd';
 import styled from 'styled-components';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -80,7 +80,7 @@ export default class Frame extends React.Component {
         const { menus, title, onMenuSelect, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderRoutes, renderSiderTopSection } = this.props;
         return (
             <div>
-                <LocaleProvider locale={zhCN}>
+                <ConfigProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     {
                         !headerHide && <FrameHeader>
@@ -118,7 +118,7 @@ export default class Frame extends React.Component {
                         </Footer>
                     </FrameMain>
                 </Layout>
-                </LocaleProvider>
+                </ConfigProvider>
             </div>
         );
     }

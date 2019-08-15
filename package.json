@@ -1,6 +1,6 @@
 {
   "name": "ant-colony-ui",
-  "version": "1.5.32",
+  "version": "1.6.0",
   "description": "Ant Colony UI Toolkit based on Ant Design and React",
   "author": "docoder",
   "license": "MIT",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
-    "antd": "3.19.3",
+    "antd": "3.21.4",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -67,8 +67,8 @@
     "gh-pages": "^1.2.0",
     "less": "^3.9.0",
     "lodash": "^4.17.14",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.4",

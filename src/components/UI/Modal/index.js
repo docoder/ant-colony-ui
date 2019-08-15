@@ -16,12 +16,18 @@ export default function Modal(props) {
             footer={props.footer}
             width={props.width}
             mask={props.mask}
+            getContainer={props.getContainer}
         >
             {props.children}
         </AntModal>
     );
 }
 Modal.propTypes = {
+    getContainer: PropTypes.PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.element,
+        PropTypes.func
+    ]),
     visible: PropTypes.bool,
     title:PropTypes.PropTypes.oneOfType([
         PropTypes.string,

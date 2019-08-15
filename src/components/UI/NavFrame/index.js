@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Layout,
-    LocaleProvider
+    ConfigProvider
 } from 'antd';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -101,7 +101,7 @@ export default class NavFrame extends React.Component {
         const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
         return (
             <Router>
-                <LocaleProvider locale={zhCN}>
+                <ConfigProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     {
                         !headerHide && <FrameHeader>
@@ -128,7 +128,7 @@ export default class NavFrame extends React.Component {
                         </Footer>
                     </FrameMain>
                 </Layout>
-                </LocaleProvider>
+                </ConfigProvider>
             </Router>
         );
     }

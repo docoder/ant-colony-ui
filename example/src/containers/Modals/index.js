@@ -26,6 +26,7 @@ export default function Modals () {
                     onOk={() => {setVisible(false)}}
                     onCancel={() => {setVisible(false)}}
                     width={1000}
+                    getContainer={false}
                 >
                     This is a Modal !
                 </Modal>
