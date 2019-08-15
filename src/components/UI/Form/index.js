@@ -223,6 +223,8 @@ class Form extends React.Component {
                         showTime={item.showTime}
                         disabled={item.alwaysEnable ? false : (item.disabled || allDisabled || false)} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
+                        allowClear={(typeof item.allowClear) === 'undefined' ? true : item.allowClear}
+                        renderExtraFooter={item.renderExtraFooter}
                     />
                 );
             case 'month':

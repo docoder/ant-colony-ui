@@ -235,7 +235,9 @@ export default class BaseForm extends React.Component {
             {
                 key: 'field21',
                 label: '字段21',
-                type: 'rangeDate'
+                type: 'rangeDate',
+                allowClear: false,
+                renderExtraFooter: () => 'extra footer'
             },
             {
                 key: 'field22',
