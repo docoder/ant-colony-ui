@@ -291,7 +291,7 @@ Table.propTypes = {
     rowClassName: PropTypes.func
 }
 Table.defaultProps = {
-    onCellSave: (row) => {},
+    onCellSave: (row, dataIndex) => {},
     onChange: () => {},
     loading: false,
     floatingScroll: false,

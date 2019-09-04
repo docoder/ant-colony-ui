@@ -91,13 +91,13 @@ export class EditableCell extends React.Component {
     }
 
     save = () => {
-        const { record, handleSave } = this.props;
+        const { record, handleSave, dataIndex } = this.props;
         this.form.validateFields((error, values) => {
             if (error) {
                 return;
             }
             this.toggleEdit();
-            handleSave({ ...record, ...values });
+            handleSave({ ...record, ...values }, dataIndex);
         });
     }
     getInput = () => {
