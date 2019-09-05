@@ -178,7 +178,7 @@ export class EditableCell extends React.Component {
             meta,
             record
         } = this.props;
-        let data = meta.data, items;
+        let data = meta ? (meta.data || []) : [], items;
         if (typeof data == 'function') {
             let refValue = null;
             if (meta.ref) {
