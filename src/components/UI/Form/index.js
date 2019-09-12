@@ -134,7 +134,7 @@ class Form extends React.Component {
             items = data;
         }
         return items.map((item, index) => (
-            <Select.Option value={ item.value.toString() } key={ item.value }>{ item.label }</Select.Option>
+            <Select.Option value={ item.value.toString() } disabled={item.disabled} key={ item.value }>{ item.label }</Select.Option>
         ))
     }
     itemOnChange = (item, ...args) => {

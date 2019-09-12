@@ -46,7 +46,7 @@ export default class BaseForm extends React.Component {
                     data: [
                         { value: 'a', label: 'A' },
                         { value: 'b', label: 'B' },
-                        { value: 'c', label: 'C' },
+                        { value: 'c', label: 'C', disabled: true},
                         { value: 'd', label: 'D' }
                     ],
                     showSearch: true
