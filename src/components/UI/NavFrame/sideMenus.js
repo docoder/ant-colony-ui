@@ -69,7 +69,7 @@ class SideMenu extends Component {
     render() {
         const { menus, location, collapsed, onCollapse, renderSiderTopSection } = this.props;
         const pathSnippets = location.pathname.split('/').filter(i => i);
-        const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[pathSnippets.length - 1]}`;
+        const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
         return (
             <FrameSider
                 collapsible

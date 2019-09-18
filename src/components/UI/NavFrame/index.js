@@ -83,7 +83,6 @@ export default class NavFrame extends React.Component {
                     //         return <Route key={p.link} exact={exact} path={p.link} render={p.page} />
                     //     }
                     // } else {
-                        console.log('--ee-->', p.link, exact, p)
                         if (redirect) {
                             return (<React.Fragment key={p.link}>
                                 <Route exact path="/" component={() => <Redirect to={p.link} />} />
