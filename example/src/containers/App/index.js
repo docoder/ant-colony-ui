@@ -23,7 +23,7 @@ const getPageRoute = (item) => {
 // }
 menus.forEach( m => {
     if (m.key) {
-        pageLinks.push({ page: getPageRoute(m), label: m.label, link: m.index ? '/' : `/${m.key}`});
+        pageLinks.push({exact: true, page: getPageRoute(m), label: m.label, link: m.index ? '/' : `/${m.key}`});
     }else if (m.subs && m.subs.length > 0) {
         m.subs.forEach( s => {
             if (s.key) {

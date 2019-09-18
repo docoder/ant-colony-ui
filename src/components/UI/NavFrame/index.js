@@ -71,7 +71,7 @@ export default class NavFrame extends React.Component {
                     pls.map(p => {
                     let exact = false;
                     let redirect = false;
-                    if (p.link === '/') exact = true;
+                    if (p.link === '/' || p.exact) exact = true;
                     if (p.link !== '/' && p.index) redirect = true
                     // if (typeof p.page === 'function' && p.page.name !== 'ConnectRoute') {
                     //     if (redirect) {
@@ -83,6 +83,7 @@ export default class NavFrame extends React.Component {
                     //         return <Route key={p.link} exact={exact} path={p.link} render={p.page} />
                     //     }
                     // } else {
+                        console.log('--ee-->', p.link, exact, p)
                         if (redirect) {
                             return (<React.Fragment key={p.link}>
                                 <Route exact path="/" component={() => <Redirect to={p.link} />} />
