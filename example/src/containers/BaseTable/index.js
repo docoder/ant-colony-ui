@@ -201,6 +201,11 @@ export default class BaseTable extends React.Component {
                     }}
                     columnsConfigGlobalTableKey="antColonyUIBaseTable"
                 />
+                <StyledTable
+                    columns={TABLE_COLUMNS}
+                    emptyAction={{title: '添加', callback: () => {console.log('---emptyActionCallBack--->')}}}
+                    dataSource={[]}
+                />
             </TableBody>
         );
     }

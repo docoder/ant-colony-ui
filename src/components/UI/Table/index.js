@@ -173,7 +173,8 @@ export default class Table extends React.Component {
             scrollWidth, 
             rowSelection, 
             columnsConfigGlobalTableKey, 
-            rowClassName
+            rowClassName,
+            emptyAction
         } = this.props;
         const components = {
             body: {
@@ -250,6 +251,7 @@ export default class Table extends React.Component {
         }
         return (
             <StyledTable
+                locale={ emptyAction ? { emptyText: <Button title={emptyAction.title  || '未命名'} onClick={emptyAction.callback || (() => {})} /> } : undefined }
                 rowKey={rowKey}
                 loading={loading}
                 pagination={pagination}
@@ -288,7 +290,8 @@ Table.propTypes = {
     floatingScrollDomQuery: PropTypes.string,
     rowSelection: PropTypes.object,
     columnsConfigGlobalTableKey: PropTypes.string,
-    rowClassName: PropTypes.func
+    rowClassName: PropTypes.func,
+    emptyAction: PropTypes.object
 }
 Table.defaultProps = {
     onCellSave: (row, dataIndex) => {},
