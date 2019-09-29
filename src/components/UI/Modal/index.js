@@ -17,6 +17,7 @@ export default function Modal(props) {
             width={props.width}
             mask={props.mask}
             getContainer={props.getContainer}
+            destroyOnClose={props.destroyOnClose}
         >
             {props.children}
         </AntModal>
@@ -43,5 +44,6 @@ Modal.propTypes = {
     footer: PropTypes.PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
-    ])
+    ]),
+    destroyOnClose: PropTypes.bool
 }
