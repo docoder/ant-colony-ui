@@ -43,6 +43,11 @@ export default class Input extends React.Component {
           ref={node => (this.input = node)}
           onPressEnter={this.inputDone}
           defaultValue={this.props.defaultValue}
+          addonBefore={this.props.addonBefore}
+          addonAfter={this.props.addonAfter}
+          prefix={this.props.prefix}
+          suffix={this.props.suffix}
+          allowClear={this.props.allowClear}
         />
       </InputBody>
     )
@@ -52,7 +57,13 @@ Input.propTypes = {
   withInputDoneListen: PropTypes.bool,
   done: PropTypes.func,
   didMount: PropTypes.func,
-  defaultValue: PropTypes.string
+  defaultValue: PropTypes.string,
+  className: PropTypes.string,
+  addonBefore: PropTypes.node,
+  addonAfter: PropTypes.node,
+  prefix: PropTypes.node,
+  suffix: PropTypes.node,
+  allowClear: PropTypes.bool
 }
 Input.defaultProps = {
   done: () => {},

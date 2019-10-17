@@ -21,6 +21,10 @@ const menus = [
         key: 'Loadings'
     },
     {
+        label: 'Input',
+        key: 'Inputs'
+    },
+    {
         label: '表单(Form)',
         subs: [
             {
