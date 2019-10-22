@@ -190,7 +190,7 @@ class Form extends React.Component {
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
                         allowClear={item.meta.showSearch}
-                        placeholder={item.placeholder || `请选择${item.label}`}
+                        placeholder={item.disabled ? '' : (item.placeholder || `请选择${item.label}`)}
                         notFoundContent={refLabel ? `请先选择 ${refLabel}` : '没有内容'}
                     >
                     {
