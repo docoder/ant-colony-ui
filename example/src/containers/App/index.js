@@ -26,7 +26,15 @@ menus.forEach( m => {
         pageLinks.push({exact: true, page: getPageRoute(m), label: m.label, link: m.index ? '/' : `/${m.key}`});
     }else if (m.subs && m.subs.length > 0) {
         m.subs.forEach( s => {
-            if (s.key) {
+            if (s.subs) {
+                s.subs.forEach(ss => {
+                    if (ss.key) {
+                        pageLinks.push({ page: getPageRoute(ss), label: ss.label, link: ss.index ? '/' : `/${ss.key}`});
+                    }else {
+                        throw new Error('Menus Json 不合法，缺少字段 key');
+                    }
+                })
+            }else if (s.key) {
                 pageLinks.push({ page: getPageRoute(s), label: s.label, link: s.index ? '/' : `/${s.key}`});
             }else {
                 throw new Error('Menus Json 不合法，缺少字段 key');

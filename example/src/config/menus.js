@@ -21,7 +21,7 @@ const menus = [
         key: 'Loadings'
     },
     {
-        label: 'Input',
+        label: '输入框(Input)',
         key: 'Inputs'
     },
     {

@@ -41,25 +41,28 @@ class SideMenu extends Component {
             </Menu.Item>
         )
     }
+    renderMenu = (m) => {
+        if (m.subs && m.subs.length > 0) {
+            return (
+                <SubMenu
+                    key={m.label}
+                    title={
+                        <span>
+                            <Icon type="right-circle" />
+                            <span>{m.label}</span>
+                        </span>
+                    }
+                >
+                    {m.subs.map(s => this.renderMenu(s))}
+                </SubMenu>
+            )
+        }else {
+            return this.renderMenuItem(m)
+        }
+    }
     renderMenus = (menus) => {
         return menus.map( m => {
-            if (m.subs && m.subs.length > 0) {
-                return (
-                    <SubMenu
-                        key={m.label}
-                        title={
-                            <span>
-                                <Icon type="right-circle" />
-                                <span>{m.label}</span>
-                            </span>
-                        }
-                    >
-                        {m.subs.map(s => this.renderMenuItem(s))}
-                    </SubMenu>
-                )
-            }else {
-                return this.renderMenuItem(m)
-            }
+            return this.renderMenu(m)
         })
     }
     selectMenu = ({ item, key, keyPath }) => {
