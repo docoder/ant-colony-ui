@@ -151,7 +151,7 @@ class Form extends React.Component {
             const refItem = formItems.find(i => i.key === item.meta.ref);
             refLabel = refItem.label;
         }
-        const selectDisabled = item.alwaysEnable ? false : (item.disabled || allDisabled || false)
+        const selectDisabled = item.alwaysEnable ? false : (!!item.disabled || allDisabled || false)
         const selectPlaceholder = selectDisabled? '' : (item.placeholder || `请选择${item.label}`)
         switch (item.type) {
             case 'checkbox':
