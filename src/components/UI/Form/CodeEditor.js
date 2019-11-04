@@ -15,16 +15,21 @@ const Container = styled.div`
 export default class CodeEditor extends React.Component {
   render() {
     return (
-        <Container style={{
-            overflow: 'auto',
-            border: '1px solid #d9d9d9',
-            borderRadius: 4,
-            minHeight: 46,
-            maxHeight: 150,
-            lineHeight: 'normal'
-        }}>
+        <Container 
+            style={{
+                overflow: 'auto',
+                border: '1px solid #d9d9d9',
+                borderRadius: 4,
+                minHeight: 46,
+                maxHeight: 150,
+                lineHeight: 'normal',
+                background: 'white'
+            }}
+            id={this.props.id}
+            >
             <Editor
                 {...this.props}
+                id={this.props.id + '_editor'}
                 onValueChange={this.props.onChange}
                 highlight={code => Prism.highlight(code || '', Prism.languages.js)}
                 padding={10}

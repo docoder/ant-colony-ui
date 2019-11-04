@@ -327,7 +327,7 @@ public class HelloWorld {
                     actionDirection="left"
                     unCollapseCount={13}
                     rowColCounts={this.rowColCounts}
-                    labelPostion="top"
+                    labelPostion="left"
                     accessoryComponent= {this.renderAccessoryComponent}
                     allDisabled={false}
                     disableEnterSubmit={false}

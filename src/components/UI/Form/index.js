@@ -48,11 +48,8 @@ const CollapseToggle = styled.a`
     font-size: 12px;
 `;
 const FormBody = styled.div`
-    & .ant-form-item-label {
-        text-align: left;
-    }
 `;
-const FormHeader = styled.div`
+const FormHeader = styled(Col)`
     padding-left: 10px;
     font-size: 16px;
     font-weight: bold;
@@ -61,8 +58,7 @@ const FormHeader = styled.div`
 `;
 const AddButton = styled(Button)`
     width: 25%;
-    margin-left: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
 const StyledRow = styled(Row)`
     &.ant-row {
@@ -91,23 +87,28 @@ const DeleteButton = styled(Icon)`
         color: #777;
     }
 `;
-const InfoLabel = styled.span`
+const InfoLabel = styled(Col)`
     font-size: 12px;
     color: rgba(0, 0, 0, 0.85);
     cursor: default;
-    text-align: left;
+    display: inline;
+   
     line-height: 39.9999px;
     white-space: nowrap;
+    .ant-col & {
+        padding-right: 10px;
+    }
 `;
-const InfoValue = styled.span`
+const InfoValue = styled(Col)`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.65);
     cursor: default;
     text-align: left;
     line-height: 39.9999px;
     white-space: nowrap;
+    display: inline;
 `;
-const InfoContainer = styled.span`
+const InfoContainer = styled(Row)`
     padding-left: 2px;
     padding-right: 2px;
 `;
@@ -280,9 +281,11 @@ class Form extends React.Component {
             return it;
         })
         formItems.splice(index, 0, ...itemsToAdd)
-        const count = rowColCounts[rowIndex-1];
-        const rowCount = Math.floor(item.addKeys.length / rowColCounts[rowIndex-1]);
-        rowColCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
+        if ((rowIndex-1) < rowColCounts.length) {
+            const count = rowColCounts[rowIndex-1];
+            const rowCount = Math.floor(item.addKeys.length / rowColCounts[rowIndex-1]);
+            rowColCounts.splice(rowIndex, 0, ...(Array(rowCount).fill(count)))
+        }
         form.setFieldsValue({
             forms: formItems
         })
@@ -299,7 +302,7 @@ class Form extends React.Component {
     }
 
     getRows = () => {
-        const { form, collapse, unCollapseCount, columnCount, addLabel, allDisabled, rowColCounts} = this.props;
+        const { form, collapse, unCollapseCount, columnCount, addLabel, allDisabled, rowColCounts, labelPostion} = this.props;
         const formItems = form.getFieldValue('forms');
         const count = (this.state.expand || !collapse) ? formItems.length : unCollapseCount;
         const { getFieldDecorator } = form;
@@ -309,15 +312,28 @@ class Form extends React.Component {
         let rowColIndex = 0;
         let rowColMaxCount = columnCount;
         let deleteKeys = [];
+        const colLayout =
+          labelPostion === 'horizontal'
+            ? { offset: columnCount > 1 ? 0 : 4 }
+            : null;
+        const infoLabelLayout =
+          labelPostion === 'horizontal'
+            ? { span: 4, style: {textAlign: 'right', display: 'block'} }
+            : (labelPostion === 'vertical' || labelPostion === 'top') ? {style: {display: 'block'}} : null;
+        const infoValueLayout =
+          labelPostion === 'horizontal'
+            ? { span: 14 ,  style: {display: 'block'}}
+            : (labelPostion === 'vertical' || labelPostion === 'top') ? {style: {display: 'block'}} : null;
         for (let index = 0; index< formItems.length; index++) {
             const item = formItems[index];
             if(item.canDelete) {
                 deleteKeys.push(item.key)
             }
             if(item.type === 'header') {
+
                 rows.push(
                     <Row key={item.key} gutter={24}>
-                        <FormHeader>{item.label}</FormHeader>
+                        <FormHeader {...colLayout}>{item.label}</FormHeader>
                     </Row>
                 )
                 continue;
@@ -326,9 +342,11 @@ class Form extends React.Component {
                 if (!allDisabled) {
                     rows.push(
                         <Row key={item.key} gutter={24}>
-                            <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
-                                <Icon type="plus" /> {item.addLabel || addLabel}
-                            </AddButton>
+                            <Col {...colLayout}>
+                                <AddButton type="dashed" onClick={this.formAddItem.bind(this, index, rowIndex)}>
+                                    <Icon type="plus" /> {item.addLabel || addLabel}
+                                </AddButton>
+                            </Col>
                         </Row>
                     )
                 }
@@ -338,7 +356,7 @@ class Form extends React.Component {
             children.push(
                 <Col span={24/columnCount} key={item.key} style={{display: index < count ? 'block' : 'none'}}>
                     {
-                        item.type === 'info' ? <InfoContainer><InfoLabel>{item.label}</InfoLabel>: <InfoValue>{item.value}</InfoValue><Spacer/></InfoContainer>
+                        item.type === 'info' ? <InfoContainer><InfoLabel {...infoLabelLayout}>{item.label}:</InfoLabel><InfoValue {...infoValueLayout}>{item.value}</InfoValue></InfoContainer>
                         : (
                             this.getFormItem(item)
                         )
@@ -423,15 +441,23 @@ class Form extends React.Component {
     //     )
     // }
     getFormItem = (item) => {
-        const { getFieldDecorator, getFieldsValue } = this.props.form;
-        const { allDisabled } = this.props;
+        const { getFieldDecorator, getFieldsValue, } = this.props.form;
+        const { allDisabled, labelPostion } = this.props;
         let required = item.required;
         if(item.required && typeof item.required === 'function') {
             required = item.required(getFieldsValue());
         }
         const isRequired = required && !(item.alwaysEnable ? false : (item.disabled || allDisabled || false));
+        const formItemLayout =
+          item.type === 'codeEditor' && labelPostion === 'left'
+            ? {
+                style: {
+                    display: 'block'
+                }
+              }
+            : null;
         return (
-            <FormItem label={item.label}>
+            <FormItem label={item.label} {...formItemLayout}>
                 {getFieldDecorator(`${item.key}`, {
                     initialValue: this.getInitialValue(item),
                     rules: item.reg ? [
@@ -492,22 +518,37 @@ class Form extends React.Component {
             clearButtonShow,
             actionsShow,
             allDisabled,
-            disableEnterSubmit
+            disableEnterSubmit,
+            columnCount
         } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
+        let formLayout = labelPostion;
+        const formItemLayout =
+          formLayout === 'horizontal'
+            ? {
+                labelCol: { span: 4 },
+                wrapperCol: { span: 14 },
+              }
+            : null;
+        const buttonItemLayout =
+          formLayout === 'horizontal'
+            ? { span: 14, offset: columnCount > 1 ? 0 : 4 }
+            : null;
         return (
             <FormBody className={className}>
                 <StyledForm
                     onSubmit={disableEnterSubmit ? undefined : this.handleSubmit}
                     position={labelPostion}
+                    layout={(formLayout === 'left' || formLayout === 'top') ? null : formLayout }
+                    {...formItemLayout}
                 >
                     
                     {this.getRows()}
                     {this.renderAccessoryView()}
                     {
                         (actionsShow) && <ActionRow>
-                            <ButtonsCol span={24} direction={actionDirection}>
+                            <ButtonsCol span={24} direction={actionDirection} {...buttonItemLayout}>
                                 <Button type="primary" htmlType={disableEnterSubmit ? null : 'submit'} onClick={this.handleSubmit} title={submitTitle} />
                                 {clearButtonShow && <ClearButton onClick={this.handleReset} title={clearTitle} />}
                                 {
@@ -538,7 +579,7 @@ WrappedForm.propTypes = {
     actionDirection: PropTypes.oneOf(['left', 'right', 'center']),
     columnCount: PropTypes.number,
     rowColCounts: PropTypes.arrayOf(PropTypes.number),
-    labelPostion:PropTypes.oneOf(['left', 'top']),
+    labelPostion:PropTypes.oneOf(['left', 'top', 'horizontal', 'vertical', 'inline']),
     addLabel: PropTypes.string,
     clearButtonShow: PropTypes.bool,
     actionsShow: PropTypes.bool,
