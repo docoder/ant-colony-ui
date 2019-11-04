@@ -26,7 +26,7 @@ export default class CodeEditor extends React.Component {
             <Editor
                 {...this.props}
                 onValueChange={this.props.onChange}
-                highlight={code => Prism.highlight(code, Prism.languages.js)}
+                highlight={code => Prism.highlight(code || '', Prism.languages.js)}
                 padding={10}
                 tabSize={4}
                 style={{
@@ -36,11 +36,10 @@ export default class CodeEditor extends React.Component {
                     width: '-webkit-max-content',
                     width: '-moz-max-content',
                     width: 'max-content',
-                    width: 'intrinsic',
                     height: '-webkit-max-content',
                     height: '-moz-max-content',
                     height: 'max-content',
-                    height: 'intrinsic',
+                    minWidth: '100%',
                     display: 'inline-block'
                 }}
             />

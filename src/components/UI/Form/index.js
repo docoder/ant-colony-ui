@@ -155,8 +155,8 @@ class Form extends React.Component {
             const refItem = formItems.find(i => i.key === item.meta.ref);
             refLabel = refItem.label;
         }
-        const selectDisabled = item.alwaysEnable ? false : (!!item.disabled || allDisabled || false)
-        const selectPlaceholder = selectDisabled? '' : (item.placeholder || `请选择${item.label}`)
+        const itemDisabled = item.alwaysEnable ? false : (!!item.disabled || allDisabled || false)
+        const itemPlaceholder = itemDisabled? '' : (item.placeholder || `请输入${item.label}`)
         switch (item.type) {
             case 'checkbox':
             return (
@@ -192,11 +192,11 @@ class Form extends React.Component {
                             })
                             item.onChange(value, this.props.form)
                         } : null}
-                        disabled={selectDisabled}
+                        disabled={itemDisabled}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
                         allowClear={item.meta.showSearch}
-                        placeholder={selectPlaceholder}
+                        placeholder={itemPlaceholder}
                         notFoundContent={refLabel ? `请先选择 ${refLabel}` : '没有内容'}
                     >
                     {
@@ -211,14 +211,14 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={selectDisabled} placeholder={selectPlaceholder} autosize={{ minRows, maxRows }} />
+                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={itemDisabled} placeholder={itemPlaceholder} autosize={{ minRows, maxRows }} />
                 );
             case 'codeEditor':
                 return (
                     <CodeEditor
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
-                        disabled={selectDisabled} 
-                        placeholder={selectPlaceholder}
+                        disabled={itemDisabled} 
+                        placeholder={itemPlaceholder}
                     />
                 )
             case 'date':
@@ -226,7 +226,7 @@ class Form extends React.Component {
                     <DatePicker
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         showTime={item.showTime}
-                        disabled={selectDisabled} 
+                        disabled={itemDisabled} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
                     />
                 );
@@ -235,7 +235,7 @@ class Form extends React.Component {
                     <RangePicker
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         showTime={item.showTime}
-                        disabled={selectDisabled} 
+                        disabled={itemDisabled} 
                         format={item.format || (item.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
                         allowClear={(typeof item.allowClear) === 'undefined' ? true : item.allowClear}
                         renderExtraFooter={item.renderExtraFooter}
@@ -245,7 +245,7 @@ class Form extends React.Component {
                 return (
                     <MonthPicker
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
-                        disabled={selectDisabled} 
+                        disabled={itemDisabled} 
                         format={item.format || 'YYYY-MM-DD'}
                     />
                 );
@@ -254,8 +254,8 @@ class Form extends React.Component {
                     <StyledInput
                         allowClear={item.allowClear}
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
-                        disabled={selectDisabled} 
-                        placeholder={selectPlaceholder} 
+                        disabled={itemDisabled} 
+                        placeholder={itemPlaceholder} 
                     />
                 );
         }
