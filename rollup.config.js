@@ -55,12 +55,17 @@ export default {
           "stage-0",
           "react"
       ],
-      plugins: [ 
+      plugins: [
+        ["prismjs", {
+          "languages": ["javascript", "jsx", "typescript", "tsx", "java", "sql"],
+          "theme": "coy",
+          "css": true
+        }],
         'external-helpers', 
-        'babel-plugin-styled-components',
+        'babel-plugin-styled-components'
       ]
     }),
     resolve(),
     commonjs()
-  ]
+  ],
 }

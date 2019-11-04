@@ -13,6 +13,10 @@ import {
 import Button from '../Button';
 import cloneDeep from 'lodash/cloneDeep';
 
+
+import CodeEditor from "./CodeEditor";
+import Prism from 'prismjs';
+
 const { TextArea } = Input;
 const FormItem = AntForm.Item;
 const { RangePicker, MonthPicker } = DatePicker;
@@ -209,6 +213,14 @@ class Form extends React.Component {
                 return (
                     <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={selectDisabled} placeholder={selectPlaceholder} autosize={{ minRows, maxRows }} />
                 );
+            case 'codeEditor':
+                return (
+                    <CodeEditor
+                        onChange={(...args)=>{this.itemOnChange(item,...args)}}
+                        disabled={selectDisabled} 
+                        placeholder={selectPlaceholder}
+                    />
+                )
             case 'date':
                 return (
                     <DatePicker
