@@ -65,24 +65,18 @@ export default class NavFrame extends React.Component {
     
     renderRoutes = (pls) => {
         if (this.props.renderRoutes) return this.props.renderRoutes()
-        return (
-            <Switch>
-                {
-                    pls.map(p => {
-                        let redirect = false;
-                        if (p.link !== '/' && p.index) redirect = true
-                        if (redirect) {
-                            return (<React.Fragment key={p.link}>
-                                <Route exact path="/" component={() => <Redirect to={p.link} />} />
-                                <Route exact={p.exact} path={p.link} component={p.page} />
-                            </React.Fragment>)
-                        }else {
-                            return <Route key={p.link} exact={p.exact} path={p.link} component={p.page} />
-                        }
-                    })
-                }
-            </Switch>
-        )
+        return pls.map(p => {
+            let redirect = false;
+            if (p.link !== '/' && p.index) redirect = true
+            if (redirect) {
+                return (<React.Fragment key={p.link}>
+                    <Route exact path="/" component={() => <Redirect to={p.link} />} />
+                    <Route exact={p.exact} path={p.link} component={p.page} />
+                </React.Fragment>)
+            }else {
+                return <Route key={p.link} exact={p.exact} path={p.link} component={p.page} />
+            }
+        })
     }
     render() {
         const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
