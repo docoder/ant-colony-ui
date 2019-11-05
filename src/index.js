@@ -7,6 +7,7 @@ import Button from './components/UI/Button'
 import Form from './components/UI/Form'
 import Loading from './components/UI/Loading'
 import NavFrame from './components/UI/NavFrame'
+import NewFrame from './components/UI/NewFrame'
 import Table from './components/UI/Table'
 import Upload from './components/UI/Upload'
 import ImageUpload from './components/UI/ImageUpload'
@@ -37,5 +38,6 @@ export {
   Tabs,
   Checkbox,
   Frame,
-  Tooltip
+  Tooltip,
+  NewFrame
 }
