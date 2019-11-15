@@ -64,7 +64,6 @@ export default class NavFrame extends React.Component {
     }
     
     renderRoutes = (pls) => {
-        if (this.props.renderRoutes) return this.props.renderRoutes()
         return pls.map(p => {
             let redirect = false;
             if (p.link !== '/' && p.index) redirect = true
@@ -79,7 +78,7 @@ export default class NavFrame extends React.Component {
         })
     }
     render() {
-        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection, renderRoutes } = this.props;
         return (
             <Router>
                 <ConfigProvider locale={zhCN}>
@@ -102,6 +101,7 @@ export default class NavFrame extends React.Component {
                         headerhide={headerHide ? 'true' : 'false'}
                     >
                         <FrameBody >
+                        {renderRoutes(Route)}
                         {this.renderRoutes(pageLinks)}
                         </FrameBody>
                         <Footer style={{ textAlign: 'center' }}>
@@ -130,6 +130,7 @@ NavFrame.defaultProps = {
     collapsedTitle: '',
     headerHide: false,
     sideMenusHide: false,
+    renderRoutes: (Route) => {},
     renderHeaderActions: () => null,
     renderSiderTopSection: () => null
 }
