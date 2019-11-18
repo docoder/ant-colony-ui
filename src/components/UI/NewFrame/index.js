@@ -63,52 +63,65 @@ export default class NavFrame extends React.Component {
         this.setState({ collapsed });
     }
     
-    renderRoutes = (pls) => {
-        return pls.map(p => {
+    renderLayoutRoutes = (pls, props) => {
+        return pls.map((p:any) => {
             let redirect = false;
             if (p.link !== '/' && p.index) redirect = true
+            let basePath = ''
+            if (props && props.match && props.match.url && props.match.url !== '/') {
+                basePath = props.match.url
+            }
+            const path = `${basePath}${p.link}`
             if (redirect) {
                 return (<React.Fragment key={p.link}>
-                    <Route exact path="/" component={() => <Redirect to={p.link} />} />
-                    <Route exact={p.exact} path={p.link} component={p.page} />
+                    <Route exact path={basePath || '/'} component={() => <Redirect to={path} />} />
+                    <Route exact={p.exact} path={path} component={p.page} />
                 </React.Fragment>)
             }else {
-                return <Route key={p.link} exact={p.exact} path={p.link} component={p.page} />
+                return <Route key={p.link} exact={p.exact} path={path} component={p.page} />
             }
         })
     }
+    renderLayout = (props) => {
+        const { menus, pageLinks, title, collapsedTitle, logout, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
+        return (
+            <Layout style={{ minHeight: '100vh' }}>
+                {
+                    !headerHide && <FrameHeader>
+                        {this.state.collapsed === false ? title : collapsedTitle}
+                        <HeaderActions>
+
+                        </HeaderActions>
+                    </FrameHeader>
+                }
+                {
+                    !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} renderSiderTopSection={renderSiderTopSection||(()=>{})} />
+                }
+                <FrameMain
+                >
+                    <FrameBody >
+                    {this.renderLayoutRoutes(pageLinks, props)}
+                    </FrameBody>
+                    <Footer style={{ textAlign: 'center' }}>
+                        ©2018
+                    </Footer>
+                </FrameMain>
+            </Layout>
+        )
+    }
     render() {
-        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection, renderOtherRoutes } = this.props;
+        const {renderRoutes } = this.props;
+        let Page = this.renderLayout()
+        if (renderRoutes) {
+            const newRoutes = renderRoutes({Route, Switch, Redirect},this.renderLayout)
+            if (typeof newRoutes !== 'string') {
+                Page = newRoutes
+            }
+        }
         return (
             <Router>
                 <ConfigProvider locale={zhCN}>
-                {renderOtherRoutes(Route)}
-                <Layout style={{ minHeight: '100vh' }}>
-                    {
-                        !headerHide && <FrameHeader>
-                            {this.state.collapsed === false ? title : collapsedTitle}
-                            <HeaderActions>
-                                {renderHeaderActions()}
-                                {logout && <LogoutButton type='primary' onClick={logout} title="退出" />}
-                            </HeaderActions>
-                        </FrameHeader>
-                    }
-                    {
-                        !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} renderSiderTopSection={renderSiderTopSection} />
-                    }
-                    <FrameMain 
-                        collapsed={this.state.collapsed ? 'true' : 'false'}
-                        sidehide={sideMenusHide ? 'true' : 'false'}
-                        headerhide={headerHide ? 'true' : 'false'}
-                    >
-                        <FrameBody >
-                        {this.renderRoutes(pageLinks)}
-                        </FrameBody>
-                        <Footer style={{ textAlign: 'center' }}>
-                            ©2018
-                        </Footer>
-                    </FrameMain>
-                </Layout>
+                {Page}
                 </ConfigProvider>
             </Router>
         );
@@ -123,14 +136,13 @@ NavFrame.propTypes = {
     renderHeaderActions: PropTypes.func,
     headerHide: PropTypes.bool,
     sideMenusHide: PropTypes.bool,
-    renderOtherRoutes: PropTypes.func,
+    renderRoutes: PropTypes.func,
     renderSiderTopSection: PropTypes.func
 }
 NavFrame.defaultProps = {
     collapsedTitle: '',
     headerHide: false,
     sideMenusHide: false,
-    renderOtherRoutes: (Route) => {},
     renderHeaderActions: () => null,
     renderSiderTopSection: () => null
 }

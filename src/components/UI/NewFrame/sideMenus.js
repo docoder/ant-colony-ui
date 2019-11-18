@@ -66,12 +66,18 @@ class SideMenu extends Component {
         })
     }
     selectMenu = ({ item, key, keyPath }) => {
-        this.props.history.push(key)
+        let basePath = this.props.match.url
+        if ( basePath === '/') {
+            basePath = ''
+        }
+        this.props.history.push(`${basePath}${key}`)
     }
 
     render() {
-        const { menus, location, collapsed, onCollapse, renderSiderTopSection } = this.props;
-        const pathSnippets = location.pathname.split('/').filter(i => i);
+        const { menus, match, location, collapsed, onCollapse, renderSiderTopSection } = this.props;
+        const reg = new RegExp(match.url)
+        const path = location.pathname.replace(reg,'')
+        const pathSnippets = path.split('/').filter((i:any) => i);
         const selectedKey = `/${pathSnippets.length === 0 ? '' : pathSnippets[0]}`;
         return (
             <FrameSider
