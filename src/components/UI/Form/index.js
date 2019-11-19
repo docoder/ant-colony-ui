@@ -519,7 +519,8 @@ class Form extends React.Component {
             actionsShow,
             allDisabled,
             disableEnterSubmit,
-            columnCount
+            columnCount,
+            autocomplete
         } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
@@ -538,6 +539,7 @@ class Form extends React.Component {
         return (
             <FormBody className={className}>
                 <StyledForm
+                    autocomplete={autocomplete}
                     onSubmit={disableEnterSubmit ? undefined : this.handleSubmit}
                     position={labelPostion}
                     layout={(formLayout === 'left' || formLayout === 'top') ? null : formLayout }
@@ -584,7 +586,8 @@ WrappedForm.propTypes = {
     clearButtonShow: PropTypes.bool,
     actionsShow: PropTypes.bool,
     allDisabled: PropTypes.bool,
-    disableEnterSubmit: PropTypes.bool
+    disableEnterSubmit: PropTypes.bool,
+    autocomplete: PropTypes.string
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
@@ -601,6 +604,7 @@ WrappedForm.defaultProps = {
     actionsShow: true,
     allDisabled: false,
     disableEnterSubmit: false,
-    onReset: () => {}
+    onReset: () => {},
+    autocomplete: 'on'
 }
 export default WrappedForm;
