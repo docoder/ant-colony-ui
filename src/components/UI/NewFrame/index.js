@@ -83,14 +83,22 @@ export default class NavFrame extends React.Component {
         })
     }
     renderLayout = (props) => {
-        const { menus, pageLinks, title, collapsedTitle, logout, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
+        const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
+        let headerActions = null
+        if (renderHeaderActions) {
+            const actions = renderHeaderActions()
+            if (actions && typeof actions !== 'string') {
+                headerActions = actions
+            }
+        }
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 {
                     !headerHide && <FrameHeader>
                         {this.state.collapsed === false ? title : collapsedTitle}
                         <HeaderActions>
-
+                            {headerActions}
+                            {logout && <LogoutButton type='primary' onClick={logout} title="退出" />}
                         </HeaderActions>
                     </FrameHeader>
                 }
@@ -114,7 +122,7 @@ export default class NavFrame extends React.Component {
         let Page = this.renderLayout()
         if (renderRoutes) {
             const newRoutes = renderRoutes({Route, Switch, Redirect},this.renderLayout)
-            if (typeof newRoutes !== 'string') {
+            if (newRoutes && typeof newRoutes !== 'string') {
                 Page = newRoutes
             }
         }
