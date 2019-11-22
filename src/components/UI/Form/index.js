@@ -148,7 +148,7 @@ class Form extends React.Component {
         }
     }
     getInput = (item) => {
-        const { allDisabled } = this.props;
+        const { allDisabled, autoComplete } = this.props;
         let refLabel = null;
         item.meta = item.meta || {};
         if (item.meta.ref) {
@@ -253,6 +253,7 @@ class Form extends React.Component {
             default:
                 return (
                     <StyledInput
+                        autoComplete={autoComplete}
                         allowClear={item.allowClear}
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         disabled={itemDisabled} 
@@ -520,7 +521,7 @@ class Form extends React.Component {
             allDisabled,
             disableEnterSubmit,
             columnCount,
-            autocomplete
+            autoComplete
         } = this.props;
         form.getFieldDecorator('forms', { initialValue: forms });
         const formItems =form.getFieldValue('forms');
@@ -539,7 +540,7 @@ class Form extends React.Component {
         return (
             <FormBody className={className}>
                 <StyledForm
-                    autocomplete={autocomplete}
+                    autoComplete={autoComplete}
                     onSubmit={disableEnterSubmit ? undefined : this.handleSubmit}
                     position={labelPostion}
                     layout={(formLayout === 'left' || formLayout === 'top') ? null : formLayout }
@@ -587,7 +588,7 @@ WrappedForm.propTypes = {
     actionsShow: PropTypes.bool,
     allDisabled: PropTypes.bool,
     disableEnterSubmit: PropTypes.bool,
-    autocomplete: PropTypes.string
+    autoComplete: PropTypes.string
 }
 WrappedForm.defaultProps = {
     submitTitle: '提交',
@@ -605,6 +606,6 @@ WrappedForm.defaultProps = {
     allDisabled: false,
     disableEnterSubmit: false,
     onReset: () => {},
-    autocomplete: 'on'
+    autoComplete: 'on'
 }
 export default WrappedForm;
