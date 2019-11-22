@@ -162,7 +162,8 @@ export default class BaseTable extends React.Component {
             current: 1,
             total: DATASOURCE.length,
             pageSize: 6,
-            position: 'both'
+            position: 'both',
+            showTotal: total => `共 ${total} 条数据`
         },
         data: {
             test: 'test'

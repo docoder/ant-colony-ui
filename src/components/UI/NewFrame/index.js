@@ -106,6 +106,9 @@ export default class NavFrame extends React.Component {
                     !sideMenusHide && <SideMenus menus={menus} collapsed={this.state.collapsed} onCollapse={this.onCollapse} renderSiderTopSection={renderSiderTopSection||(()=>{})} />
                 }
                 <FrameMain
+                    collapsed={this.state.collapsed ? 'true' : 'false'}
+                    sidehide={sideMenusHide ? 'true' : 'false'}
+                    headerhide={headerHide ? 'true' : 'false'}
                 >
                     <FrameBody >
                     {this.renderLayoutRoutes(pageLinks, props)}
