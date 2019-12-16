@@ -120,6 +120,7 @@ export default class NavFrame extends React.Component {
             </Layout>
         )
     }
+    
     render() {
         const {renderRoutes } = this.props;
         let Page = this.renderLayout()

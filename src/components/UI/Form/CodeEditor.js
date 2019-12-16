@@ -12,6 +12,7 @@ const Container = styled.div`
         all: initials;
     }
 `;
+
 export default class CodeEditor extends React.Component {
   render() {
     return (

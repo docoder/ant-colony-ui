@@ -20,6 +20,8 @@ const FrameSider = styled(Sider)`
     }
     z-index: 100;
 `;
+
+
 export default class SideMenu extends Component {
     renderMenuItem = (item) => {
         return (
