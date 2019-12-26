@@ -212,7 +212,7 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={itemDisabled} placeholder={itemPlaceholder} autoSize={{ minRows, maxRows }} />
+                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={itemDisabled} placeholder={itemPlaceholder} autosize={{ minRows, maxRows }} />
                 );
             case 'codeEditor':
                 return (
@@ -247,7 +247,7 @@ class Form extends React.Component {
                     <MonthPicker
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
                         disabled={itemDisabled} 
-                        format={item.format || 'YYYY-MM-DD'}
+                        format={item.format || 'YYYY-MM'}
                     />
                 );
             default:
