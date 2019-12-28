@@ -133,7 +133,7 @@ class Form extends React.Component {
             if (item.meta.ref) {
                 refValue = this.props.form.getFieldValue(item.meta.ref)
             }
-            items = refValue ? data(refValue) : []
+            items = refValue ? data(refValue, item.key) : []
         }else {
             items = data;
         }

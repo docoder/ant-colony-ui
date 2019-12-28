@@ -135,8 +135,8 @@ export default class BaseForm extends React.Component {
                 onChange: (...rest) => {console.log('select onChange>>>', rest)},
                 meta: {
                     ref: 'field7',
-                    data: (refValue) => {
-                        console.log('----->', refValue)
+                    data: (refValue, key) => {
+                        console.log('--select-data--->', refValue, key)
                         return [
                             { value: 'aa', label: 'AA' },
                             { value: 0, label: 'BB' },
