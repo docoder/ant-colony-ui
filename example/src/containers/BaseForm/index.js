@@ -41,7 +41,7 @@ export default class BaseForm extends React.Component {
                 label: '字段2',
                 required: true,
                 type: 'select',
-                onChange: (value) => {console.log('select onChange>>>', value)},
+                onChange: (...rest) => {console.log('select onChange>>>', rest)},
                 meta: {
                     data: [
                         { value: 'a', label: 'A' },
@@ -115,6 +115,7 @@ export default class BaseForm extends React.Component {
                 label: '字段7',
                 value: 0,
                 type: 'select',
+                onChange: (...rest) => {console.log('select onChange>>>', rest)},
                 meta: {
                     data: [
                         { value: 'aa', label: 'AA' },
@@ -122,6 +123,7 @@ export default class BaseForm extends React.Component {
                         { value: 'cc', label: 'CC' },
                         { value: 'dd', label: 'DD' }
                     ],
+
                     showSearch: true
                 }
             },
@@ -130,6 +132,7 @@ export default class BaseForm extends React.Component {
                 label: '字段8',
                 reg: { pattern: /^([0-9]+(\.\d+)?|0\.\d+)$/, message: '请输正的数字允许小数'},
                 type: 'select',
+                onChange: (...rest) => {console.log('select onChange>>>', rest)},
                 meta: {
                     ref: 'field7',
                     data: (refValue) => {

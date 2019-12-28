@@ -6,6 +6,7 @@ import * as React from 'react';
 import Editor from 'react-simple-code-editor';
 import styled from 'styled-components';
 import initials from '../../css-initials';
+
 const Container = styled.div`
     & pre {
         ${initials}

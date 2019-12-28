@@ -13,7 +13,6 @@ import {
 import Button from '../Button';
 import cloneDeep from 'lodash/cloneDeep';
 
-
 import CodeEditor from "./CodeEditor";
 import Prism from 'prismjs';
 
@@ -191,7 +190,7 @@ class Form extends React.Component {
                                     [b.key]: undefined
                                 })
                             })
-                            item.onChange(value, this.props.form)
+                            item.onChange(value, this.props.form, item.key)
                         } : null}
                         disabled={itemDisabled}
                         optionFilterProp="children"

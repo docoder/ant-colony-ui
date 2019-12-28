@@ -19,6 +19,7 @@ export default function Alert(props) {
         />
     );
 }
+
 Alert.propTypes = {
     type: PropTypes.string,
     message: PropTypes.string,
