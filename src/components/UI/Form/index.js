@@ -143,7 +143,7 @@ class Form extends React.Component {
     }
     itemOnChange = (item, ...args) => {
         if(item.onChange) {
-            item.onChange(...args, this.props.form)
+            item.onChange(...args, this.props.form, item.key)
         }
     }
     getInput = (item) => {

@@ -31,7 +31,7 @@ export default class BaseForm extends React.Component {
             {
                 key: 'field1',
                 label: '字段1',
-                onChange: (e) => {console.log('input onChange>>>', e.target.value)},
+                onChange: (e, ...rest) => {console.log('input onChange>>>', e.target.value, rest)},
                 required: true,
                 placeholder: '这是标题',
                 allowClear: true
