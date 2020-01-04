@@ -48,6 +48,8 @@ export default class Input extends React.Component {
           prefix={this.props.prefix}
           suffix={this.props.suffix}
           allowClear={this.props.allowClear}
+          size={this.props.size}
+          placeholder={this.props.placeholder}
         />
       </InputBody>
     )
