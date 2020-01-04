@@ -255,7 +255,7 @@ class Form extends React.Component {
                         autoComplete={autoComplete}
                         allowClear={item.allowClear}
                         onChange={(...args)=>{this.itemOnChange(item,...args)}}
-                        onBlur={(...args) => {if(item.onBlur) item.onBlur(...args)}}
+                        onBlur={(...args) => {if(item.onBlur) item.onBlur(...args, item.key)}}
                         disabled={itemDisabled} 
                         placeholder={itemPlaceholder} 
                     />
