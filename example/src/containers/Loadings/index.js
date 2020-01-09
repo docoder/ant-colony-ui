@@ -20,9 +20,8 @@ export default function Loadings () {
     const [isAlertLoading, setAlertLoading] = useState(false);
     return (
             <LoadingsBody>
-                <StyledButton title="Alert Loading" onClick={()=>{setAlertLoading(true)}} />
-                <StyledButton title="Close Alert Loading" onClick={()=>{setAlertLoading(false)}} />
-                <StyledButton title="Overall Loading" onClick={()=>{setOverallLoading(true)}} />
+                <StyledButton title="Toggle Alert Loading" onClick={()=>{setAlertLoading(!isAlertLoading)}} />
+                <StyledButton title="Toggle Overall Loading" onClick={()=>{setOverallLoading(!isOverallLoading)}} />
                 <Loading show={isOverallLoading} type="overall" timeout={() => {setOverallLoading(false)}} />
                 <Loading show={isAlertLoading} type="alert" timeout={() => {setAlertLoading(false)}} />
             </LoadingsBody>

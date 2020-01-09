@@ -51,14 +51,18 @@ export default class Loading extends React.Component {
             this.timer = null
         }
     }
+    componentDidUpdate(preProps) {
+        if (preProps.show !== this.props.show && this.props.type==='alert') {
+            if (this.props.show) {
+                message.loading(this.props.message, 30, this.props.timeout)
+            }else {
+                message.destroy()
+            }
+        }
+    }
     render() {
         switch(this.props.type) {
             case 'alert':
-            this.props.show 
-            ? 
-            message.loading(this.props.message, 30, this.props.timeout)
-            :
-            message.destroy()
             return null;
             case 'overall':
             return(
