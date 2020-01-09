@@ -162,6 +162,12 @@ export default class Table extends React.Component {
         }
         this.props.onChange(pagination, filters, sorter);
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.columns !== this.props.columns) {
+            this.columns = this.props.columns
+            this.setState({newColumns: this.columns})
+        }
+    }
     render() {
         const { 
             rowKey, 

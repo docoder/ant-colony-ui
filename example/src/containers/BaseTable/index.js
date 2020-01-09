@@ -3,7 +3,7 @@
 * @Email:  docoder@163.com
 */
 import React from 'react';
-import { Table } from 'ant-colony-ui';
+import { Table, Button } from 'ant-colony-ui';
 import styled from 'styled-components';
 
 const DATASOURCE = [
@@ -155,7 +155,8 @@ const TableBody = styled.div`
 const StyledTable = styled(Table)`
     margin-top: 20px;
 `;
-
+const StyledButton = styled(Button)`
+`;
 export default class BaseTable extends React.Component {
     state = {
         pagination: {
@@ -167,13 +168,19 @@ export default class BaseTable extends React.Component {
         },
         data: {
             test: 'test'
-        }
+        },
+        columns: TABLE_COLUMNS,
     }
     render() {
         return (
             <TableBody>
+                 <StyledButton title="Change Columns" onClick={() => {
+                     let newColumns = [...this.state.columns]
+                     newColumns.pop()
+                     this.setState({columns: newColumns})
+                 }} />
                 <StyledTable
-                    columns={TABLE_COLUMNS}
+                    columns={this.state.columns}
                     dataSource={DATASOURCE}
                     pagination={this.state.pagination}
                     onChange={(pagination, filters, sorter) => {
