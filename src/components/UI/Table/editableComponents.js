@@ -216,7 +216,7 @@ export class EditableCell extends React.Component {
             const selectedData = this.getSelectItems().filter(d => d.value === children[2])[0]
             if (selectedData) children[2] = selectedData.label
         }
-        if ((type === 'tags' || type === 'multiple') && children && (children[2])) {
+        if ((type === 'tags' || type === 'multiple') && children && (children[2]) && Array.isArray(children[2])) {
             children[2] = children[2].map(c => {
                 const option = this.getSelectItems().filter(d => d.value === c)[0]
                 if (option) return <Tag key={c}>{option.label}</Tag>
