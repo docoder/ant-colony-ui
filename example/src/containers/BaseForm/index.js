@@ -219,7 +219,7 @@ export default class BaseForm extends React.Component {
                 data: [
                     {value: 1, label: 'AAAAAAAA'},
                     {value: 2, label: 'BBBBBBBB', disabled: true},
-                    {value: 3, label: 'CCCCCCCC'}
+                    {value: 3, label: 'CCCCCCCC', span: 24}
                ]
             },
             {

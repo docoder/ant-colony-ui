@@ -170,7 +170,7 @@ class Form extends React.Component {
             )
             case 'radio':
             return (
-                <Radio.Group style={{width: '100%', marginBottom: -8}} onChange={(...args)=>{this.itemOnChange(item,...args)}} style={{width: '100%'}}>
+                <Radio.Group style={{width: '100%', marginBottom: -8}} onChange={(...args)=>{this.itemOnChange(item,...args)}}>
                 <Row>
                     {
                         (item.data || []).map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
