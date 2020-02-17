@@ -160,7 +160,7 @@ class Form extends React.Component {
         switch (item.type) {
             case 'checkbox':
             return (
-                <Checkbox.Group style={{width: '100%'}}>
+                <Checkbox.Group style={{width: '100%', marginBottom: -8}}>
                 <Row>
                     {
                         (item.data || []).map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledCheckbox onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={d.disabled} value={d.value}>{d.label}</StyledCheckbox></StyledCol>)
@@ -170,7 +170,7 @@ class Form extends React.Component {
             )
             case 'radio':
             return (
-                <Radio.Group onChange={(...args)=>{this.itemOnChange(item,...args)}} style={{width: '100%'}}>
+                <Radio.Group style={{width: '100%', marginBottom: -8}} onChange={(...args)=>{this.itemOnChange(item,...args)}} style={{width: '100%'}}>
                 <Row>
                     {
                         (item.data || []).map( d => <StyledCol key={d.value} span={d.span || (item.data.length < 3 ? (24/item.data.length) : 8)}><StyledRadio key={d.value} disabled={d.disabled} value={d.value}>{d.label}</StyledRadio></StyledCol>)
@@ -211,7 +211,7 @@ class Form extends React.Component {
                     maxRows = item.meta.maxRows || maxRows;
                 }
                 return (
-                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={itemDisabled} placeholder={itemPlaceholder} autoSize={{ minRows, maxRows }} />
+                    <TextArea onChange={(...args)=>{this.itemOnChange(item,...args)}} disabled={itemDisabled} placeholder={itemPlaceholder} autosize={{ minRows, maxRows }} />
                 );
             case 'codeEditor':
                 return (
