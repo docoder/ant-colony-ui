@@ -62,6 +62,7 @@ export default class App extends React.Component {
                     <title>Ant Colony UI</title>
                 </Helmet>
                 <NavFrame
+                    onRouteChange={(...rest) => {console.log(...rest);}}
                     title='Ant Colony UI'
                     collapsedTitle='ACUI'
                     menus={menus}

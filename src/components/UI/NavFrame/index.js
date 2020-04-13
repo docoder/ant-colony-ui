@@ -14,6 +14,7 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 import SideMenus from './sideMenus';
 import Button from '../Button';
+import RoutesContainer from './RoutesContainer'
 
 const {
     Header, Content, Footer
@@ -101,6 +102,7 @@ export default class NavFrame extends React.Component {
         const { menus, pageLinks, title, collapsedTitle, logout, renderHeaderActions, headerHide, sideMenusHide, renderSiderTopSection } = this.props;
         return (
             <Router>
+            <RoutesContainer onRouteChange={this.props.onRouteChange}>
                 <ConfigProvider locale={zhCN}>
                 <Layout style={{ minHeight: '100vh' }}>
                     {
@@ -129,6 +131,7 @@ export default class NavFrame extends React.Component {
                     </FrameMain>
                 </Layout>
                 </ConfigProvider>
+            </RoutesContainer>
             </Router>
         );
     }
@@ -143,7 +146,8 @@ NavFrame.propTypes = {
     headerHide: PropTypes.bool,
     sideMenusHide: PropTypes.bool,
     renderRoutes: PropTypes.func,
-    renderSiderTopSection: PropTypes.func
+    renderSiderTopSection: PropTypes.func,
+    onRouteChange: PropTypes.func
 }
 NavFrame.defaultProps = {
     collapsedTitle: '',
