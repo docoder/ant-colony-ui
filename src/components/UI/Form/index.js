@@ -15,6 +15,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import CodeEditor from "./CodeEditor";
 import Prism from 'prismjs';
+import moment from 'moment'
 
 const { TextArea } = Input;
 const FormItem = AntForm.Item;
@@ -399,7 +400,17 @@ class Form extends React.Component {
             switch(item.type) {
                 case 'date':
                 case 'month':
+                if (typeof item.value === 'string') {
+                   return moment(item.value )
+                }
+                return item.value
                 case 'rangeDate':
+                if (Array.isArray(item.value)) {
+                    return item.value.map(i => {
+                        if (typeof i === 'string') return moment(i)
+                    })
+                }
+                return item.value
                 case 'checkbox':
                 case 'radio':
                 return item.value

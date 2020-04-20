@@ -240,12 +240,14 @@ export default class BaseForm extends React.Component {
                 key: 'field21',
                 label: '字段21',
                 type: 'rangeDate',
+                value: ['2019-02-02', '2020/02/02'],
                 allowClear: false,
                 renderExtraFooter: () => 'extra footer'
             },
             {
                 key: 'field22',
                 label: '字段22',
+                value: '2019-02-02',
                 type: 'month'
             },
             {
