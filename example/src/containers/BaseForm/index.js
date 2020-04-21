@@ -42,6 +42,7 @@ export default class BaseForm extends React.Component {
                 label: '字段2',
                 required: true,
                 type: 'select',
+                onSearch: (value) => {console.log('select input onChange>>>', value)},
                 onChange: (...rest) => {console.log('select onChange>>>', rest)},
                 meta: {
                     data: [

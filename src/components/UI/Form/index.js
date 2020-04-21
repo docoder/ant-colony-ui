@@ -193,6 +193,7 @@ class Form extends React.Component {
                             })
                             item.onChange(value, this.props.form, item.key)
                         } : null}
+                        onSearch={item.onSearch}
                         disabled={itemDisabled}
                         optionFilterProp="children"
                         showSearch={item.meta.showSearch}
