@@ -416,7 +416,7 @@ class Form extends React.Component {
                 case 'radio':
                 return item.value
                 default:
-                if (!isNaN(parseFloat(item.value)) && isFinite(item.value))
+                if (!Array.isArray(item.value) && !isNaN(parseFloat(item.value)) && isFinite(item.value))
                     return item.value.toString()
                 else 
                     return item.value
