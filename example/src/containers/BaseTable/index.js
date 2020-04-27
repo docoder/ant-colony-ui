@@ -112,6 +112,12 @@ const TABLE_COLUMNS = [
     },{
         title: 'address',
         dataIndex: 'address',
+    },{
+        title: 'job',
+        dataIndex: 'job',
+    },{
+        title: 'contact',
+        dataIndex: 'contact',
     }, {
         title: 'operation',
         dataIndex: 'operation',

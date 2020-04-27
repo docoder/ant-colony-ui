@@ -1,6 +1,6 @@
 {
   "name": "ant-colony-ui",
-  "version": "1.7.26",
+  "version": "1.7.27",
   "description": "Ant Colony UI Toolkit based on Ant Design and React",
   "author": "docoder",
   "license": "MIT",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
-    "antd": "3.21.4",
+    "antd": "3.26.3",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
     "babel-plugin-external-helpers": "^6.22.0",

@@ -108,9 +108,7 @@ export default class Table extends React.Component {
             newColumns: this.columns
         }
     }
-    //设置显示列
-    setColumns = (columns) => {
-        this.columns = columns
+    setNewColumns = (columns) => {
         if (this.props.columnsConfigGlobalTableKey && this.props.columnsConfigGlobalTableKey.length > 0) {
             //列可配置 开启，显示配置操作列，同时只显示筛选过的列
             this.newColumns = [{
@@ -127,6 +125,11 @@ export default class Table extends React.Component {
             this.newColumns = [...columns]
         }
         this.setState({newColumns: this.newColumns})
+    }
+    //设置显示列
+    setColumns = (columns) => {
+        this.columns = columns
+        this.setNewColumns(columns)
     }
     componentDidMount() {
         if(this.props.floatingScrollDomQuery) {
@@ -164,8 +167,7 @@ export default class Table extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.columns !== this.props.columns) {
-            this.columns = this.props.columns
-            this.setState({newColumns: this.columns})
+            this.setColumns(this.props.columns)
         }
     }
     render() {
